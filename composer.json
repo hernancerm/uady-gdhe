@@ -4,7 +4,7 @@
   },
   "autoload": {
     "psr-4": {
-      "GDHE\\": "src/GDHE"
+      "GDHE\\Utility\\": "src/Utility"
     }
   }
 }

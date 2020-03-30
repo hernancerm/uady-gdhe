@@ -1,6 +1,6 @@
 <?php
 
-namespace GDHE;
+namespace GDHE\Utility;
 
 use Medoo\Medoo;
 

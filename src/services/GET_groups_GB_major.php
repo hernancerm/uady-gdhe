@@ -1,6 +1,6 @@
 <?php
 
-use GDHE\DBConnector;
+use GDHE\Utility\DBConnector;
 
 require_once '../../vendor/autoload.php';
 
