@@ -1,11 +1,14 @@
 # Services API Documentation
 
+Each service listed in [services](#services) corresponds to a PHP file in `/src/services` with the same name. The frontend communicates with the backend only through the files in such directory. **Any additional service the frontend might require, must be documented here.**
+
 ## Table of contents
 
 <!-- TOC -->
 
 - [Services API Documentation](#services-api-documentation)
     - [Table of contents](#table-of-contents)
+    - [Guidelines](#guidelines)
     - [Services required on each view](#services-required-on-each-view)
     - [Services](#services)
         - [GET_user_BY_credentials](#get_user_by_credentials)
@@ -29,6 +32,16 @@
             - [Request](#request-4)
 
 <!-- /TOC -->
+
+## Guidelines
+
+Every service name begins with an uppercase HTTP verb and is followed by the target resource in lowercase. Optionally, additional specification can be provided if appropriate through the keywords BY and GB (group by). Every word is separated by an underscore.
+
+EBNF syntax for service names:
+
+```ebnf
+(GET|POST|PUT|DELETE)_<resource>[_GB_<criterion>][_BY_<criterion>]
+```
 
 ## Services required on each view
 
