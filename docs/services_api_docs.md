@@ -16,7 +16,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [GET_user_BY_credentials](#get_user_by_credentials)
             - [Request](#request)
             - [Response](#response)
-            - [Error HTTP code](#error-http-code)
+            - [Errors](#errors)
         - [GET_groups_GB_major](#get_groups_gb_major)
             - [Response](#response-1)
         - [GET_classes_BY_group_id](#get_classes_by_group_id)
@@ -29,7 +29,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
             - [Response](#response-4)
         - [POST_class](#post_class)
             - [Request](#request-3)
-            - [Error HTTP code](#error-http-code-1)
+            - [Errors](#errors-1)
         - [POST_approve_group](#post_approve_group)
             - [Request](#request-4)
 
@@ -84,9 +84,11 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 }
 ```
 
-#### Error HTTP code
+#### Errors
 
-401 Unauthorized
+| HTTP status code | Description |
+|---|---|
+|401 Unauthorized| Username-password pair does not match a user. |
 
 ### GET_groups_GB_major
 
@@ -176,9 +178,11 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 }
 ```
 
-#### Error HTTP code
+#### Errors
 
-409 Conflict
+| HTTP status code | Description |
+|---|---|
+| 409 Conflict | Class can't be inserted because a class in a different group already requires the professor or classroom in a superposing time. |
 
 ### POST_approve_group
 
