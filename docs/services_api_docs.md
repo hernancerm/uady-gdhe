@@ -53,7 +53,7 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 
 1. **Request**. Data sent by the frontend required by the service. Optional if the service doesn't need input data to understand what it should return; e. g. on a simple GET request.
 2. **Response**. Data sent by the service to the frontend. Optional if no data is required by the frontend after a request; e. g. on a simple POST request.
-3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column indicates the HTTP status code, and the second column describes the cases in which this status is set.
+3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column (named 'HTTP status code') indicates the HTTP status code, and the second column (named 'Description') describes the cases in which this status is set.
 
 ## Services required on each view
 
