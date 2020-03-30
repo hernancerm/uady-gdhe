@@ -47,9 +47,9 @@ EBNF syntax for service names:
 
 | View |Service |
 |---|---|
-| Login | [GET_user_BY_credentials](#getuserbycredentials) |
-| Groups Catalog | [GET_groups_GB_major](#getgroupsgbmajor)<br>[GET_classes_BY_group_id](#getclassesbygroup_id)<br>[POST_approve_group](#postapprove_group) |
-| Groups Edit | [GET_courses_BY_group_id](#getcoursesbygroup_id)<br>[GET_classes_BY_group_id](#getclassesbygroup_id)<br>[POST_class](#postclass)<br>[POST_approve_group](#postapprove_group)<br>[GET_classrooms](#getclassrooms) |
+| Login | [GET_user_BY_credentials](#get_user_by_credentials) |
+| Groups Catalog | [GET_groups_GB_major](#get_groups_gb_major)<br>[GET_classes_BY_group_id](#get_classes_by_group_id)<br>[POST_approve_group](#post_approve_group) |
+| Groups Edit | [GET_courses_BY_group_id](#get_courses_by_group_id)<br>[GET_classes_BY_group_id](#get_classes_by_group_id)<br>[GET_classrooms](#get_classrooms)<br>[POST_class](#post_class)<br>[POST_approve_group](#post_approve_group) |
 
 ## Services
 
