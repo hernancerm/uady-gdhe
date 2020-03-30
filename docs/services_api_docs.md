@@ -1,6 +1,6 @@
 # Services API Documentation
 
-Each service listed in [services](#services) corresponds to a PHP file in `/src/services` with the same name. The frontend communicates with the backend only through the files in such directory. **Any additional service the frontend might require, must be documented here.**
+Each service listed in [services](#services) corresponds to a PHP file in `/src/services` with the same name. The frontend communicates with the backend only through the files in such directory. **Any additional service the frontend might require, must be documented here according to the [guidelines](#guidelines).**
 
 ## Table of contents
 
@@ -9,6 +9,8 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
 - [Services API Documentation](#services-api-documentation)
     - [Table of contents](#table-of-contents)
     - [Guidelines](#guidelines)
+        - [Naming convention](#naming-convention)
+        - [Documenting a service](#documenting-a-service)
     - [Services required on each view](#services-required-on-each-view)
     - [Services](#services)
         - [GET_user_BY_credentials](#get_user_by_credentials)
@@ -35,6 +37,8 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
 
 ## Guidelines
 
+### Naming convention
+
 Every service name begins with an uppercase HTTP verb and is followed by the target resource in lowercase. Optionally, additional specification can be provided if appropriate through the keywords BY and GB (group by). Every word is separated by an underscore.
 
 EBNF syntax for service names:
@@ -42,6 +46,14 @@ EBNF syntax for service names:
 ```ebnf
 (GET|POST|PUT|DELETE)_<resource>[_GB_<criterion>][_BY_<criterion>]
 ```
+
+### Documenting a service
+
+For each service, three subheadings can be provided: (1) request, (2) response and (3) errors.
+
+1. **Request**. Data sent by the frontend required by the service. Optional if the service doesn't need input data to understand what it should return; e. g. on a simple GET request.
+2. **Response**. Data sent by the service to the frontend. Optional if no data is required by the frontend after a request; e. g. on a simple POST request.
+3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column indicates the HTTP status code, and the second column describes the cases in which this status is set.
 
 ## Services required on each view
 
