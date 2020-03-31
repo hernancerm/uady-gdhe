@@ -3,8 +3,10 @@
     "catfan/medoo": "^1.7"
   },
   "autoload": {
-    "psr-4": {
-      "GDHE\\Utility\\": "src/Utility"
-    }
+    "files": [
+      "src/util/db_connector.php",
+      "src/util/request_verifier.php",
+      "src/util/request_contents.php"
+    ]
   }
 }

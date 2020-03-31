@@ -4,8 +4,8 @@ use GDHE\Utility\DBConnector;
 
 require_once '../../vendor/autoload.php';
 
-$db_connector = new DBConnector;
-$connection = $db_connector->connect();
+// Establish DB connection
+$connection = db_connect();
 
 // Get major names
 $major_names = $connection->select('major', 'name');

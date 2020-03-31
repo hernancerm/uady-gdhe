@@ -1,13 +1,15 @@
 <?php
 
-use GDHE\Utility\DBConnector;
-
 require_once '../../vendor/autoload.php';
 
-$db_connector = new DBConnector;
-$connection = $db_connector->connect();
-
+// Establish DB connection
+$connection = db_connect();
+// Obtain request contents
 $request = json_decode($_GET['data']);
+
+// Verify integrity of request body
+$attributes = array('group_id');
+verify_request($request, $attributes);
 
 $response = $connection->select('class', [
     '[><]classroom' => 'classroom_id',
