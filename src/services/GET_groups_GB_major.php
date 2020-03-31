@@ -1,7 +1,5 @@
 <?php
 
-use GDHE\Utility\DBConnector;
-
 require_once '../../vendor/autoload.php';
 
 // Establish DB connection

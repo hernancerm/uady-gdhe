@@ -30,7 +30,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [POST_class](#post_class)
             - [Request](#request-3)
             - [Errors](#errors-1)
-        - [POST_approve_group](#post_approve_group)
+        - [PUT_approve_group](#put_approve_group)
             - [Request](#request-4)
 
 <!-- /TOC -->
@@ -53,15 +53,15 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 
 1. **Request**. Data sent by the frontend required by the service. Optional if the service doesn't need input data to understand what it should return; e. g. on a simple GET request.
 2. **Response**. Data sent by the service to the frontend. Optional if no data is required by the frontend after a request; e. g. on a simple POST request.
-3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column (named 'HTTP status code') indicates the HTTP status code, and the second column (named 'Description') describes the cases in which this status is set.
+3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column (named 'HTTP status code') indicates the HTTP status code, and the second column (named 'Description') describes the cases in which this status is set. If the request data is malformed, it is implicitly understood that `400 Bad Request` should be issued.
 
 ## Services required on each view
 
 | View |Service |
 |---|---|
 | Login | [GET_user_BY_credentials](#get_user_by_credentials) |
-| Groups Catalog | [GET_groups_GB_major](#get_groups_gb_major)<br>[GET_classes_BY_group_id](#get_classes_by_group_id)<br>[POST_approve_group](#post_approve_group) |
-| Groups Edit | [GET_courses_BY_group_id](#get_courses_by_group_id)<br>[GET_classes_BY_group_id](#get_classes_by_group_id)<br>[GET_classrooms](#get_classrooms)<br>[POST_class](#post_class)<br>[POST_approve_group](#post_approve_group) |
+| Groups Catalog | [GET_groups_GB_major](#get_groups_gb_major)<br>[GET_classes_BY_group_id](#get_classes_by_group_id)<br>[PUT_approve_group](#put_approve_group) |
+| Groups Edit | [GET_courses_BY_group_id](#get_courses_by_group_id)<br>[GET_classes_BY_group_id](#get_classes_by_group_id)<br>[GET_classrooms](#get_classrooms)<br>[POST_class](#post_class)<br>[PUT_approve_group](#put_approve_group) |
 
 ## Services
 
@@ -184,7 +184,7 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 |---|---|
 | 409 Conflict | Class can't be inserted because a class in a different group already requires the professor or classroom in a superposing time. |
 
-### POST_approve_group
+### PUT_approve_group
 
 #### Request
 
