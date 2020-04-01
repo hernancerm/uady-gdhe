@@ -13,7 +13,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [Documenting a service](#documenting-a-service)
     - [Services required on each view](#services-required-on-each-view)
     - [Services](#services)
-        - [READ_user_BY_credentials](#read_user_by_credentials)
+        - [READ_admin_BY_credentials](#read_admin_by_credentials)
             - [Request](#request)
             - [Response](#response)
             - [Errors](#errors)
@@ -63,13 +63,13 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 
 | View |Service |
 |---|---|
-| Login | [READ_user_BY_credentials](#read_user_by_credentials) |
+| Login | [READ_admin_BY_credentials](#read_admin_by_credentials) |
 | Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_BY_group_id](#read_classes_by_group_id)<br>[UPDATE_approve_group](#put_approve_group) |
 | Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_BY_group_id](#read_classes_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#put_approve_group) |
 
 ## Services
 
-### READ_user_BY_credentials
+### READ_admin_BY_credentials
 
 #### Request
 
@@ -77,7 +77,7 @@ HTTP method: POST
 
 ```json
 {
-  "username": "('A' | 'P' | 'S')<user_code>",
+  "username": "<admin_id>",
   "password": "<password>"
 }
 ```
@@ -86,7 +86,9 @@ HTTP method: POST
 
 ```json
 {
-  "type": "('A' | 'P' | 'S')",
+  "names": "<names>",
+  "first_lname": "<first_last_name>",
+  "second_lname": "<second_last_name>"
 }
 ```
 
@@ -94,7 +96,7 @@ HTTP method: POST
 
 | HTTP status code | Description |
 |---|---|
-|401 Unauthorized| Username-password pair does not match a user. |
+|401 Unauthorized| Username-password pair does not match an admin. |
 
 ### READ_groups_GB_major
 
