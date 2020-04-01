@@ -64,8 +64,8 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 | View |Service |
 |---|---|
 | Login | [READ_admin_BY_credentials](#read_admin_by_credentials) |
-| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_BY_group_id](#read_classes_by_group_id)<br>[UPDATE_approve_group](#put_approve_group) |
-| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_BY_group_id](#read_classes_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#put_approve_group) |
+| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_BY_group_id](#read_classes_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
+| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_BY_group_id](#read_classes_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group) |
 
 ## Services
 
