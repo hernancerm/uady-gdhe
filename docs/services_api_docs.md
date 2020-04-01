@@ -13,25 +13,29 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [Documenting a service](#documenting-a-service)
     - [Services required on each view](#services-required-on-each-view)
     - [Services](#services)
-        - [GET_user_BY_credentials](#get_user_by_credentials)
+        - [READ_admin_BY_credentials](#read_admin_by_credentials)
             - [Request](#request)
             - [Response](#response)
             - [Errors](#errors)
-        - [GET_groups_GB_major](#get_groups_gb_major)
-            - [Response](#response-1)
-        - [GET_classes_BY_group_id](#get_classes_by_group_id)
+        - [READ_groups_GB_major](#read_groups_gb_major)
             - [Request](#request-1)
-            - [Response](#response-2)
-        - [GET_courses_BY_group_id](#get_courses_by_group_id)
+            - [Response](#response-1)
+        - [READ_classes_BY_group_id](#read_classes_by_group_id)
             - [Request](#request-2)
-            - [Response](#response-3)
-        - [GET_classrooms](#get_classrooms)
-            - [Response](#response-4)
-        - [POST_class](#post_class)
+            - [Response](#response-2)
+        - [READ_courses_BY_group_id](#read_courses_by_group_id)
             - [Request](#request-3)
-            - [Errors](#errors-1)
-        - [PUT_approve_group](#put_approve_group)
+            - [Response](#response-3)
+        - [READ_classrooms](#read_classrooms)
             - [Request](#request-4)
+            - [Response](#response-4)
+        - [CREATE_class](#create_class)
+            - [Request](#request-5)
+            - [Response](#response-5)
+            - [Errors](#errors-1)
+        - [UPDATE_approve_group](#update_approve_group)
+            - [Request](#request-6)
+            - [Response](#response-6)
 
 <!-- /TOC -->
 
@@ -39,39 +43,41 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
 
 ### Naming convention
 
-Every service name begins with an uppercase HTTP verb and is followed by the target resource in lowercase. Optionally, additional specification can be provided if appropriate through the keywords BY and GB (group by). Every word is separated by an underscore.
+Every service name begins with a CRUD verb and is followed by the target resource in lowercase. Optionally, additional specification can be provided if appropriate through the keywords BY and GB (group by). Every word is separated by an underscore.
 
 EBNF syntax for service names:
 
 ```ebnf
-(GET|POST|PUT|DELETE)_<resource>[_GB_<criterion>][_BY_<criterion>]
+(CREATE|READ|UPDATE|DELETE)_<resource>[_GB_<criterion>][_BY_<criterion>]
 ```
 
 ### Documenting a service
 
-For each service, three subheadings can be provided: (1) request, (2) response and (3) errors.
+For each service, two subheadings must be provided: "Request" and "Response". An optional third subheading, "Errors", can be provided if necessary.
 
-1. **Request**. Data sent by the frontend required by the service. Optional if the service doesn't need input data to understand what it should return; e. g. on a simple GET request.
-2. **Response**. Data sent by the service to the frontend. Optional if no data is required by the frontend after a request; e. g. on a simple POST request.
-3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column (named 'HTTP status code') indicates the HTTP status code, and the second column (named 'Description') describes the cases in which this status is set. If the request data is malformed, it is implicitly understood that `400 Bad Request` should be issued.
+1. **Request**. Required HTTP method and data sent by the frontend required by the service (if any).
+2. **Response**. Data sent by the service to the frontend. If no data is sent, write _No response body_.
+3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column (named 'HTTP status code') indicates the HTTP status code, and the second column (named 'Description') describes the cases in which this status is set. If the request data is malformed, it is implicitly understood that `400 Bad Request` must be issued.
 
 ## Services required on each view
 
 | View |Service |
 |---|---|
-| Login | [GET_user_BY_credentials](#get_user_by_credentials) |
-| Groups Catalog | [GET_groups_GB_major](#get_groups_gb_major)<br>[GET_classes_BY_group_id](#get_classes_by_group_id)<br>[PUT_approve_group](#put_approve_group) |
-| Groups Edit | [GET_courses_BY_group_id](#get_courses_by_group_id)<br>[GET_classes_BY_group_id](#get_classes_by_group_id)<br>[GET_classrooms](#get_classrooms)<br>[POST_class](#post_class)<br>[PUT_approve_group](#put_approve_group) |
+| Login | [READ_admin_BY_credentials](#read_admin_by_credentials) |
+| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_BY_group_id](#read_classes_by_group_id)<br>[UPDATE_approve_group](#put_approve_group) |
+| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_BY_group_id](#read_classes_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#put_approve_group) |
 
 ## Services
 
-### GET_user_BY_credentials
+### READ_admin_BY_credentials
 
 #### Request
 
+HTTP method: POST
+
 ```json
 {
-  "username": "('A' | 'P' | 'S')<user_code>",
+  "username": "<admin_id>",
   "password": "<password>"
 }
 ```
@@ -80,7 +86,9 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 
 ```json
 {
-  "type": "('A' | 'P' | 'S')",
+  "names": "<names>",
+  "first_lname": "<first_last_name>",
+  "second_lname": "<second_last_name>"
 }
 ```
 
@@ -88,9 +96,13 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 
 | HTTP status code | Description |
 |---|---|
-|401 Unauthorized| Username-password pair does not match a user. |
+|401 Unauthorized| Username-password pair does not match an admin. |
 
-### GET_groups_GB_major
+### READ_groups_GB_major
+
+#### Request
+
+HTTP method: GET
 
 #### Response
 
@@ -109,9 +121,11 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 }
 ```
 
-### GET_classes_BY_group_id
+### READ_classes_BY_group_id
 
 #### Request
+
+HTTP method: GET
 
 ```json
 {
@@ -133,9 +147,11 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 ]
 ```
 
-### GET_courses_BY_group_id
+### READ_courses_BY_group_id
 
 #### Request
+
+HTTP method: GET
 
 ```json
 {
@@ -156,7 +172,11 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 ]
 ```
 
-### GET_classrooms
+### READ_classrooms
+
+#### Request
+
+HTTP method: GET
 
 #### Response
 
@@ -164,9 +184,11 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 ["<classroom_name>"]
 ```
 
-### POST_class
+### CREATE_class
 
 #### Request
+
+HTTP method: POST
 
 ```json
 {
@@ -178,15 +200,21 @@ For each service, three subheadings can be provided: (1) request, (2) response a
 }
 ```
 
+#### Response
+
+_No response body_
+
 #### Errors
 
 | HTTP status code | Description |
 |---|---|
 | 409 Conflict | Class can't be inserted because a class in a different group already requires the professor or classroom in a superposing time. |
 
-### PUT_approve_group
+### UPDATE_approve_group
 
 #### Request
+
+HTTP method: PUT
 
 ```json
 {
@@ -194,3 +222,7 @@ For each service, three subheadings can be provided: (1) request, (2) response a
     "approved": "(0 | 1)"
 }
 ```
+
+#### Response
+
+_No response body_
