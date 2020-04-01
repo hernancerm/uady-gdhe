@@ -13,14 +13,14 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [Documenting a service](#documenting-a-service)
     - [Services required on each view](#services-required-on-each-view)
     - [Services](#services)
-        - [READ_admin_BY_credentials](#read_admin_by_credentials)
+        - [READ_admin](#read_admin)
             - [Request](#request)
             - [Response](#response)
             - [Errors](#errors)
         - [READ_groups_GB_major](#read_groups_gb_major)
             - [Request](#request-1)
             - [Response](#response-1)
-        - [READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)
+        - [READ_classes_GB_course_id](#read_classes_gb_course_id)
             - [Request](#request-2)
             - [Response](#response-2)
         - [READ_courses_BY_group_id](#read_courses_by_group_id)
@@ -49,7 +49,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
 
 ### Naming convention
 
-Every service name begins with a CRUD verb and is followed by the target resource in lowercase. Optionally, additional specification can be provided if appropriate through the keywords BY and GB (group by). Every word is separated by an underscore.
+Every service name begins with a CRUD verb and is followed by the target resource in lowercase. Optionally, additional specification can be provided if appropriate through the keywords BY and GB (group by). BY should only be used when not all resources from the DB are operated upon or when disambiguation is required. Every word is separated by an underscore.
 
 EBNF syntax for service names:
 
@@ -69,13 +69,13 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 
 | View |Service |
 |---|---|
-| Login | [READ_admin_BY_credentials](#read_admin_by_credentials) |
-| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
-| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
+| Login | [READ_admin](#read_admin) |
+| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id](#read_classes_gb_course_id)<br>[UPDATE_approve_group](#update_approve_group) |
+| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id](#read_classes_gb_course_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
 
 ## Services
 
-### READ_admin_BY_credentials
+### READ_admin
 
 #### Request
 
@@ -127,7 +127,7 @@ HTTP method: GET
 }
 ```
 
-### READ_classes_GB_course_id_BY_group_id
+### READ_classes_GB_course_id
 
 #### Request
 
