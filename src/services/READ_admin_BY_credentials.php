@@ -31,4 +31,4 @@ if ($admin == null) {
     exit(1);
 }
 
-echo json_encode($admin);
+echo json_encode($admin[0]);
