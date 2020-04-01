@@ -20,7 +20,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [READ_groups_GB_major](#read_groups_gb_major)
             - [Request](#request-1)
             - [Response](#response-1)
-        - [READ_classes_BY_group_id](#read_classes_by_group_id)
+        - [READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)
             - [Request](#request-2)
             - [Response](#response-2)
         - [READ_courses_BY_group_id](#read_courses_by_group_id)
@@ -33,9 +33,15 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
             - [Request](#request-5)
             - [Response](#response-5)
             - [Errors](#errors-1)
-        - [UPDATE_approve_group](#update_approve_group)
+        - [DELETE_class](#delete_class)
             - [Request](#request-6)
             - [Response](#response-6)
+        - [UPDATE_class](#update_class)
+            - [Request](#request-7)
+            - [Response](#response-7)
+        - [UPDATE_approve_group](#update_approve_group)
+            - [Request](#request-8)
+            - [Response](#response-8)
 
 <!-- /TOC -->
 
@@ -64,8 +70,8 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 | View |Service |
 |---|---|
 | Login | [READ_admin_BY_credentials](#read_admin_by_credentials) |
-| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_BY_group_id](#read_classes_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
-| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_BY_group_id](#read_classes_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group) |
+| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
+| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
 
 ## Services
 
@@ -121,7 +127,7 @@ HTTP method: GET
 }
 ```
 
-### READ_classes_BY_group_id
+### READ_classes_GB_course_id_BY_group_id
 
 #### Request
 
@@ -136,15 +142,18 @@ HTTP method: GET
 #### Response
 
 ```json
-[
-    {
-        "start_hour": "<24-format>",
-        "end_hour": "<24-format>",
-        "classroom_name": "<classroom>",
-        "course_id": "<INTEGER>",
-        "weekday": "('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')"
-    }
-]
+{
+    "course_id":
+        [
+            {
+                "class_id": "<INTEGER>",
+                "start_hour": "<24-format>",
+                "end_hour": "<24-format>",
+                "classroom_name": "<classroom>",
+                "weekday": "('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')"
+            }
+        ]
+}
 ```
 
 ### READ_courses_BY_group_id
@@ -209,6 +218,41 @@ _No response body_
 | HTTP status code | Description |
 |---|---|
 | 409 Conflict | Class can't be inserted because a class in a different group already requires the professor or classroom in a superposing time. |
+
+### DELETE_class
+
+#### Request
+
+HTTP method: DELETE
+
+```json
+{
+    "class_id": "<INTEGER>"
+}
+```
+
+#### Response
+
+_No response body_
+
+### UPDATE_class
+
+#### Request
+
+HTTP method: PUT
+
+```json
+{
+    "class_id": "<INTEGER>",
+    "update": {
+        "<key>": "<value>"
+    }
+}
+```
+
+#### Response
+
+_No response body_
 
 ### UPDATE_approve_group
 
