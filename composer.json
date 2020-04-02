@@ -8,5 +8,9 @@
       "src/util/request_verifier.php",
       "src/util/request_contents.php"
     ]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5",
+    "guzzlehttp/guzzle": "^6.5"
   }
 }
