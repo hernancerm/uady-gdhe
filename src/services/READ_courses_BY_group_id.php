@@ -4,12 +4,14 @@ require_once '../../vendor/autoload.php';
 
 // Establish DB connection
 $connection = db_connect();
-// Obtain request contents
-$request = json_decode($_GET['data']);
-
-// Verify integrity of request body
-$attributes = array('group_id');
-verify_request($request, $attributes);
+// Obtain group_id
+$group_id;
+if (isset($_GET['group_id']))
+    $group_id = $_GET['group_id'];
+else {
+    http_response_code(400);
+    exit(1);
+}
 
 $courses = $connection->select('course', [
     '[><]professor' => 'professor_id', '[><]subject' => 'subject_id'
@@ -20,6 +22,6 @@ $courses = $connection->select('course', [
     'professor.names',
     'professor.first_lname',
     'professor.second_lname'
-], ['course.group_id' => $request->group_id]);
+], ['course.group_id' => $group_id]);
 
 echo json_encode($courses);
