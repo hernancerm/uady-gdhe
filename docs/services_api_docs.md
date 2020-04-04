@@ -162,10 +162,8 @@ HTTP method: GET
 
 HTTP method: GET
 
-```json
-{
-    "group_id": "<INTEGER>"
-}
+```text
+?group_id=<INTEGER>
 ```
 
 #### Response
@@ -174,9 +172,9 @@ HTTP method: GET
 [
     {
         "course_id": "<INTEGER>",
-        "professor_name": "<name>",
+        "required_class_hours": "<FLOAT>",
+        "professor_full_name": "<name>",
         "subject_name": "<name>",
-        "required_hours": "<FLOAT>"
     }
 ]
 ```
