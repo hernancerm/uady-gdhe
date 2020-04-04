@@ -23,14 +23,17 @@ $overlap_professor = $connection->query('SELECT <c.class_id> FROM <class> <c>
 NATURAL JOIN <course> NATURAL JOIN <professor>
 WHERE <professor_id> = (SELECT <professor_id> FROM <course> WHERE <course_id> = :course_id)
 AND !(<c.end_hour> <= :start_hour OR <c.start_hour> >= :end_hour)
-AND <weekday> = :weekday;', [
+AND <weekday> = :weekday
+AND <c.class_id> <> :class_id;', [
     ':course_id' => $request->course_id,
     ':start_hour' => $request->start_hour,
     ':end_hour' => $request->end_hour,
-    ':weekday' => $request->weekday
+    ':weekday' => $request->weekday,
+    ':class_id' => $request->class_id
 ])->fetchAll();
 // Time overlap 409 error
 if (count($overlap_professor) >= 1) {
+    echo ("1");
     http_response_code(409);
     exit(1);
 }
@@ -40,14 +43,17 @@ $overlap_classroom = $connection->query('SELECT <c.class_id> FROM <class> <c>
 NATURAL JOIN <classroom> <cr>
 WHERE <cr.name> = :classroom_name
 AND !(<c.end_hour> <= :start_hour OR <c.start_hour> >= :end_hour)
-AND <weekday> = :weekday;', [
+AND <weekday> = :weekday
+AND <c.class_id> <> :class_id;', [
     ':classroom_name' => $request->classroom_name,
     ':start_hour' => $request->start_hour,
     ':end_hour' => $request->end_hour,
-    ':weekday' => $request->weekday
+    ':weekday' => $request->weekday,
+    ':class_id' => $request->class_id
 ])->fetchAll();
 // Time overlap 409 error
 if (count($overlap_classroom) >= 1) {
+    echo ("2");
     http_response_code(409);
     exit(1);
 }
