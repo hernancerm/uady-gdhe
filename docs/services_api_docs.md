@@ -285,4 +285,6 @@ HTTP method: PUT
 
 #### Response
 
+HTTP status code: 204 No Content
+
 _No response body_
