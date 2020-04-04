@@ -40,6 +40,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [UPDATE_class](#update_class)
             - [Request](#request-7)
             - [Response](#response-7)
+            - [Errors](#errors-3)
         - [UPDATE_approve_group](#update_approve_group)
             - [Request](#request-8)
             - [Response](#response-8)
@@ -249,15 +250,25 @@ HTTP method: PUT
 ```json
 {
     "class_id": "<INTEGER>",
-    "update": {
-        "<key>": "<value>"
-    }
+    "start_hour": "<24-format>",
+    "end_hour": "<24-format>",
+    "classroom_name": "<classroom>",
+    "course_id": "<INTEGER>",
+    "weekday": "('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')"
 }
 ```
 
 #### Response
 
+HTTP status code: 204 No Content
+
 _No response body_
+
+#### Errors
+
+| HTTP status code | Description |
+|---|---|
+| 409 Conflict | Class can't be updated because a class in a different group already requires the professor or classroom in a superposing time. |
 
 ### UPDATE_approve_group
 
