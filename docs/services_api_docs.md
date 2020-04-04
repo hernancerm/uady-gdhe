@@ -36,6 +36,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [DELETE_class](#delete_class)
             - [Request](#request-6)
             - [Response](#response-6)
+            - [Errors](#errors-2)
         - [UPDATE_class](#update_class)
             - [Request](#request-7)
             - [Response](#response-7)
@@ -209,7 +210,7 @@ HTTP method: POST
 
 #### Response
 
-HTTP status code: 201
+HTTP status code: 201 Created
 
 _No response body_
 
@@ -225,15 +226,21 @@ _No response body_
 
 HTTP method: DELETE
 
-```json
-{
-    "class_id": "<INTEGER>"
-}
+```text
+?class_id=<INTEGER>
 ```
 
 #### Response
 
+HTTP status code: 204 No Content
+
 _No response body_
+
+#### Errors
+
+| HTTP status code | Description |
+|---|---|
+| 404 Not Found | Class with provided class_id not found. |
 
 ### UPDATE_class
 
