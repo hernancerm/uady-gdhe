@@ -209,6 +209,8 @@ HTTP method: POST
 
 #### Response
 
+HTTP status code: 201
+
 _No response body_
 
 #### Errors
