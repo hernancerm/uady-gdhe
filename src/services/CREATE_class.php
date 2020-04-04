@@ -67,3 +67,6 @@ $connection->insert('class', [
     'course_id' => $request->course_id,
     'classroom_id' => $classroom_id
 ]);
+
+// 201 Created
+http_response_code(201);
