@@ -20,7 +20,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [READ_groups_GB_major](#read_groups_gb_major)
             - [Request](#request-1)
             - [Response](#response-1)
-        - [READ_classes_GB_course_id](#read_classes_gb_course_id)
+        - [READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)
             - [Request](#request-2)
             - [Response](#response-2)
         - [READ_courses_BY_group_id](#read_courses_by_group_id)
@@ -71,8 +71,8 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 | View |Service |
 |---|---|
 | Login | [READ_admin](#read_admin) |
-| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id](#read_classes_gb_course_id)<br>[UPDATE_approve_group](#update_approve_group) |
-| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id](#read_classes_gb_course_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
+| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
+| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
 
 ## Services
 
@@ -128,16 +128,14 @@ HTTP method: GET
 }
 ```
 
-### READ_classes_GB_course_id
+### READ_classes_GB_course_id_BY_group_id
 
 #### Request
 
 HTTP method: GET
 
-```json
-{
-    "group_id": "<INTEGER>"
-}
+```text
+?group_id=<INTEGER>
 ```
 
 #### Response
