@@ -14,3 +14,5 @@ verify_request($request, $attributes);
 $connection->update('group', [
     'approved' => $request->approved
 ], ['group_id' => $request->group_id]);
+
+http_response_code(204);
