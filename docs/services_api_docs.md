@@ -64,8 +64,8 @@ EBNF syntax for service names:
 For each service, two subheadings must be provided: "Request" and "Response". An optional third subheading, "Errors", can be provided if necessary.
 
 1. **Request**. Required HTTP method and data sent by the frontend required by the service (if any).
-2. **Response**. Data sent by the service to the frontend. If no data is sent, write _No response body_.
-3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column (named 'HTTP status code') indicates the HTTP status code, and the second column (named 'Description') describes the cases in which this status is set. If the request data is malformed, it is implicitly understood that `400 Bad Request` must be issued.
+2. **Response**. Data sent by the service to the frontend. If no data is sent, write _No response body_. Specify HTTP status code if different from 200 OK.
+3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column (named 'HTTP status code') indicates the HTTP status code, and the second column (named 'Description') describes the cases in which this status is set. If the request data is malformed, it is implicitly understood that 400 Bad Request must be issued.
 
 ## Services required on each view
 
