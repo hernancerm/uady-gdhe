@@ -4,18 +4,20 @@ require_once '../../vendor/autoload.php';
 
 // Establish DB connection
 $connection = db_connect();
-// Obtain request contents
-$request = json_decode($_GET['data']);
-
-// Verify integrity of request body
-$attributes = array('group_id');
-verify_request($request, $attributes);
+// Obtain group_id
+$group_id;
+if (isset($_GET['group_id']))
+    $group_id = $_GET['group_id'];
+else {
+    http_response_code(400);
+    exit(1);
+}
 
 // Courses assigned to the specified group
 $courses = array_values($connection->select(
     'course',
     ['course_id'],
-    ['group_id' => $request->group_id]
+    ['group_id' => $group_id]
 ));
 
 $response = array();
