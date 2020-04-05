@@ -33,7 +33,6 @@ AND <c.class_id> <> :class_id;', [
 ])->fetchAll();
 // Time overlap 409 error
 if (count($overlap_professor) >= 1) {
-    echo ("1");
     http_response_code(409);
     exit(1);
 }
@@ -53,7 +52,6 @@ AND <c.class_id> <> :class_id;', [
 ])->fetchAll();
 // Time overlap 409 error
 if (count($overlap_classroom) >= 1) {
-    echo ("2");
     http_response_code(409);
     exit(1);
 }
