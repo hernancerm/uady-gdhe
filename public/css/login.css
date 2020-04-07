@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-image: repeating-linear-gradient(to bottom right, #FF5757 , #FE8A8A, #FEB273, #FFDE59);
+}
+
+
+.bg-orange{
+    background-color: #FF5757;
+}
+
+#lostPassword{
+    margin: 0;
+    font-size: x-small;
+}
+
+#header-img{
+    width: 100%;
+}
