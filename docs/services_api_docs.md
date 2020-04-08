@@ -115,9 +115,10 @@ HTTP method: GET
 #### Response
 
 ```json
-{
-    "<major>":
-        [
+[
+    {
+        "major": "<major>",
+        "groups": [
             {
                 "group_id": "<INTEGER>",
                 "approved": "(0 | 1)",
@@ -125,8 +126,8 @@ HTTP method: GET
                 "semester": "<INTEGER>"
             }
         ]
-
-}
+    }
+]
 ```
 
 ### READ_classes_GB_course_id_BY_group_id
