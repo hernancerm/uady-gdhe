@@ -20,7 +20,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [READ_groups_GB_major](#read_groups_gb_major)
             - [Request](#request-1)
             - [Response](#response-1)
-        - [READ_classes_GB_course_id](#read_classes_gb_course_id)
+        - [READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)
             - [Request](#request-2)
             - [Response](#response-2)
         - [READ_courses_BY_group_id](#read_courses_by_group_id)
@@ -36,9 +36,11 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [DELETE_class](#delete_class)
             - [Request](#request-6)
             - [Response](#response-6)
+            - [Errors](#errors-2)
         - [UPDATE_class](#update_class)
             - [Request](#request-7)
             - [Response](#response-7)
+            - [Errors](#errors-3)
         - [UPDATE_approve_group](#update_approve_group)
             - [Request](#request-8)
             - [Response](#response-8)
@@ -62,16 +64,16 @@ EBNF syntax for service names:
 For each service, two subheadings must be provided: "Request" and "Response". An optional third subheading, "Errors", can be provided if necessary.
 
 1. **Request**. Required HTTP method and data sent by the frontend required by the service (if any).
-2. **Response**. Data sent by the service to the frontend. If no data is sent, write _No response body_.
-3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column (named 'HTTP status code') indicates the HTTP status code, and the second column (named 'Description') describes the cases in which this status is set. If the request data is malformed, it is implicitly understood that `400 Bad Request` must be issued.
+2. **Response**. Data sent by the service to the frontend. If no data is sent, write _No response body_. Specify HTTP status code if different from 200 OK.
+3. **Errors**. HTTP error codes the service sets provided an error ocurred. The format for this section is a table; where the first column (named 'HTTP status code') indicates the HTTP status code, and the second column (named 'Description') describes the cases in which this status is set. If the request data is malformed, it is implicitly understood that 400 Bad Request must be issued.
 
 ## Services required on each view
 
 | View |Service |
 |---|---|
 | Login | [READ_admin](#read_admin) |
-| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id](#read_classes_gb_course_id)<br>[UPDATE_approve_group](#update_approve_group) |
-| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id](#read_classes_gb_course_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
+| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
+| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
 
 ## Services
 
@@ -113,9 +115,10 @@ HTTP method: GET
 #### Response
 
 ```json
-{
-    "<major>":
-        [
+[
+    {
+        "major": "<major>",
+        "groups": [
             {
                 "group_id": "<INTEGER>",
                 "approved": "(0 | 1)",
@@ -123,20 +126,18 @@ HTTP method: GET
                 "semester": "<INTEGER>"
             }
         ]
-
-}
+    }
+]
 ```
 
-### READ_classes_GB_course_id
+### READ_classes_GB_course_id_BY_group_id
 
 #### Request
 
 HTTP method: GET
 
-```json
-{
-    "group_id": "<INTEGER>"
-}
+```text
+?group_id=<INTEGER>
 ```
 
 #### Response
@@ -162,10 +163,8 @@ HTTP method: GET
 
 HTTP method: GET
 
-```json
-{
-    "group_id": "<INTEGER>"
-}
+```text
+?group_id=<INTEGER>
 ```
 
 #### Response
@@ -174,9 +173,9 @@ HTTP method: GET
 [
     {
         "course_id": "<INTEGER>",
-        "professor_name": "<name>",
+        "required_class_hours": "<FLOAT>",
+        "professor_full_name": "<name>",
         "subject_name": "<name>",
-        "required_hours": "<FLOAT>"
     }
 ]
 ```
@@ -211,6 +210,8 @@ HTTP method: POST
 
 #### Response
 
+HTTP status code: 201 Created
+
 _No response body_
 
 #### Errors
@@ -225,15 +226,21 @@ _No response body_
 
 HTTP method: DELETE
 
-```json
-{
-    "class_id": "<INTEGER>"
-}
+```text
+?class_id=<INTEGER>
 ```
 
 #### Response
 
+HTTP status code: 204 No Content
+
 _No response body_
+
+#### Errors
+
+| HTTP status code | Description |
+|---|---|
+| 404 Not Found | Class with provided class_id not found. |
 
 ### UPDATE_class
 
@@ -244,15 +251,25 @@ HTTP method: PUT
 ```json
 {
     "class_id": "<INTEGER>",
-    "update": {
-        "<key>": "<value>"
-    }
+    "start_hour": "<24-format>",
+    "end_hour": "<24-format>",
+    "classroom_name": "<classroom>",
+    "course_id": "<INTEGER>",
+    "weekday": "('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')"
 }
 ```
 
 #### Response
 
+HTTP status code: 204 No Content
+
 _No response body_
+
+#### Errors
+
+| HTTP status code | Description |
+|---|---|
+| 409 Conflict | Class can't be updated because a class in a different group already requires the professor or classroom in a superposing time. |
 
 ### UPDATE_approve_group
 
@@ -268,5 +285,7 @@ HTTP method: PUT
 ```
 
 #### Response
+
+HTTP status code: 204 No Content
 
 _No response body_
