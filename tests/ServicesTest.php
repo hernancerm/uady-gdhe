@@ -20,5 +20,12 @@ final class ServicesTest extends TestCase
         $response = self::$client->request('GET', $service);
 
         $this->assertEquals(200, $response->getStatusCode());
+
+        $body = json_decode($response->getBody(), true);
+
+        if (count($body) > 0) {
+            $this->assertArrayHasKey('major', $body[0]);
+            $this->assertArrayHasKey('groups', $body[0]);
+        }
     }
 }
