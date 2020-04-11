@@ -38,6 +38,24 @@
       url("../fonts/poppins/poppins-v9-latin-regular.svg#Poppins") format("svg"); /* Legacy iOS */
 }
 
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 900;
+  src: url("../fonts/poppins/poppins-v9-latin-900.eot"); /* IE9 Compat Modes */
+  src: local("Poppins Black"), local("Poppins-Black"),
+    url("../fonts/poppins/poppins-v9-latin-900.eot?#iefix")
+      format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/poppins/poppins-v9-latin-900.woff2")
+      format("woff2"),
+    /* Super Modern Browsers */
+      url("../fonts/poppins/poppins-v9-latin-regular.woff") format("woff"),
+    /* Modern Browsers */ url("../fonts/poppins/poppins-v9-latin-900.ttf")
+      format("truetype"),
+    /* Safari, Android, iOS */
+      url("../fonts/poppins/poppins-v9-latin-900.svg#Poppins") format("svg"); /* Legacy iOS */
+}
+
 /* Open sans */
 @font-face {
   font-family: "Open Sans";
@@ -81,8 +99,8 @@ button:focus {
 }
 
 #sidebar {
-  min-width: 270px;
-  max-width: 270px;
+  min-width: 304px;
+  max-width: 304px;
   background: var(--primary);
   color: #fff;
   -webkit-transition: all 0.3s;
@@ -97,29 +115,18 @@ button:focus {
   color: #fff;
 }
 #sidebar.active {
-  margin-left: -270px;
+  margin-left: -304px;
 }
-#sidebar h1 {
-  margin-bottom: 20px;
-  font-weight: 700;
-  font-size: 30px;
-}
-#sidebar h1 .logo {
-  color: #fff;
-}
-#sidebar h1 .logo span {
-  font-size: 14px;
-  color: #44bef1;
-  display: block;
-}
+
 @media (max-width: 991.98px) {
   #sidebar {
-    margin-left: -270px;
+    margin-left: -304px;
   }
   #sidebar.active {
     margin-left: 0;
   }
 }
+
 #sidebar .custom-menu {
   display: inline-block;
   position: absolute;
@@ -199,7 +206,7 @@ button:focus {
   font-family: "Poppins";
   font-style: normal;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 21px;
 }
 
@@ -220,14 +227,14 @@ button:focus {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 4px 24px;
 }
 
 .subitem {
   background-color: var(--primary);
   color: var(--light);
-  width: 100%;
   border: none;
-  padding: 8px;
+  padding: 6px 16px 6px 48px;
   text-align: left;
   outline: none;
   cursor: pointer;
@@ -235,24 +242,17 @@ button:focus {
   font-weight: 400;
   font-size: 14px;
   line-height: 19px;
+  border-radius: 0px 20px 20px 0px;
 }
 
-.active:hover,
-.accordion:hover {
+.subitem:hover {
   background-color: var(--primary-light);
 }
 
-.accordion:after {
-  color: #777;
-  font-weight: bold;
-  float: right;
-  margin-left: 5px;
-}
-
 .panel {
-  max-height: 0;
+  max-height: 0px;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
+  transition: max-height 0.3s;
 }
 
 .disapprove {
@@ -274,7 +274,8 @@ button:focus {
 .title {
   font-family: "Open Sans";
   color: var(--dark);
-  margin-top: 32px;
+  margin-top: 8px;
+  padding-left: 24px;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;

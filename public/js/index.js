@@ -25,11 +25,9 @@ $(document).ready(function () {
     panelHeight = panel.css("height");
 
     if (panelHeight.substring(0, panelHeight.length - 2) > 0) {
-      panel.height(0).css({ maxHeight: "0" });
+      panel.css("max-height", "0");
     } else {
-      panel
-        .height(panel.prop("scrollHeight"))
-        .css({ maxHeight: panel.prop("scrollHeight") + "px" });
+      panel.css("max-height", panel.prop("scrollHeight") + "px");
     }
   });
 
