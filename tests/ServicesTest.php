@@ -88,4 +88,29 @@ final class ServicesTest extends TestCase
             $this->assertArrayHasKey('classes', $body[0]);
         }
     }
+
+    public function test_UPDATE_approve_group()
+    {
+        $service = 'UPDATE_approve_group.php';
+
+        $group_id = 1;
+        $response = self::$client->request('PUT', $service, [
+            'json' => [
+                'group_id' => $group_id,
+                'approved' => false
+            ]
+        ]);
+
+        $this->assertEquals(204, $response->getStatusCode());
+
+        $service = 'UPDATE_approve_group.php';
+        $response = self::$client->request('PUT', $service, [
+            'json' => [
+                'group_id' => $group_id,
+                'approved' => true
+            ]
+        ]);
+
+        $this->assertEquals(204, $response->getStatusCode());
+    }
 }
