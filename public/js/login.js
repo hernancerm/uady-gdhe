@@ -1,3 +1,42 @@
+//Funcion de input para las animaciones
+const animationInput = () => $(window, document, undefined).ready(function() {
+
+  $('input').blur(function() {
+    var $this = $(this);
+    if ($this.val())
+      $this.addClass('used');
+    else
+      $this.removeClass('used');
+  });
+
+  var $ripples = $('.ripples');
+
+  $ripples.on('click.Ripples', function(e) {
+
+    var $this = $(this);
+    var $offset = $this.parent().offset();
+    var $circle = $this.find('.ripplesCircle');
+
+    var x = e.pageX - $offset.left;
+    var y = e.pageY - $offset.top;
+
+    $circle.css({
+      top: y + 'px',
+      left: x + 'px'
+    });
+
+    $this.addClass('is-active');
+
+  });
+
+  $ripples.on('animationend webkitAnimationEnd mozAnimationEnd oanimationend MSAnimationEnd', function(e) {
+  	$(this).removeClass('is-active');
+  });
+
+});
+
+animationInput();
+
 ///
 const alert = (mensaje) => {
   //Se crea el elemento
@@ -10,6 +49,10 @@ const alert = (mensaje) => {
   const elementoDespues = document.querySelector(".form-group");
   //Se inserta el elemento
   elementoPadre.insertBefore(div, elementoDespues);
+
+  setTimeout(()=>{
+    document.querySelector('.alert.alert-danger').remove();
+  } ,4000)
 };
 
 ///Events listeners
@@ -27,29 +70,37 @@ document.getElementById("btnSesion").addEventListener("click", (event) => {
   const username = document.getElementById("usuario").value;
   const password = document.getElementById("password").value;
 
+  if (username == "") {
+    usernameLabel.classList.add("text-danger");
+  }
+  if (password == "") {
+    passwordLabel.classList.add("text-danger");
+  }
+
   if (username != "" && password != "") {
     loginWithCredentials(username, password);
   } else {
-    
     alert('Algun dato es incorrecto');
-    if (username == "") {
-      usernameLabel.classList.add("text-danger");
-    }
-    if (password == "") {
-      passwordLabel.classList.add("text-danger");
-    }
   }
 });
 
 function loginWithCredentials(username, password) {
-  const url = `../src/services/READ_admin_BY_credentials.php`;
-  const request = { username: username, password: password };
-  fetch(url, { method: "POST", body: JSON.stringify(request) })
-    .then((res) => res.json())
-    .then((data) => {
-      ///Ingresa al login basico
-      //window.location="ARCHIVO A DIRECCIONAR"
-      console.log(data);
-    })
-    .catch((error) => alert('Usuario o contraseña incorrecto'));
+  
+  const request = { username: username.substring(1), password: password };
+  const services = new ServicesProvider();
+  const callback = () => window.location = "index.html";
+  
+  switch(username[0].toLowerCase()){
+    case 'a':
+      services.logInWithCredentials(request, callback, alert('Usuario o contraseña invalida'));
+    break;
+    case 'b':
+      break;
+    case 'c':
+      break;
+    default:
+      alert('Usuario invalido')
+    break;
+  }
+  
 }
