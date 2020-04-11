@@ -99,14 +99,15 @@ button:focus {
 }
 
 #sidebar {
+  position: absolute;
   min-width: 304px;
   max-width: 304px;
+  height: 90%;
   background: var(--primary);
   color: #fff;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
-  position: relative;
   margin-top: 50px;
   margin-left: 30px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15);
@@ -254,7 +255,7 @@ button:focus {
   border-radius: 0px 20px 20px 0px;
 }
 
-.subitem:hover {
+.subitem-selected {
   background-color: var(--primary-light);
 }
 
