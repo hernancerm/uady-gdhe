@@ -54,4 +54,22 @@ final class ServicesTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertIsArray(json_decode($response->getBody(), true));
     }
+
+    public function test_READ_courses_BY_group_id()
+    {
+        $service = 'READ_courses_BY_group_id.php';
+        $response = self::$client->request('GET', $service, [
+            'query' => ['group_id' => 1]
+        ]);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $body = json_decode($response->getBody(), true);
+
+        if (count($body) > 0) {
+            $this->assertArrayHasKey('course_id', $body[0]);
+            $this->assertArrayHasKey('required_class_hours', $body[0]);
+            $this->assertArrayHasKey('professor_full_name', $body[0]);
+            $this->assertArrayHasKey('subject_name', $body[0]);
+        }
+    }
 }
