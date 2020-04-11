@@ -16,7 +16,7 @@ else {
 // Courses assigned to the specified group
 $course_ids = array_values($connection->select(
     'course',
-    'course_id',
+    'course_id[Int]',
     ['group_id' => $group_id]
 ));
 
@@ -27,7 +27,7 @@ foreach ($course_ids as $course_id) {
         'classes' => $connection->select('class', [
             '[><]classroom' => 'classroom_id',
         ], [
-            'class.class_id', 'class.start_hour', 'class.end_hour',
+            'class.class_id[Int]', 'class.start_hour', 'class.end_hour',
             'class.weekday', 'classroom.name(classroom_name)'
         ], ['class.course_id' => $course_id])
     ];
