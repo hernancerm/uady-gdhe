@@ -144,6 +144,10 @@ button:focus {
     transition: none;
   }
 }
+
+#sidebar .custom-menu span {
+  color: var(--light);
+}
 #sidebar .custom-menu .btn {
   width: 60px;
   height: 60px;
@@ -228,6 +232,11 @@ button:focus {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 4px 24px;
+}
+
+.accordion i {
+  margin-right: 8px;
+  transition: transform 0.5s;
 }
 
 .subitem {
