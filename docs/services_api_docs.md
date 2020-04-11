@@ -143,8 +143,10 @@ HTTP method: GET
 #### Response
 
 ```json
-{
-    "course_id":
+[
+    {
+        "course_id": "<INTEGER>",
+        "classes":
         [
             {
                 "class_id": "<INTEGER>",
@@ -154,7 +156,8 @@ HTTP method: GET
                 "weekday": "('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')"
             }
         ]
-}
+    }
+]
 ```
 
 ### READ_courses_BY_group_id
