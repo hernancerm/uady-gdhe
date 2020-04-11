@@ -45,4 +45,13 @@ final class ServicesTest extends TestCase
             $this->assertArrayHasKey('groups', $body[0]);
         }
     }
+
+    public function test_READ_classrooms()
+    {
+        $service = 'READ_classrooms.php';
+        $response = self::$client->request('GET', $service);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertIsArray(json_decode($response->getBody(), true));
+    }
 }
