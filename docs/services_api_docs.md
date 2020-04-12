@@ -83,20 +83,20 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 
 HTTP method: POST
 
-```json
+```bnf
 {
-  "username": "<admin_id>",
-  "password": "<password>"
+  "username": <ZERO-PADDED-INTEGER(4)>,
+  "password": <STRING>
 }
 ```
 
 #### Response
 
-```json
+```bnf
 {
-  "names": "<names>",
-  "first_lname": "<first_last_name>",
-  "second_lname": "<second_last_name>"
+  "names": <STRING>,
+  "first_lname": <STRING>,
+  "second_lname": <STRING>
 }
 ```
 
@@ -114,16 +114,16 @@ HTTP method: GET
 
 #### Response
 
-```json
+```bnf
 [
     {
-        "major": "<major>",
+        "major": <STRING>,
         "groups": [
             {
-                "group_id": "<INTEGER>",
-                "approved": "(0 | 1)",
-                "group_letter": "<'A'-'Z'>",
-                "semester": "<INTEGER>"
+                "group_id": <INTEGER>,
+                "approved": <BOOLEAN>,
+                "group_letter": "A"-"Z",
+                "semester": <INTEGER>
             }
         ]
     }
@@ -142,19 +142,22 @@ HTTP method: GET
 
 #### Response
 
-```json
-{
-    "course_id":
+```bnf
+[
+    {
+        "course_id": <INTEGER>,
+        "classes":
         [
             {
-                "class_id": "<INTEGER>",
-                "start_hour": "<24-format>",
-                "end_hour": "<24-format>",
-                "classroom_name": "<classroom>",
-                "weekday": "('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')"
+                "class_id": <INTEGER>,
+                "start_hour": <24-format-time>,
+                "end_hour": <24-format-time>,
+                "classroom_name": <STRING>,
+                "weekday": ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun")
             }
         ]
-}
+    }
+]
 ```
 
 ### READ_courses_BY_group_id
@@ -169,13 +172,13 @@ HTTP method: GET
 
 #### Response
 
-```json
+```bnf
 [
     {
-        "course_id": "<INTEGER>",
-        "required_class_hours": "<FLOAT>",
-        "professor_full_name": "<name>",
-        "subject_name": "<name>",
+        "course_id": <INTEGER>,
+        "required_class_hours": <FLOAT>,
+        "professor_full_name": <STRING>,
+        "subject_name": <STRING>,
     }
 ]
 ```
@@ -188,8 +191,8 @@ HTTP method: GET
 
 #### Response
 
-```json
-["<classroom_name>"]
+```bnf
+[<STRING>]
 ```
 
 ### CREATE_class
@@ -198,13 +201,13 @@ HTTP method: GET
 
 HTTP method: POST
 
-```json
+```bnf
 {
-    "start_hour": "<24-format>",
-    "end_hour": "<24-format>",
-    "classroom_name": "<classroom>",
-    "course_id": "<INTEGER>",
-    "weekday": "('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')"
+    "start_hour": <24-hour-format>,
+    "end_hour": <24-hour-format>,
+    "classroom_name": <STRING>,
+    "course_id": <INTEGER>,
+    "weekday": ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun")
 }
 ```
 
@@ -248,14 +251,14 @@ _No response body_
 
 HTTP method: PUT
 
-```json
+```bnf
 {
-    "class_id": "<INTEGER>",
-    "start_hour": "<24-format>",
-    "end_hour": "<24-format>",
-    "classroom_name": "<classroom>",
-    "course_id": "<INTEGER>",
-    "weekday": "('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')"
+    "class_id": <INTEGER>,
+    "start_hour": <24-format-time>,
+    "end_hour": <24-format-time>,
+    "classroom_name": <STRING>,
+    "course_id": <INTEGER>,
+    "weekday": ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun")
 }
 ```
 
@@ -277,10 +280,10 @@ _No response body_
 
 HTTP method: PUT
 
-```json
+```bnf
 {
-    "group_id": "<INTEGER>",
-    "approved": "(0 | 1)"
+    "group_id": <INTEGER>,
+    "approved": <BOOLEAN>
 }
 ```
 
