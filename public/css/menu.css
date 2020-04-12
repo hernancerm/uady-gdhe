@@ -1,102 +1,4 @@
-/* COLORS */
-
-:root {
-  --primary: #ff5757;
-  --primary-light: #ff7878;
-  --secondary: #ffca57;
-  --success: #27ae60;
-  --info: #17a2b8;
-  --warning: #ffc107;
-  --danger: #ba3d3d;
-  --light: #f8f9fa;
-  --dark: #2e2e2e;
-  --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
-}
-
-/*FONTS*/
-
-/* poppins */
-@font-face {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/poppins/poppins-v9-latin-regular.eot"); /* IE9 Compat Modes */
-  src: local("Poppins Regular"), local("Poppins-Regular"),
-    url("../fonts/poppins/poppins-v9-latin-regular.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/poppins/poppins-v9-latin-regular.woff2")
-      format("woff2"),
-    /* Super Modern Browsers */
-      url("../fonts/poppins/poppins-v9-latin-regular.woff") format("woff"),
-    /* Modern Browsers */ url("../fonts/poppins/poppins-v9-latin-regular.ttf")
-      format("truetype"),
-    /* Safari, Android, iOS */
-      url("../fonts/poppins/poppins-v9-latin-regular.svg#Poppins") format("svg"); /* Legacy iOS */
-}
-
-@font-face {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 900;
-  src: url("../fonts/poppins/poppins-v9-latin-900.eot"); /* IE9 Compat Modes */
-  src: local("Poppins Black"), local("Poppins-Black"),
-    url("../fonts/poppins/poppins-v9-latin-900.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/poppins/poppins-v9-latin-900.woff2")
-      format("woff2"),
-    /* Super Modern Browsers */
-      url("../fonts/poppins/poppins-v9-latin-regular.woff") format("woff"),
-    /* Modern Browsers */ url("../fonts/poppins/poppins-v9-latin-900.ttf")
-      format("truetype"),
-    /* Safari, Android, iOS */
-      url("../fonts/poppins/poppins-v9-latin-900.svg#Poppins") format("svg"); /* Legacy iOS */
-}
-
-/* Open sans */
-@font-face {
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/open-sans/open-sans-v17-latin-regular.eot"); /* IE9 Compat Modes */
-  src: local("Open Sans Regular"), local("OpenSans-Regular"),
-    url("../fonts/open-sans/open-sans-v17-latin-regular.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/open-sans/open-sans-v17-latin-regular.woff2")
-      format("woff2"),
-    /* Super Modern Browsers */
-      url("../fonts/open-sans/open-sans-v17-latin-regular.woff") format("woff"),
-    /* Modern Browsers */
-      url("../fonts/open-sans/open-sans-v17-latin-regular.ttf")
-      format("truetype"),
-    /* Safari, Android, iOS */
-      url("../fonts/open-sans/open-sans-v17-latin-regular.svg#OpenSans")
-      format("svg"); /* Legacy iOS */
-}
-
-body {
-  margin: 0;
-  font-family: "Open Sans";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  text-align: left;
-  background-color: #fff;
-}
-
-button.active.focus,
-button.active:focus,
-button.focus,
-button:active.focus,
-button:active:focus,
-button:focus {
-  outline: none;
-  box-shadow: none;
-}
+/**sidebar**/
 
 #sidebar {
   position: absolute;
@@ -112,15 +14,18 @@ button:focus {
   margin-left: 30px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15);
 }
-#sidebar .h6 {
-  color: #fff;
-}
+
 #sidebar.active {
   margin-left: -304px;
 }
 
+#sidebar .content {
+  background-color: var(--primary);
+}
+
 @media (max-width: 991.98px) {
   #sidebar {
+    height: 100%;
     margin-left: -304px;
   }
   #sidebar.active {
@@ -179,30 +84,12 @@ button:focus {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15);
 }
 
-button {
-  -webkit-transition: 0.3s all ease;
-  -o-transition: 0.3s all ease;
-  transition: 0.3s all ease;
-}
-button:hover,
-button:focus {
-  text-decoration: none !important;
-  outline: none !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-}
-
-#sidebar .custom-menu .btn:hover,
-#sidebar .custom-menu .btn:focus,
-#sidebar .custom-menu .btn:active {
-  border-color: transparent !important;
-}
-
 .logo {
   width: 80%;
 }
 
 .logout {
+  cursor: pointer;
   margin-top: 8px;
   background-color: var(--primary);
   border: none;
@@ -214,6 +101,20 @@ button:focus {
   font-size: 16px;
   line-height: 21px;
 }
+
+#sidebar button.active.focus,
+#sidebar button.active:focus,
+#sidebar button.focus,
+#sidebar button:active.focus,
+#sidebar button:active:focus,
+#sidebar button:focus {
+  text-decoration: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/**Accordion Menu**/
 
 .accordion {
   margin-bottom: 8px;
@@ -263,6 +164,7 @@ button:focus {
   max-height: 0px;
   overflow: hidden;
   transition: max-height 0.3s;
+  background-color: var(--primary);
 }
 
 .disapprove {

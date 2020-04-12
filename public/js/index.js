@@ -3,6 +3,7 @@ var idGroupSelected = 0;
 
 $(document).ready(function () {
   $("#sidebar").removeClass("active");
+
   services.ReadGroups((majors) => {
     majorsList = JSON.parse(majors);
     idGroupSelected = "group" + majorsList[0].groups[0].group_id;
