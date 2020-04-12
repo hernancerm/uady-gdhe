@@ -1,13 +1,15 @@
 const services = new ServiceProvider();
+var idGroupSelected = 0;
 
 $(document).ready(function () {
+  $("#sidebar").removeClass("active");
   services.ReadGroups((majors) => {
     majorsList = JSON.parse(majors);
+    idGroupSelected = "group" + majorsList[0].groups[0].group_id;
     majorsList.forEach((majorItem) => {
       item = `<button class='accordion'><span><i class="fa fa-angle-right"></i></span>${majorItem.major}</button><div class='panel'>`;
-
       majorItem.groups.forEach((group) => {
-        item += `<button class='subitem' value='${group.group_id}'> ${
+        item += `<button class='subitem' id='group${group.group_id}'> ${
           group.semester
         } semestre ${group.group_letter ? group.group_letter : ""}`;
         if (!Number(group.approved))
@@ -16,11 +18,15 @@ $(document).ready(function () {
       });
       item += "</div>";
       $("#groups").append(item);
+
+      $(`#${idGroupSelected}`).addClass("subitem-selected");
+      $(`#${idGroupSelected}`).parent().prev().click();
+
+      //services.ReadCoursesByGroup(idGroupSelected)=>{ showCourses() };
     });
   });
 
   $("#groups").on("click", ".accordion", function () {
-    $(this).toggleClass("active");
     ico = $(this).find(".fa");
     panel = $(this).next();
     panelHeight = panel.css("height");
@@ -35,10 +41,11 @@ $(document).ready(function () {
   });
 
   $("#groups").on("click", ".subitem", function () {
-    alert($(this).val());
+    $(`#${idGroupSelected}`).removeClass("subitem-selected");
+    idGroupSelected = $(this).attr("id");
+
+    $(this).addClass("subitem-selected");
   });
 
-  $("#logout").click(function () {
-    alert("Adios guapo :*");
-  });
+  $("#logout").click(function () {});
 });
