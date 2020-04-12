@@ -1,0 +1,200 @@
+/**
+*sidebar
+**/
+
+@media (max-width: 991.98px) {
+  #sidebar {
+    height: 100%;
+    margin-left: -304px;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sidebar .custom-menu {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+  }
+}
+
+#sidebar {
+  position: absolute;
+  min-width: 304px;
+  max-width: 304px;
+  height: 90%;
+  background: var(--primary);
+  color: #fff;
+  -webkit-transition: all 0.8s;
+  -o-transition: all 0.8s;
+  transition: all 0.8s;
+  margin-top: 50px;
+  margin-left: 30px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+#sidebar.active {
+  margin-left: -304px;
+}
+
+#sidebar .content {
+  background-color: var(--primary);
+}
+
+#sidebar .custom-menu {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  margin-right: -20px;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+#sidebar .custom-menu span {
+  color: var(--light);
+}
+#sidebar .custom-menu .btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  position: relative;
+}
+#sidebar .custom-menu .btn i {
+  margin-right: -40px;
+  font-size: 14px;
+}
+#sidebar .custom-menu .btn {
+  background: transparent;
+  border-color: transparent;
+}
+#sidebar .custom-menu .btn:after {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background: var(--primary);
+  border-radius: 10px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+  width: 80%;
+}
+
+.logout {
+  cursor: pointer;
+  margin-top: 8px;
+  background-color: var(--primary);
+  border: none;
+  text-align: left;
+  color: var(--secondary);
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 21px;
+}
+
+#sidebar button.active.focus,
+#sidebar button.active:focus,
+#sidebar button.focus,
+#sidebar button:active.focus,
+#sidebar button:active:focus,
+#sidebar button:focus {
+  text-decoration: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/**
+* Accordion Menu
+**/
+
+.accordion {
+  margin-bottom: 8px;
+  background-color: var(--primary);
+  color: var(--light);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  transition: 0.4s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 4px 24px;
+}
+
+.accordion i {
+  margin-right: 8px;
+  transition: transform 0.5s;
+}
+
+.subitem {
+  background-color: var(--primary);
+  color: var(--light);
+  border: none;
+  padding: 6px 16px 6px 48px;
+  text-align: left;
+  outline: none;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  border-radius: 0px 20px 20px 0px;
+}
+
+.subitem-selected {
+  background-color: var(--primary-light);
+}
+
+.panel {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.3s;
+  background-color: var(--primary);
+}
+
+.disapprove {
+  height: 8px;
+  width: 8px;
+  background-color: var(--danger);
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.divider {
+  height: 0px;
+  width: 100%;
+  margin-top: 16px;
+  border: 1px solid var(--primary-light);
+}
+
+.title {
+  font-family: "Open Sans";
+  color: var(--dark);
+  margin-top: 8px;
+  padding-left: 24px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+}
