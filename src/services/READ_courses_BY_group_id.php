@@ -16,8 +16,8 @@ else {
 $courses = $connection->select('course', [
     '[><]professor' => 'professor_id', '[><]subject' => 'subject_id'
 ], [
-    'course.course_id',
-    'subject.required_class_hours',
+    'course.course_id[Int]',
+    'subject.required_class_hours[Number]',
     'subject.name',
     'professor.names',
     'professor.first_lname',
