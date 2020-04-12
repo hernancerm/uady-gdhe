@@ -3,6 +3,7 @@ class ServiceProvider {
     $.ajax({
       type: "GET",
       url: "../src/services/READ_groups_GB_major.php",
-    }).done(callback);
+      success: callback,
+    });
   }
 }

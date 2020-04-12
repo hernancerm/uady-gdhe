@@ -44,9 +44,11 @@ $(document).ready(function () {
   $("#groups").on("click", ".subitem", function () {
     $(`#${idGroupSelected}`).removeClass("subitem-selected");
     idGroupSelected = $(this).attr("id");
-
     $(this).addClass("subitem-selected");
+    //services.ReadCoursesByGroup(idGroupSelected)=>{ showCourses() };
   });
 
-  $("#logout").click(function () {});
+  $("#logout").click(function () {
+    //Session.close()
+  });
 });

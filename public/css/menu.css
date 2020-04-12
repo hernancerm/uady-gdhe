@@ -1,4 +1,24 @@
-/**sidebar**/
+/**
+*sidebar
+**/
+
+@media (max-width: 991.98px) {
+  #sidebar {
+    height: 100%;
+    margin-left: -304px;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sidebar .custom-menu {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+  }
+}
 
 #sidebar {
   position: absolute;
@@ -23,16 +43,6 @@
   background-color: var(--primary);
 }
 
-@media (max-width: 991.98px) {
-  #sidebar {
-    height: 100%;
-    margin-left: -304px;
-  }
-  #sidebar.active {
-    margin-left: 0;
-  }
-}
-
 #sidebar .custom-menu {
   display: inline-block;
   position: absolute;
@@ -42,13 +52,6 @@
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
-}
-@media (prefers-reduced-motion: reduce) {
-  #sidebar .custom-menu {
-    -webkit-transition: none;
-    -o-transition: none;
-    transition: none;
-  }
 }
 
 #sidebar .custom-menu span {
@@ -114,7 +117,9 @@
   box-shadow: none !important;
 }
 
-/**Accordion Menu**/
+/**
+* Accordion Menu
+**/
 
 .accordion {
   margin-bottom: 8px;
