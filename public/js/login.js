@@ -45,10 +45,10 @@ const alert = (mensaje) => {
   div.innerHTML = mensaje;
 
   //Se definen elementos que son utilizados para el alert
-  const elementoPadre = document.querySelector(".card-body");
-  const elementoDespues = document.querySelector(".form-group");
+  const parentElement = document.querySelector(".card-body");
+  const beforeElement = document.querySelector(".form-group");
   //Se inserta el elemento
-  elementoPadre.insertBefore(div, elementoDespues);
+  parentElement.insertBefore(div, beforeElement);
 
   setTimeout(()=>{
     document.querySelector('.alert.alert-danger').remove();
