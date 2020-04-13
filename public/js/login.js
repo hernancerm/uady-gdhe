@@ -35,7 +35,7 @@ const animationInput = () =>
 
 animationInput();
 
-const alert = (mensaje) => {
+const showErrorPrompt = (mensaje) => {
   //Se crea el elemento
   const div = document.createElement("div");
   div.classList.add("alert", "alert-danger");
@@ -79,7 +79,7 @@ document.getElementById("btnSesion").addEventListener("click", (event) => {
   if (username != "" && password != "") {
     loginWithCredentials(username, password);
   } else {
-    alert("Usuario o contraseña incorrecto.");
+    showErrorPrompt("Usuario o contraseña incorrecto.");
   }
 });
 
@@ -92,7 +92,7 @@ function loginWithCredentials(username, password) {
       services.logInWithCredentials(
         request,
         () => (window.location = "index.html"),
-        alert("Usuario o contraseña incorrecto.")
+        showErrorPrompt("Usuario o contraseña incorrecto.")
       );
       break;
     case "S":
@@ -100,7 +100,7 @@ function loginWithCredentials(username, password) {
     case "P":
       break;
     default:
-      alert("Usuario no registrado.");
+      showErrorPrompt("Usuario no registrado.");
       break;
   }
 }
