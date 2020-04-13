@@ -1,10 +1,10 @@
-const services = new ServiceProvider();
+const services = new ServicesProvider();
 var idGroupSelected = 0;
 
 $(document).ready(function () {
   $("#sidebar").removeClass("active");
 
-  services.ReadGroups((majors) => {
+  services.readGroups((majors) => {
     majorsList = JSON.parse(majors);
     idGroupSelected = "group" + majorsList[0].groups[0].group_id;
     majorsList.forEach((majorItem) => {
