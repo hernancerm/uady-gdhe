@@ -48,7 +48,9 @@ const alert = (mensaje) => {
   const parentElement = document.querySelector(".card-body");
   const beforeElement = document.querySelector(".form-group");
   //Se inserta el elemento
-  parentElement.insertBefore(div, beforeElement);
+  if(document.querySelector('.alert.alert-danger') == null){
+    parentElement.insertBefore(div, beforeElement);
+  }
 
   setTimeout(()=>{
     document.querySelector('.alert.alert-danger').remove();
