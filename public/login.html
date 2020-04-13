@@ -1,61 +1,88 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
     <!-- Custom CSS-->
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/login.css" />
     <!-- Fontawesome -->
-    <script src="https://kit.fontawesome.com/2b21b771d0.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/2b21b771d0.js"
+      crossorigin="anonymous"
+    ></script>
 
     <title>Login</title>
   </head>
   <body class="text-muted">
-
-      <div class="continer p-5">
-        <div class="d-flex justify-content-center ">
-          <div class="card border-0 shadow">
-            <div class="card-header bg-orange d-flex justify-content-center">
-              <img src="images/MySched.png" id="header-img" alt="">
+    <div class="continer p-5">
+      <div class="d-flex justify-content-center">
+        <div class="card border-0 shadow">
+          <div class="card-header bg-orange d-flex justify-content-center">
+            <img src="images/MySched.png" id="header-img" alt="" />
+          </div>
+          <div class="card-body p-5">
+            <div class="form-group">
+              <i class="fas fa-user"></i>
+              <input type="text" class="" id="usuario" />
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label class="" id="label-usuario">Usuario</label>
             </div>
-            <div class="card-body p-5">
-              <div class="form-group">
-                <i class="fas fa-user"></i>
-                <input type="text" class="" id="usuario">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label class="" id="label-usuario">Usuario</label>
-              </div>
-              <div class="form-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" class="" id="password">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label class="" id="label-password">Contrase&ntilde;a</label>
-                <div class="d-flex justify-content-end mt-2">
-                  <a href="" class="text-muted" id="lostPassword">
-                    <strong>¿Olvidaste tu contrase&ntilde;a?</strong> 
+            <div class="form-group">
+              <i class="fas fa-lock"></i>
+              <input type="password" class="" id="password" />
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label class="" id="label-password">Contrase&ntilde;a</label>
+              <div class="d-flex justify-content-end mt-2">
+                <a href="" class="text-muted" id="lostPassword">
+                  <strong>¿Olvidaste tu contrase&ntilde;a?</strong>
                 </a>
-                </div>
               </div>
-              <div class="form-group d-flex justify-content-center">
-                <a href="" class="btn text-light bg-orange rounded-pill font-weight-bold" id="btnSesion">Iniciar sesi&oacute;n</a>
-              </div>
+            </div>
+            <div class="form-group d-flex justify-content-center">
+              <a
+                href=""
+                class="btn text-light bg-orange rounded-pill font-weight-bold"
+                id="btnSesion"
+                >Iniciar sesi&oacute;n</a
+              >
             </div>
           </div>
         </div>
-      </div>     
+      </div>
+    </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
     <!-- Optional JavaScript -->
     <script src="js/login.js"></script>
-    <script src="js/ServiceProvider.js"></script>
+    <script src="js/ServicesProvider.js"></script>
   </body>
 </html>
