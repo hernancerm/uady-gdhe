@@ -19,55 +19,153 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css"
+    />
 
+    <link
+      rel="stylesheet"
+      href="js/timepicker-master/include/ui-1.10.0/ui-lightness/jquery-ui-1.10.0.custom.min.css"
+      type="text/css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="js/timepicker-master/jquery.ui.timepicker.css?v=0.3.3"
+      type="text/css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/menu.css" />
+    <link rel="stylesheet" href="css/schedule.css" />
+    <link rel="stylesheet" href="css/class-control.css" />
+    <link rel="stylesheet" href="css/timepicker.css" />
+    <link rel="stylesheet" href="css/toggle.css" />
 
     <title>MYSched App</title>
   </head>
   <body>
-    <nav id="sidebar" class="active">
-      <div class="custom-menu">
-        <button type="button" id="sidebarCollapse" class="btn">
-          <span>
-            <i class="fa fa-bars"></i>
-          </span>
-        </button>
-      </div>
-      <div class="p-4">
-        <a href="index.html">
-          <img class="logo" src="images/MyShedLite.png" alt="MySched" />
-        </a>
-        <button id="logout" class="logout">Cerrar sesión</button>
-        <div class="divider"></div>
-      </div>
-      <div class="content">
-        <p class="title">Grupos</p>
-        <div id="groups"></div>
-      </div>
-    </nav>
+    <div class="wrapper d-flex align-items-stretch">
+      <nav id="sidebar" class="active">
+        <div class="custom-menu">
+          <button type="button" id="sidebarCollapse" class="btn">
+            <span>
+              <i class="fa fa-bars"></i>
+            </span>
+          </button>
+        </div>
+        <div class="p-3">
+          <a href="index.html">
+            <img class="logo" src="images/MyShedLite.png" alt="MySched" />
+          </a>
+          <button id="logout" class="outline">Cerrar sesión</button>
+          <div class="divider"></div>
+        </div>
+        <div class="content">
+          <div id="menu">
+            <p class="title">Grupos</p>
+            <div id="groups"></div>
+          </div>
+          <div id="control" class="hidden">
+            <div class="form-group">
+              <select id="selectCourses"> </select>
+              <label id="lblTeacher" class="info"></label>
+              <label
+                ><b> Horas Faltantes: <span id="lblMissHours">--</span></b>
+              </label>
+              <label>
+                Horas Asignadas: <span id="lblAsigHours">--</span>
+              </label>
+              <div class="divider"></div>
+              <div class="week-buttons">
+                <button id="mon" value="Lunes" class="toggle-btn">L</button>
+                <button id="tue" value="Martes" class="toggle-btn">
+                  M
+                </button>
+                <button id="wed" value="Miercoles" class="toggle-btn">
+                  M
+                </button>
+                <button id="thu" value="Jueves" class="toggle-btn">
+                  J
+                </button>
+                <button id="fri" value="Viernes" class="toggle-btn">
+                  V
+                </button>
+                <button id="sat" value="Sabado" class="toggle-btn">
+                  S
+                </button>
+                <button id="sun" value="Domingo" class="toggle-btn">
+                  D
+                </button>
+              </div>
+              <div id="dayCards"></div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+              <div class="divider"></div>
+              <button class="btn-sched">Guardar</button>
+              <button class="outline" id="btnCancel">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container offset-md-3">
+        <div class="schedule">
+          <h1 class="title">Ingeniería de software 2 sem A</h1>
+          <button>
+            <span> Aprobado</span>
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </button>
+          <button id="btnEdit">
+            <span><i class="fa fa-edit"></i>Editar clases</span>
+          </button>
+          <div
+            style="width: 100%; height: 100%; background-color: brown;"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery first then Bootstrap JS -->
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
       crossorigin="anonymous"
     ></script>
+
     <script
       src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+
+    <!-- plugins -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="js/timepicker-master/include/ui-1.10.0/jquery.ui.position.min.js"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="js/timepicker-master/jquery.ui.timepicker.js?v=0.3.3"
+    ></script>
+
+    <!-- Optional JavaScript -->
     <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/ServicesProvider.js"></script>
+    <script src="js/Classrooms.js"></script>
+    <script src="js/Courses.js"></script>
     <script src="js/index.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
+    <script type="text/javascript"></script>
   </body>
 </html>

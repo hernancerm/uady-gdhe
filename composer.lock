@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e30b60371ea5862a3562dba9017b4f9",
+    "content-hash": "b0c3ed4bfe0a23dc64ac7ced2bb49a3b",
     "packages": [
         {
             "name": "catfan/medoo",
@@ -65,6 +65,56 @@
                 "sqlite"
             ],
             "time": "2020-02-11T08:20:42+00:00"
+        },
+        {
+            "name": "snapappointments/bootstrap-select",
+            "version": "v1.13.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/snapappointments/bootstrap-select.git",
+                "reference": "38e031a6bc42cdb18b1bff62e8094ae75bb1c22c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/snapappointments/bootstrap-select/zipball/38e031a6bc42cdb18b1bff62e8094ae75bb1c22c",
+                "reference": "38e031a6bc42cdb18b1bff62e8094ae75bb1c22c",
+                "shasum": ""
+            },
+            "suggest": {
+                "components/jquery": "1.9.1 - 3",
+                "twbs/bootstrap": ">=3.0.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Casey Holzer",
+                    "homepage": "https://github.com/caseyjhol"
+                },
+                {
+                    "name": "Silvio Moreto",
+                    "homepage": "https://github.com/silviomoreto"
+                },
+                {
+                    "name": "SnapAppointments, LLC",
+                    "homepage": "https://snapappointments.com"
+                }
+            ],
+            "description": "The jQuery plugin that brings select elements into the 21st century with intuitive multiselection, searching, and much more. Now with Bootstrap 4 support.",
+            "homepage": "https://developer.snapappointments.com/bootstrap-select",
+            "keywords": [
+                "bootstrap",
+                "dropdown",
+                "form",
+                "javascript",
+                "jquery",
+                "replacement",
+                "select"
+            ],
+            "time": "2019-10-11T00:02:17+00:00"
         }
     ],
     "packages-dev": [
@@ -1010,6 +1060,16 @@
                 "testing",
                 "xunit"
             ],
+            "funding": [
+                {
+                    "url": "https://phpunit.de/donate.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
             "time": "2020-03-31T08:52:04+00:00"
         },
         {
@@ -1773,6 +1833,20 @@
                 "polyfill",
                 "portable"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-02-27T09:26:54+00:00"
         },
         {
@@ -1870,5 +1944,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
