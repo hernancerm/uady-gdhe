@@ -1,6 +1,7 @@
 {
   "require": {
-    "catfan/medoo": "^1.7"
+    "catfan/medoo": "^1.7",
+    "snapappointments/bootstrap-select": "^1.13"
   },
   "autoload": {
     "files": [

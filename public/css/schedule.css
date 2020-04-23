@@ -1,0 +1,27 @@
+.schedule {
+  margin-top: 50px;
+  font-weight: bold;
+  color: var(--dark);
+}
+
+.schedule .title {
+  font-family: "Poppins";
+  text-align: center;
+  font-size: 22px;
+}
+
+.schedule i {
+  margin-right: 4px;
+}
+
+.schedule button {
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  font-family: "Poppins";
+  font-weight: bold;
+  margin: 16px 0 0 48px;
+  font-size: 14px;
+  background-color: transparent;
+  color: var(--primary);
+}

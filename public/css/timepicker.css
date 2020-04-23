@@ -1,0 +1,48 @@
+.ui-widget {
+  font-family: "Open Sans";
+  font-size: 14px;
+}
+
+.ui-widget-header {
+  border: none;
+  background: var(--primary);
+  color: var(--light);
+  margin: 4px;
+  border-radius: 6px;
+  padding: 4px 6px;
+}
+
+.ui-widget-content {
+  background: var(--light);
+  color: var(--dark);
+}
+
+.ui-timepicker {
+  padding: 0.3em;
+}
+
+.ui-timepicker-table td a {
+  display: grid;
+  padding: 0.2em;
+  width: 100%;
+}
+
+.ui-timepicker-hour-cell {
+  padding: 0em;
+}
+
+.ui-timepicker-table th.periods {
+  padding-left: 8px;
+}
+
+.ui-timepicker-minute-cell {
+  margin-left: 8px;
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+  border: 1px solid var(--primary);
+  background: var(--primary-light);
+  color: var(--light) !important;
+}

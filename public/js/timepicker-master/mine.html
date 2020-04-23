@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>jQuery UI Time Picker by Francois Gelinas</title>
+    <style>
+      body {
+        font-size: 16px;
+      }
+
+      .ui-widget-header {
+        background: #ff5757 !important;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="include/ui-1.10.0/ui-lightness/jquery-ui-1.10.0.custom.min.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="jquery.ui.timepicker.css?v=0.3.3"
+      type="text/css"
+    />
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="include/ui-1.10.0/jquery.ui.position.min.js"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="jquery.ui.timepicker.js?v=0.3.3"
+    ></script>
+  </head>
+  <body>
+    <div>
+      <input
+        type="text"
+        style="width: 70px;"
+        id="timepicker"
+        value="12:22"
+        readonly
+      />
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $("#timepicker").timepicker({
+            showAnim: "blind",
+            hours: { starts: 7, ends: 21 },
+            minutes: {
+              starts: 0,
+              ends: 30,
+              interval: 30,
+            },
+          });
+        });
+      </script>
+    </div>
+  </body>
+</html>

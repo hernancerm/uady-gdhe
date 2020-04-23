@@ -1,0 +1,116 @@
+#control {
+  margin: 0 16px;
+}
+
+select {
+  background: transparent;
+  color: var(--light);
+  border-color: var(--primary);
+  border-bottom-color: var(--light);
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+select.active.focus,
+select.active:focus,
+select.focus,
+select:active.focus,
+select:active:focus,
+select:focus {
+  text-decoration: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+select option {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  margin: 8px 0;
+}
+
+#control label {
+  text-align: right;
+  color: var(--dark);
+  width: 100%;
+}
+
+#control label b {
+  letter-spacing: 0.02em;
+}
+
+#control #lblTeacher {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 4px 8px;
+  text-align: left;
+  background-color: var(--primary-light);
+  color: var(--light);
+}
+.week-buttons {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.toggle-btn {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  font-weight: bold;
+  background-color: var(--light);
+  border: none;
+  border-right: solid 1px var(--primary-light);
+  color: var(--primary-light);
+}
+
+.toggle-active {
+  background-color: var(--primary-light);
+  color: var(--light);
+}
+
+.toggle-btn:first-of-type {
+  border-radius: 5px 0 0 5px;
+}
+
+.toggle-btn:last-of-type {
+  border-radius: 0 5px 5px 0;
+}
+
+.card-day {
+  border: solid 2px var(--primary-light);
+  border-radius: 5px;
+  margin: 8px 0;
+  padding-top: 8px;
+}
+
+.card-day label {
+  font-weight: bold;
+}
+
+.date {
+  flex-grow: 1;
+  padding: 0 8px;
+  max-width: 40%;
+  height: 32px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.class-hours {
+  display: flex;
+  align-items: baseline;
+  margin: 8px 0;
+}
+
+.class-hours .divisor {
+  flex-grow: 1;
+  min-width: 16px;
+  background-color: var(--light);
+  height: 2px;
+  margin: -2px 16px;
+}
