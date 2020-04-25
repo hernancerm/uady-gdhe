@@ -1,6 +1,7 @@
 const services = new ServicesProvider();
 const classrooms = new Classrooms();
 const courses = new Courses();
+const visualizer = new CardClassVisualizer();
 const days = new Array("mon", "tue", "wed", "thu", "fri", "sat", "sun");
 
 var idGroupSelected = 0;
@@ -49,6 +50,10 @@ $(document).ready(function () {
     idGroupSelected = $(this).attr("id");
     $(this).addClass("subitem-selected");
     courses.refresh(idGroupSelected);
+
+    services.readClassesGroupedByWeekday(idGroupSelected, (collegeClasses) => {
+      visualizer.render(JSON.parse(collegeClasses));
+    });
   });
 
   $("#logout").click(function () {
