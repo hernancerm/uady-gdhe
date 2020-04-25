@@ -38,4 +38,12 @@ class ServicesProvider {
       success: callback,
     });
   }
+
+  readClassesGroupedByWeekday(group_id, callback) {
+    $.ajax({
+      data: { group_id: group_id },
+      url: "../src/services/READ_classes_GB_weekday_BY_group_id.php",
+      success: callback,
+    });
+  }
 }

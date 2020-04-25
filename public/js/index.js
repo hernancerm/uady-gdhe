@@ -1,6 +1,7 @@
 const services = new ServicesProvider();
 const classrooms = new Classrooms();
 const courses = new Courses();
+const visualizer = new CardClassVisualizer();
 const days = new Array("mon", "tue", "wed", "thu", "fri", "sat", "sun");
 
 var idGroupSelected = 0;
@@ -12,6 +13,12 @@ $(document).ready(function () {
   services.readGroups((majors) => {
     majorsList = JSON.parse(majors);
     idGroupSelected = majorsList[0].groups[0].group_id;
+
+    // Display schedule of default selected group on landing
+    services.readClassesGroupedByWeekday(idGroupSelected, (collegeClasses) => {
+      visualizer.render(JSON.parse(collegeClasses));
+    });
+
     majorsList.forEach((majorItem) => {
       item = `<button class='accordion'><span><i class="fa fa-angle-right"></i></span>${majorItem.major}</button><div class='panel'>`;
       majorItem.groups.forEach((group) => {
@@ -49,6 +56,10 @@ $(document).ready(function () {
     idGroupSelected = $(this).attr("id");
     $(this).addClass("subitem-selected");
     courses.refresh(idGroupSelected);
+
+    services.readClassesGroupedByWeekday(idGroupSelected, (collegeClasses) => {
+      visualizer.render(JSON.parse(collegeClasses));
+    });
   });
 
   $("#logout").click(function () {
