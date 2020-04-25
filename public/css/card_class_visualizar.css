@@ -70,7 +70,7 @@
 }
 
 .cc-color-bar--left {
-  background-color: #ffde59;
+  background-color: var(--secondary);
   position: absolute;
   left: 0;
   top: 0;
