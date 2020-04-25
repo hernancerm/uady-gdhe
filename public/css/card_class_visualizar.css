@@ -55,8 +55,8 @@
 /* Card class */
 
 .cc {
-  width: var(--cc-width);
-  height: var(--cc-height);
+  width: calc(var(--cc-width) + 25px);
+  height: calc(var(--cc-height) + 20px);
   padding: var(--cc-padding);
   padding-left: calc(var(--cc-padding) + var(--cc-color-bar--left-width));
   margin-bottom: 8px;
