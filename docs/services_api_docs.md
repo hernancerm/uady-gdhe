@@ -6,44 +6,46 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
 
 <!-- TOC -->
 
-- [Services API Documentation](#services-api-documentation)
-    - [Table of contents](#table-of-contents)
-    - [Guidelines](#guidelines)
-        - [Naming convention](#naming-convention)
-        - [Documenting a service](#documenting-a-service)
-    - [Services required on each view](#services-required-on-each-view)
-    - [Services](#services)
-        - [READ_admin](#read_admin)
-            - [Request](#request)
-            - [Response](#response)
-            - [Errors](#errors)
-        - [READ_groups_GB_major](#read_groups_gb_major)
-            - [Request](#request-1)
-            - [Response](#response-1)
-        - [READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)
-            - [Request](#request-2)
-            - [Response](#response-2)
-        - [READ_courses_BY_group_id](#read_courses_by_group_id)
-            - [Request](#request-3)
-            - [Response](#response-3)
-        - [READ_classrooms](#read_classrooms)
-            - [Request](#request-4)
-            - [Response](#response-4)
-        - [CREATE_class](#create_class)
-            - [Request](#request-5)
-            - [Response](#response-5)
-            - [Errors](#errors-1)
-        - [DELETE_class](#delete_class)
-            - [Request](#request-6)
-            - [Response](#response-6)
-            - [Errors](#errors-2)
-        - [UPDATE_class](#update_class)
-            - [Request](#request-7)
-            - [Response](#response-7)
-            - [Errors](#errors-3)
-        - [UPDATE_approve_group](#update_approve_group)
-            - [Request](#request-8)
-            - [Response](#response-8)
+- [Table of contents](#table-of-contents)
+- [Guidelines](#guidelines)
+    - [Naming convention](#naming-convention)
+    - [Documenting a service](#documenting-a-service)
+- [Services required on each view](#services-required-on-each-view)
+- [Services](#services)
+    - [READ_admin](#read_admin)
+        - [Request](#request)
+        - [Response](#response)
+        - [Errors](#errors)
+    - [READ_groups_GB_major](#read_groups_gb_major)
+        - [Request](#request-1)
+        - [Response](#response-1)
+    - [READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)
+        - [Request](#request-2)
+        - [Response](#response-2)
+    - [READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)
+        - [Request](#request-3)
+        - [Response](#response-3)
+    - [READ_courses_BY_group_id](#read_courses_by_group_id)
+        - [Request](#request-4)
+        - [Response](#response-4)
+    - [READ_classrooms](#read_classrooms)
+        - [Request](#request-5)
+        - [Response](#response-5)
+    - [CREATE_class](#create_class)
+        - [Request](#request-6)
+        - [Response](#response-6)
+        - [Errors](#errors-1)
+    - [DELETE_class](#delete_class)
+        - [Request](#request-7)
+        - [Response](#response-7)
+        - [Errors](#errors-2)
+    - [UPDATE_class](#update_class)
+        - [Request](#request-8)
+        - [Response](#response-8)
+        - [Errors](#errors-3)
+    - [UPDATE_approve_group](#update_approve_group)
+        - [Request](#request-9)
+        - [Response](#response-9)
 
 <!-- /TOC -->
 
@@ -154,6 +156,35 @@ HTTP method: GET
                 "end_hour": <24-format-time>,
                 "classroom_name": <STRING>,
                 "weekday": ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun")
+            }
+        ]
+    }
+]
+```
+
+### READ_classes_GB_weekday_BY_group_id
+
+#### Request
+
+HTTP method: GET
+
+```text
+?group_id=<INTEGER>
+```
+
+#### Response
+
+```bnf
+[
+    {
+        "weekday": ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun"),
+        "classes":
+        [
+            {
+                "subject_name": <STRING>,
+                "start_hour": <24-format-time>,
+                "end_hour": <24-format-time>,
+                "classroom": <STRING>
             }
         ]
     }
