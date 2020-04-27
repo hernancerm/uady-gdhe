@@ -12,19 +12,19 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
     - [Documenting a service](#documenting-a-service)
 - [Services required on each view](#services-required-on-each-view)
 - [Services](#services)
-    - [READ_admin](#read_admin)
+    - [READ_admin_BY_credentials](#read_admin_by_credentials)
         - [Request](#request)
         - [Response](#response)
         - [Errors](#errors)
-    - [READ_student](#read_student)
+    - [READ_student_BY_credentials](#read_student_by_credentials)
         - [Request](#request-1)
         - [Response](#response-1)
         - [Errors](#errors-1)
-    - [READ_professor](#read_professor)
+    - [READ_professor_BY_credentials](#read_professor_by_credentials)
         - [Request](#request-2)
         - [Response](#response-2)
         - [Errors](#errors-2)
-    - [READ_group](#read_group)
+    - [READ_group_BY_group_id](#read_group_by_group_id)
         - [Request](#request-3)
         - [Response](#response-3)
     - [READ_groups_GB_major](#read_groups_gb_major)
@@ -84,14 +84,14 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 
 | View |Service |
 |---|---|
-| Login | [READ_admin](#read_admin)<br>[READ_student](#read_student)<br>[READ_professor](#read_professor) |
+| Login | [READ_admin_BY_credentials](#read_admin_by_credentials)<br>[READ_student_BY_credentials](#read_student_by_credentials)<br>[READ_professor_BY_credentials](#read_professor_by_credentials) |
 | Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
 | Group Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
-| Student schedule | [READ_group](#read_group)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id) |
+| Student schedule | [READ_group_BY_group_id](#read_group_BY_group_id)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id) |
 
 ## Services
 
-### READ_admin
+### READ_admin_BY_credentials
 
 #### Request
 
@@ -120,7 +120,7 @@ HTTP method: POST
 |---|---|
 |401 Unauthorized| Username-password pair does not match an admin. |
 
-### READ_student
+### READ_student_BY_credentials
 
 #### Request
 
@@ -150,7 +150,7 @@ HTTP method: POST
 |---|---|
 |401 Unauthorized| Username-password pair does not match a student. |
 
-### READ_professor
+### READ_professor_BY_credentials
 
 #### Request
 
@@ -180,7 +180,7 @@ HTTP method: POST
 |---|---|
 |401 Unauthorized| Username-password pair does not match a professor. |
 
-### READ_group
+### READ_group_BY_group_id
 
 #### Request
 
