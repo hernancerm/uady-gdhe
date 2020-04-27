@@ -16,36 +16,47 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
         - [Request](#request)
         - [Response](#response)
         - [Errors](#errors)
-    - [READ_groups_GB_major](#read_groups_gb_major)
+    - [READ_student](#read_student)
         - [Request](#request-1)
         - [Response](#response-1)
-    - [READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)
+        - [Errors](#errors-1)
+    - [READ_professor](#read_professor)
         - [Request](#request-2)
         - [Response](#response-2)
-    - [READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)
+        - [Errors](#errors-2)
+    - [READ_group](#read_group)
         - [Request](#request-3)
         - [Response](#response-3)
-    - [READ_courses_BY_group_id](#read_courses_by_group_id)
+    - [READ_groups_GB_major](#read_groups_gb_major)
         - [Request](#request-4)
         - [Response](#response-4)
-    - [READ_classrooms](#read_classrooms)
+    - [READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)
         - [Request](#request-5)
         - [Response](#response-5)
-    - [CREATE_class](#create_class)
+    - [READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)
         - [Request](#request-6)
         - [Response](#response-6)
-        - [Errors](#errors-1)
-    - [DELETE_class](#delete_class)
+    - [READ_courses_BY_group_id](#read_courses_by_group_id)
         - [Request](#request-7)
         - [Response](#response-7)
-        - [Errors](#errors-2)
-    - [UPDATE_class](#update_class)
+    - [READ_classrooms](#read_classrooms)
         - [Request](#request-8)
         - [Response](#response-8)
-        - [Errors](#errors-3)
-    - [UPDATE_approve_group](#update_approve_group)
+    - [CREATE_class](#create_class)
         - [Request](#request-9)
         - [Response](#response-9)
+        - [Errors](#errors-3)
+    - [DELETE_class](#delete_class)
+        - [Request](#request-10)
+        - [Response](#response-10)
+        - [Errors](#errors-4)
+    - [UPDATE_class](#update_class)
+        - [Request](#request-11)
+        - [Response](#response-11)
+        - [Errors](#errors-5)
+    - [UPDATE_approve_group](#update_approve_group)
+        - [Request](#request-12)
+        - [Response](#response-12)
 
 <!-- /TOC -->
 
@@ -73,9 +84,10 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 
 | View |Service |
 |---|---|
-| Login | [READ_admin](#read_admin) |
-| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
-| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
+| Login | [READ_admin](#read_admin)<br>[READ_student](#read_student)<br>[READ_professor](#read_professor) |
+| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
+| Group Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
+| Student schedule | [READ_group](#read_group)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id) |
 
 ## Services
 
@@ -107,6 +119,87 @@ HTTP method: POST
 | HTTP status code | Description |
 |---|---|
 |401 Unauthorized| Username-password pair does not match an admin. |
+
+### READ_student
+
+#### Request
+
+HTTP method: POST
+
+```bnf
+{
+  "username": <ZERO-PADDED-INTEGER(4)>,
+  "password": <STRING>
+}
+```
+
+#### Response
+
+```bnf
+{
+  "names": <STRING>,
+  "first_lname": <STRING>,
+  "second_lname": <STRING>,
+  "group_id": <INTEGER>
+}
+```
+
+#### Errors
+
+| HTTP status code | Description |
+|---|---|
+|401 Unauthorized| Username-password pair does not match a student. |
+
+### READ_professor
+
+#### Request
+
+HTTP method: POST
+
+```bnf
+{
+  "username": <ZERO-PADDED-INTEGER(4)>,
+  "password": <STRING>
+}
+```
+
+#### Response
+
+```bnf
+{
+  "names": <STRING>,
+  "first_lname": <STRING>,
+  "second_lname": <STRING>,
+  "professor_id": <ZERO-PADDED-INTEGER(4)>
+}
+```
+
+#### Errors
+
+| HTTP status code | Description |
+|---|---|
+|401 Unauthorized| Username-password pair does not match a professor. |
+
+### READ_group
+
+#### Request
+
+HTTP method: GET
+
+```text
+?group_id=<INTEGER>
+```
+
+#### Response
+
+```bnf
+{
+    "approved": <BOOLEAN>,
+    "group_letter": <STRING>,
+    "semester": <INTEGER>,
+    "major": <STRING>
+}
+```
 
 ### READ_groups_GB_major
 
