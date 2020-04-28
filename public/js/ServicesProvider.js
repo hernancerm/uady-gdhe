@@ -46,4 +46,12 @@ class ServicesProvider {
       success: callback,
     });
   }
+
+  readGroup(group_id, callback) {
+    $.ajax({
+      data: { group_id: group_id },
+      url: "../src/services/READ_group_BY_group_id.php",
+      success: callback,
+    });
+  }
 }

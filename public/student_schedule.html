@@ -9,8 +9,15 @@
     <link rel="stylesheet" href="css/visualization_master.css" />
     <link rel="stylesheet" href="css/card_class_visualizar.css" />
 
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+      defer
+    ></script>
     <script src="js/CardClassVisualizer.js" defer></script>
     <script src="js/ServicesProvider.js" defer></script>
+    <script src="js/student_schedule.js" defer></script>
   </head>
 
   <body>
@@ -19,26 +26,26 @@
       <div>
         <div id="schedule-controls">
           <a id="schedule-controls__logout">🡰 Cerrar sesión</a>
-          <a id="schedule-controls__print">Imprimir</a>
+          <a id="schedule-controls__print" class="hidden">Imprimir</a>
         </div>
         <div class="ccv-container">
-          <div class="ccv-day mon">
+          <div class="ccv-day mon hidden">
             <div class="ccv-weekday">Lunes</div>
             <div class="ccv-column"></div>
           </div>
-          <div class="ccv-day tue">
+          <div class="ccv-day tue hidden">
             <div class="ccv-weekday">Martes</div>
             <div class="ccv-column"></div>
           </div>
-          <div class="ccv-day wed">
+          <div class="ccv-day wed hidden">
             <div class="ccv-weekday">Miércoles</div>
             <div class="ccv-column"></div>
           </div>
-          <div class="ccv-day thu">
+          <div class="ccv-day thu hidden">
             <div class="ccv-weekday">Jueves</div>
             <div class="ccv-column"></div>
           </div>
-          <div class="ccv-day fri">
+          <div class="ccv-day fri hidden">
             <div class="ccv-weekday">Viernes</div>
             <div class="ccv-column"></div>
           </div>

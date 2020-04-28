@@ -5,6 +5,10 @@
   margin-top: 24px;
 }
 
+.hidden {
+  opacity: 0;
+}
+
 #schedule-container {
   display: flex;
   width: 100%;
