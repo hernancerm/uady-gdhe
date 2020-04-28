@@ -14,5 +14,14 @@ services.readGroup(student.group_id, (group) => {
     services.readClassesGroupedByWeekday(student.group_id, (classes) => {
       visualizer.render(JSON.parse(classes));
     });
+  } else {
+    $(".ccv-container").css("height", "0px");
+
+    $(
+      "<p>Su horario actualmente no se encuentra aprobado. Por favor regrese más tarde.</p>"
+    )
+      .hide()
+      .appendTo("#schedule-container > div")
+      .fadeIn("normal");
   }
 });
