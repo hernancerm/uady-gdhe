@@ -16,7 +16,7 @@
 }
 
 #schedule-controls {
-  margin-bottom: 32px;
+  margin-bottom: 8px;
 }
 
 #schedule-controls button {
@@ -27,6 +27,10 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+#schedule-visualizer {
+  width: 905px;
 }
 
 @media print {

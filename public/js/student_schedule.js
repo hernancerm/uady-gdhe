@@ -29,13 +29,12 @@ services.readGroup(student.group_id, (group) => {
       visualizer.render(JSON.parse(classes));
     });
   } else {
-    $(".ccv-container").css("height", "0px");
-
+    $("#schedule-visualizer").empty();
     $(
       "<p>Su horario actualmente no se encuentra aprobado. Por favor regrese más tarde.</p>"
     )
       .hide()
-      .appendTo("#schedule-container > div")
+      .appendTo("#schedule-visualizer")
       .fadeIn("normal");
   }
 });
