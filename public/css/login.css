@@ -12,6 +12,9 @@ body {
     background-image: repeating-linear-gradient(to bottom right, #FF5757 , #FE8A8A, #FEB273, #FFDE59);
 }
 
+.login-card{
+  width: 22rem;
+}
 
 .bg-orange{
     background-color: #FF5757;
