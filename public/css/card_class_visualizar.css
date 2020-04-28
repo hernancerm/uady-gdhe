@@ -27,6 +27,7 @@
 
 .ccv-weekday {
   font-family: "Poppins";
+  font-weight: bold;
   font-size: var(--ccv-weekday-font-size);
   margin-bottom: var(--ccv-weekday-margin-b);
   /* Center text */
