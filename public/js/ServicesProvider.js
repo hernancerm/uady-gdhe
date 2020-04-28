@@ -39,10 +39,26 @@ class ServicesProvider {
     });
   }
 
-  readClassesGroupedByWeekday(group_id, callback) {
+  readGroupClasses(group_id, callback) {
     $.ajax({
       data: { group_id: group_id },
       url: "../src/services/READ_classes_GB_weekday_BY_group_id.php",
+      success: callback,
+    });
+  }
+
+  readProfessorClasses(professor_id, callback) {
+    $.ajax({
+      data: { professor_id: professor_id },
+      url: "../src/services/READ_classes_GB_weekday_BY_professor_id.php",
+      success: callback,
+    });
+  }
+
+  readGroup(group_id, callback) {
+    $.ajax({
+      data: { group_id: group_id },
+      url: "../src/services/READ_group_BY_group_id.php",
       success: callback,
     });
   }

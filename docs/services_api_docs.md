@@ -36,27 +36,31 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
     - [READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)
         - [Request](#request-6)
         - [Response](#response-6)
-    - [READ_courses_BY_group_id](#read_courses_by_group_id)
+    - [READ_classes_GB_weekday_BY_professor_id](#read_classes_gb_weekday_by_professor_id)
         - [Request](#request-7)
         - [Response](#response-7)
-    - [READ_classrooms](#read_classrooms)
+        - [Errors](#errors-3)
+    - [READ_courses_BY_group_id](#read_courses_by_group_id)
         - [Request](#request-8)
         - [Response](#response-8)
-    - [CREATE_class](#create_class)
+    - [READ_classrooms](#read_classrooms)
         - [Request](#request-9)
         - [Response](#response-9)
-        - [Errors](#errors-3)
-    - [DELETE_class](#delete_class)
+    - [CREATE_class](#create_class)
         - [Request](#request-10)
         - [Response](#response-10)
         - [Errors](#errors-4)
-    - [UPDATE_class](#update_class)
+    - [DELETE_class](#delete_class)
         - [Request](#request-11)
         - [Response](#response-11)
         - [Errors](#errors-5)
-    - [UPDATE_approve_group](#update_approve_group)
+    - [UPDATE_class](#update_class)
         - [Request](#request-12)
         - [Response](#response-12)
+        - [Errors](#errors-6)
+    - [UPDATE_approve_group](#update_approve_group)
+        - [Request](#request-13)
+        - [Response](#response-13)
 
 <!-- /TOC -->
 
@@ -88,6 +92,7 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 | Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
 | Group Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
 | Student schedule | [READ_group_BY_group_id](#read_group_BY_group_id)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id) |
+| Professor schedule | [READ_classes_GB_weekday_BY_professor_id](#read_classes_gb_weekday_by_professor_id) |
 
 ## Services
 
@@ -283,6 +288,41 @@ HTTP method: GET
     }
 ]
 ```
+
+### READ_classes_GB_weekday_BY_professor_id
+
+#### Request
+
+HTTP method: GET
+
+```text
+?professor_id=<INTEGER>
+```
+
+#### Response
+
+```bnf
+[
+    {
+        "weekday": ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun"),
+        "classes":
+        [
+            {
+                "subject_name": <STRING>,
+                "start_hour": <24-format-time>,
+                "end_hour": <24-format-time>,
+                "classroom": <STRING>
+            }
+        ]
+    }
+]
+```
+
+#### Errors
+
+| HTTP status code | Description |
+|---|---|
+| 404 Not Found | Professor not found. |
 
 ### READ_courses_BY_group_id
 
