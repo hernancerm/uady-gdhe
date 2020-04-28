@@ -8,6 +8,11 @@ const student = {
 const services = new ServicesProvider();
 const visualizer = new CardClassVisualizer();
 
+// Logout button click handler
+$("#schedule-controls__logout").click(() => {
+  window.location.replace("login.html");
+});
+
 services.readGroup(student.group_id, (group) => {
   const parsedGroup = JSON.parse(group);
 
@@ -21,6 +26,7 @@ services.readGroup(student.group_id, (group) => {
   if (parsedGroup.approved === true) {
     $(".hidden").fadeTo(500, 1);
 
+    // Print button click handler
     $("#schedule-controls__print").click(() => {
       window.print();
     });
@@ -29,6 +35,7 @@ services.readGroup(student.group_id, (group) => {
       visualizer.render(JSON.parse(classes));
     });
   } else {
+    // Show "Schedule not available" prompt if schedule is not approved
     $("#schedule-visualizer").empty();
     $(
       "<p>Su horario actualmente no se encuentra aprobado. Por favor regrese más tarde.</p>"
