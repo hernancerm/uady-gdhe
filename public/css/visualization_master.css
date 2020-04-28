@@ -33,4 +33,8 @@
   #schedule-controls {
     display: none;
   }
+
+  @page {
+    size: landscape;
+  }
 }
