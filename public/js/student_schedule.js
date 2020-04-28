@@ -11,6 +11,11 @@ const visualizer = new CardClassVisualizer();
 services.readGroup(student.group_id, (group) => {
   if (JSON.parse(group).approved === true) {
     $(".hidden").fadeTo(500, 1);
+
+    $("#schedule-controls__print").click(() => {
+      window.print();
+    });
+
     services.readClassesGroupedByWeekday(student.group_id, (classes) => {
       visualizer.render(JSON.parse(classes));
     });
