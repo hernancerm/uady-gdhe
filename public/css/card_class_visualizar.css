@@ -56,13 +56,14 @@
 
 .cc {
   font-family: "Open sans";
-  width: calc(var(--cc-width) + 25px);
-  height: calc(var(--cc-height) + 20px);
+  width: calc(var(--cc-width));
+  height: calc(var(--cc-height));
   padding: var(--cc-padding);
   padding-left: calc(var(--cc-padding) + var(--cc-color-bar--left-width));
   margin-bottom: 8px;
   border-radius: 5px;
   position: relative;
+  box-sizing: content-box;
   background-color: white;
   /* Shadow from https://www.cssmatic.com/box-shadow */
   -webkit-box-shadow: 0px 5px 8px -5px rgba(0, 0, 0, 0.75);
