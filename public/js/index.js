@@ -15,7 +15,7 @@ $(document).ready(function () {
     idGroupSelected = majorsList[0].groups[0].group_id;
 
     // Display schedule of default selected group on landing
-    services.readClassesGroupedByWeekday(idGroupSelected, (collegeClasses) => {
+    services.readGroupClasses(idGroupSelected, (collegeClasses) => {
       visualizer.render(JSON.parse(collegeClasses));
     });
 
@@ -57,7 +57,7 @@ $(document).ready(function () {
     $(this).addClass("subitem-selected");
     courses.refresh(idGroupSelected);
 
-    services.readClassesGroupedByWeekday(idGroupSelected, (collegeClasses) => {
+    services.readGroupClasses(idGroupSelected, (collegeClasses) => {
       visualizer.render(JSON.parse(collegeClasses));
     });
   });

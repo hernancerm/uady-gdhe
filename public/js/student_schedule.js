@@ -31,7 +31,7 @@ services.readGroup(student.group_id, (group) => {
       window.print();
     });
 
-    services.readClassesGroupedByWeekday(student.group_id, (classes) => {
+    services.readGroupClasses(student.group_id, (classes) => {
       visualizer.render(JSON.parse(classes));
     });
   } else {
