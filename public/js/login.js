@@ -63,10 +63,10 @@ document.getElementById("lostPassword").addEventListener("click", (event) => {
 document.getElementById("btnSesion").addEventListener("click", (event) => {
   event.preventDefault();
 
-  const usernameLabel = document.getElementById("label-usuario");
+  const usernameLabel = document.getElementById("label-user");
   const passwordLabel = document.getElementById("label-password");
   //Obteniendo datos de los inputs
-  const username = document.getElementById("usuario").value;
+  const username = document.getElementById("user").value;
   const password = document.getElementById("password").value;
 
   if (username == "") {
@@ -92,7 +92,7 @@ function loginWithCredentials(username, password) {
       services.logInWithCredentials(
         request,
         () => (window.location = "index.html"),
-        showErrorPrompt("Usuario o contraseña incorrecto.")
+        () => showErrorPrompt("Usuario o contraseña incorrecto.")
       );
       break;
     case "S":
