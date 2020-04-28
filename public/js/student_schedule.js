@@ -9,7 +9,16 @@ const services = new ServicesProvider();
 const visualizer = new CardClassVisualizer();
 
 services.readGroup(student.group_id, (group) => {
-  if (JSON.parse(group).approved === true) {
+  const parsedGroup = JSON.parse(group);
+
+  const groupLetter =
+    parsedGroup.group_letter === null ? "" : parsedGroup.group_letter;
+
+  $("#schedule-title")
+    .fadeTo(500, 1)
+    .html(`${parsedGroup.major} ${parsedGroup.semester} sem ${groupLetter}`);
+
+  if (parsedGroup.approved === true) {
     $(".hidden").fadeTo(500, 1);
 
     $("#schedule-controls__print").click(() => {
