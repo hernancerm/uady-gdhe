@@ -14,5 +14,5 @@ else {
 }
 
 echo json_encode($connection->select('group', ['[><]major' => 'major_id'], [
-    'group.approved[Bool]', 'group.group_letter', 'group.semester[Int]', 'major.name'
+    'group.approved[Bool]', 'group.group_letter', 'group.semester[Int]', 'major.name(major)'
 ], ['group.group_id' => $group_id])[0]);
