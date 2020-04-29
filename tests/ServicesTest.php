@@ -32,6 +32,61 @@ final class ServicesTest extends TestCase
         $this->assertArrayHasKey('second_lname', $body);
     }
 
+    public function test_READ_student_BY_credentials()
+    {
+        $service = 'READ_student_BY_credentials.php';
+        $response = self::$client->request('POST', $service, [
+            'json' => [
+                'username' => '0001',
+                'password' => '123'
+            ]
+        ]);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $body = json_decode($response->getBody(), true);
+
+        $this->assertArrayHasKey('names', $body);
+        $this->assertIsString($body['names']);
+
+        $this->assertArrayHasKey('first_lname', $body);
+        $this->assertIsString($body['first_lname']);
+
+        $this->assertArrayHasKey('second_lname', $body);
+        $this->assertIsString($body['second_lname']);
+
+        $this->assertArrayHasKey('group_id', $body);
+        $this->assertIsInt($body['group_id']);
+    }
+
+    public function test_READ_professor_BY_credentials()
+    {
+        $service = 'READ_professor_BY_credentials.php';
+        $response = self::$client->request('POST', $service, [
+            'json' => [
+                'username' => '0001',
+                'password' => '123'
+            ]
+        ]);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $body = json_decode($response->getBody(), true);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $body = json_decode($response->getBody(), true);
+
+        $this->assertArrayHasKey('names', $body);
+        $this->assertIsString($body['names']);
+
+        $this->assertArrayHasKey('first_lname', $body);
+        $this->assertIsString($body['first_lname']);
+
+        $this->assertArrayHasKey('second_lname', $body);
+        $this->assertIsString($body['second_lname']);
+
+        $this->assertArrayHasKey('professor_id', $body);
+        $this->assertIsInt($body['professor_id']);
+    }
+
     public function test_READ_groups_GB_major()
     {
         $service = 'READ_groups_GB_major.php';
