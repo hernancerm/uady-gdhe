@@ -19,7 +19,7 @@ if (strlen($request->username) != 4) {
 
 $student = $connection->select(
     'student',
-    ['names', 'first_lname', 'second_lname', 'group_id'],
+    ['names', 'first_lname', 'second_lname', 'group_id[Int]'],
     [
         'student_id' => $request->username,
         'password' => $request->password

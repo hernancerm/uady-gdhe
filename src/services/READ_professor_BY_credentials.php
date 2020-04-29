@@ -19,7 +19,7 @@ if (strlen($request->username) != 4) {
 
 $professor = $connection->select(
     'professor',
-    ['names', 'first_lname', 'second_lname', 'professor_id'],
+    ['names', 'first_lname', 'second_lname', 'professor_id[Int]'],
     [
         'professor_id' => $request->username,
         'password' => $request->password
