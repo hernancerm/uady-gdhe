@@ -28,8 +28,13 @@ final class ServicesTest extends TestCase
         $body = json_decode($response->getBody(), true);
 
         $this->assertArrayHasKey('names', $body);
+        $this->assertIsString($body['names']);
+
         $this->assertArrayHasKey('first_lname', $body);
+        $this->assertIsString($body['first_lname']);
+
         $this->assertArrayHasKey('second_lname', $body);
+        $this->assertIsString($body['second_lname']);
     }
 
     public function test_READ_student_BY_credentials()
@@ -97,7 +102,25 @@ final class ServicesTest extends TestCase
 
         if (count($body) > 0) {
             $this->assertArrayHasKey('major', $body[0]);
+            $this->assertIsString($body[0]['major']);
+
             $this->assertArrayHasKey('groups', $body[0]);
+            $this->assertIsArray($body[0]['groups']);
+
+            if (count($body[0]['groups']) > 0) {
+                $group = $body[0]['groups'][0];
+
+                $this->assertArrayHasKey('group_id', $group);
+                $this->assertIsInt($group['group_id']);
+
+                $this->assertArrayHasKey('approved', $group);
+                $this->assertIsBool($group['approved']);
+
+                $this->assertArrayHasKey('group_letter', $group);
+
+                $this->assertArrayHasKey('semester', $group);
+                $this->assertIsInt($group['semester']);
+            }
         }
     }
 
@@ -145,9 +168,16 @@ final class ServicesTest extends TestCase
 
         if (count($body) > 0) {
             $this->assertArrayHasKey('course_id', $body[0]);
+            $this->assertIsInt($body[0]['course_id']);
+
             $this->assertArrayHasKey('required_class_hours', $body[0]);
+            $this->assertIsNumeric($body[0]['required_class_hours']);
+
             $this->assertArrayHasKey('professor_full_name', $body[0]);
+            $this->assertIsString($body[0]['professor_full_name']);
+
             $this->assertArrayHasKey('subject_name', $body[0]);
+            $this->assertIsString($body[0]['subject_name']);
         }
     }
 
@@ -163,7 +193,29 @@ final class ServicesTest extends TestCase
 
         if (count($body) > 0) {
             $this->assertArrayHasKey('course_id', $body[0]);
+            $this->assertIsInt($body[0]['course_id']);
+
             $this->assertArrayHasKey('classes', $body[0]);
+            $this->assertIsArray($body[0]['classes']);
+
+            if (count($body[0]['classes']) > 0) {
+                $class = $body[0]['classes'][0];
+
+                $this->assertArrayHasKey('class_id', $class);
+                $this->assertIsInt($class['class_id']);
+
+                $this->assertArrayHasKey('start_hour', $class);
+                $this->assertIsString($class['start_hour']);
+
+                $this->assertArrayHasKey('end_hour', $class);
+                $this->assertIsString($class['end_hour']);
+
+                $this->assertArrayHasKey('classroom_name', $class);
+                $this->assertIsString($class['classroom_name']);
+
+                $this->assertArrayHasKey('weekday', $class);
+                $this->assertIsString($class['weekday']);
+            }
         }
     }
 
