@@ -38,4 +38,55 @@ class ServicesProvider {
       success: callback,
     });
   }
+
+  createClass(item, success, error) {
+    var data = {
+      start_hour: item.class.start_hour,
+      end_hour: item.class.end_hour,
+      classroom_name: item.class.classroom_name,
+      course_id: parseInt(item.course_id),
+      weekday: item.class.weekday,
+    };
+
+    $.ajax({
+      method: "POST",
+      data: JSON.stringify(data),
+      url: "../src/services/CREATE_class.php",
+      success: success,
+      error: error,
+    });
+  }
+
+  updateClass(item, success, error) {
+    var data = {
+      class_id: parseInt(item.class.class_id),
+      start_hour: item.class.start_hour,
+      end_hour: item.class.end_hour,
+      classroom_name: item.class.classroom_name,
+      course_id: parseInt(item.course_id),
+      weekday: item.class.weekday,
+    };
+
+    $.ajax({
+      method: "PUT",
+      data: JSON.stringify(data),
+      url: "../src/services/UPDATE_class.php",
+      success: success,
+      error: error,
+    });
+  }
+
+  deleteClass(item, success, error) {
+    var data = {
+      class_id: parseInt(item.class.class_id),
+    };
+
+    $.ajax({
+      method: "GET",
+      data: data,
+      url: "../src/services/DELETE_class.php",
+      success: success,
+      error: error,
+    });
+  }
 }

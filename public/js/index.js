@@ -62,13 +62,6 @@ $(document).ready(function () {
     $(this).addClass("hidden");
   });
 
-  $("#btnCancel").click(function () {
-    $("#control").addClass("hidden");
-    $("#menu").removeClass("hidden");
-    $("#btnEdit").removeClass("hidden");
-    courses.refresh(idGroupSelected);
-  });
-
   $("#selectCourses").change(function () {
     var courseSelected = courses.get($(this).val());
     $(".toggle-active").removeClass("toggle-active");
@@ -89,18 +82,29 @@ $(document).ready(function () {
       var missHours =
         courseSelected.required_class_hours -
         calcAsigHours(courseSelected.classes);
-      var starHour = new Date("01/01/1999 07:00");
-      var endHour = new Date(starHour.getTime() + missHours * 60 * 60 * 1000);
+      var startHour = new Date("01/01/1999 07:00");
+      var endHour = new Date(startHour.getTime() + missHours * 60 * 60 * 1000);
       if (missHours > 0) {
         var newClass = new Object({
           class_id: $(this).attr("id"),
-          start_hour: starHour.getHours() + ":" + starHour.getMinutes(),
-          end_hour: endHour.getHours() + ":" + endHour.getMinutes(),
+          start_hour:
+            startHour.getHours() +
+            ":" +
+            (startHour.getMinutes() < 10 ? "0" : "") +
+            startHour.getMinutes() +
+            ":00",
+          end_hour:
+            endHour.getHours() +
+            ":" +
+            (endHour.getMinutes() < 10 ? "0" : "") +
+            endHour.getMinutes() +
+            ":00",
           weekday: $(this).attr("id"),
           classroom_name: classrooms.getClassrooms()[0],
         });
         courseSelected.classes.push(newClass);
         fillCourseControl(courseSelected);
+        courses.addCreatedClass(newClass, courseSelected.course_id);
       } else {
         //ALERT
         console.log(courseSelected.required_class_hours);
@@ -112,6 +116,15 @@ $(document).ready(function () {
     classInfo = $(this).attr("id").split("-");
     deleteClass(classInfo[1]);
     $("#" + classInfo[0]).removeClass("toggle-active");
+  });
+
+  $("#dayCards").on("change", ".selectClassroom", function () {
+    idSession = $(this).attr("id");
+    classEdited = courseSelected.classes.find(function (item) {
+      return item.class_id == idSession;
+    });
+    classEdited.classroom_name = $(this).val();
+    courses.addEditedClass(classEdited, courseSelected.course_id);
   });
 
   $("#dayCards").on("focus", ".date", function () {
@@ -130,15 +143,13 @@ $(document).ready(function () {
         var startHour = $(this);
         var endHour;
         var idElement = $(this).attr("id");
-        var idClass = idElement.substring(
-          idElement.length - 2,
-          idElement.length
-        );
+        var idClass = idElement.split("-")[1];
+        console.log(idClass);
 
-        if (idElement == "startHour" + idClass) {
-          endHour = $("#endHour" + idClass);
+        if (idElement == "startHour-" + idClass) {
+          endHour = $("#endHour-" + idClass);
         } else {
-          startHour = $("#startHour" + idClass);
+          startHour = $("#startHour-" + idClass);
           endHour = $(this);
         }
 
@@ -148,6 +159,17 @@ $(document).ready(function () {
         prevHour = time;
       },
     });
+  });
+
+  $("#btnSave").click(function () {
+    courses.saveChanges(idGroupSelected);
+  });
+
+  $("#btnCancel").click(function () {
+    $("#control").addClass("hidden");
+    $("#menu").removeClass("hidden");
+    $("#btnEdit").removeClass("hidden");
+    courses.refresh(idGroupSelected);
   });
 });
 
@@ -186,8 +208,6 @@ function createClassesCards(classes) {
 
   classesSorted.forEach((session) => {
     var btnDay = $(`#${session.weekday}`);
-    var timeStart = new Date("01/01/1999 " + session.start_hour);
-    var timeEnd = new Date("01/01/1999 " + session.end_hour);
     btnDay.addClass("toggle-active");
 
     cards += `<div class="card-day">
@@ -200,23 +220,25 @@ function createClassesCards(classes) {
         <label>${btnDay.val()}</label>
       </div>
       <div class="col-sm-7 offset-md-2">
-        <select id="selectClassroom${session.class_id}">
+        <select class="selectClassroom" id="${session.class_id}">
           ${getClassroomOptions(session.classroom_name)}  
         </select>
       </div>
     </div>
     <div class="class-hours">
         <input class="date" type="text"
-          id="startHour${session.class_id}"
-          value="${timeStart.getHours()}:${
-      (timeStart.getMinutes() < 10 ? "0" : "") + timeStart.getMinutes()
-    }"readonly/>
+          id="startHour-${session.class_id}"
+          value="${session.start_hour.substring(
+            0,
+            session.start_hour.length - 3
+          )}"readonly/>
         <div class="divisor"></div>
         <input class= "date" type="text"
-          id="endHour${session.class_id}"
-          value="${timeEnd.getHours()}:${
-      (timeEnd.getMinutes() < 10 ? "0" : "") + timeEnd.getMinutes()
-    }"readonly/>
+          id="endHour-${session.class_id}"
+          value="${session.end_hour.substring(
+            0,
+            session.end_hour.length - 3
+          )}"readonly/>
     </div>
   </div>`;
   });
@@ -244,9 +266,13 @@ function getClassroomOptions(selected) {
 }
 
 function deleteClass(idSession) {
+  classDeleted = courseSelected.classes.find(function (item) {
+    return item.class_id == idSession;
+  });
+
   courseSelected.classes = courseSelected.classes.filter(
     (item) => item.class_id != idSession
   );
-
   fillCourseControl(courseSelected);
+  courses.addDeletedClass(classDeleted, courseSelected.course_id);
 }

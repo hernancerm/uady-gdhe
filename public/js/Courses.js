@@ -10,6 +10,9 @@ class Courses {
           }).classes;
         });
         fillselectCourses(this.courses);
+        this.classesCreated = new Array();
+        this.classesEdited = new Array();
+        this.classesDeleted = new Array();
       });
     });
   }
@@ -18,5 +21,101 @@ class Courses {
     return this.courses.find(function (course) {
       return course.course_id == course_id;
     });
+  }
+
+  addCreatedClass(item, course_id) {
+    this.classesCreated.push(
+      new Object({
+        class: item,
+        course_id: course_id,
+      })
+    );
+  }
+
+  addEditedClass(item, course_id) {
+    var newClassEdited = this.classesCreated.find(function (session) {
+      return item.class_id == session.class.class_id;
+    });
+    if (newClassEdited) {
+      newClassEdited.class = item;
+    } else {
+      classEdited = this.classesEdited.find(function (session) {
+        return item.class_id == session.class.class_id;
+      });
+      if (classEdited) {
+        classEdited.class = item;
+      } else {
+        this.classesEdited.push(
+          new Object({ class: item, course_id: course_id })
+        );
+      }
+    }
+  }
+
+  addDeletedClass(item, course_id) {
+    var newClassDeleted = this.classesCreated.find(function (session) {
+      return item.class_id == session.class.class_id;
+    });
+    if (newClassDeleted) {
+      this.classesCreated = this.classesCreated.filter(
+        (session) => item.class_id != session.class.class_id
+      );
+    } else {
+      classDeleted = this.classesEdited.find(function (session) {
+        return item.class_id == session.class.class_id;
+      });
+      if (classDeleted) {
+        this.classesEdited = this.classesEdited.filter(
+          (session) => item.class_id != session.class.class_id
+        );
+      }
+      this.classesDeleted.push(
+        new Object({ class: item, course_id: course_id })
+      );
+    }
+  }
+
+  saveChanges(group_id) {
+    var $this = this;
+    var successList = new Array();
+    var errorList = new Array();
+
+    this.classesCreated.forEach(function (item) {
+      var addSuccess = function () {
+        successList.push(new Object({ transcact: "create", class: item }));
+        console.log(successList);
+      };
+      var addError = function () {
+        errorList.push(new Object({ transcact: "create", class: item }));
+        console.log(errorList);
+      };
+      new ServicesProvider().createClass(item, addSuccess, addError);
+    });
+
+    this.classesEdited.forEach(function (item) {
+      var addSuccess = function () {
+        successList.push(new Object({ transcact: "edit", class: item }));
+      };
+      var addError = function () {
+        errorList.push(new Object({ transcact: "edit", class: item }));
+        console.log(errorList);
+      };
+      new ServicesProvider().updateClass(item, addSuccess, addError);
+    });
+
+    this.classesDeleted.forEach(function (item) {
+      var addSuccess = function () {
+        successList.push(new Object({ transcact: "delete", class: item }));
+        console.log(successList);
+      };
+      var addError = function (data) {
+        errorList.push(new Object({ transcact: "delete", class: item }));
+        console.log(data);
+      };
+      new ServicesProvider().deleteClass(item, addSuccess, addError);
+    });
+    console.log(successList, errorList);
+
+    $this.refresh(group_id);
   }
 }
