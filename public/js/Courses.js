@@ -1,5 +1,7 @@
 class Courses {
   refresh(group_id) {
+    console.log("refresh");
+
     new ServicesProvider().readCourses(group_id, (courses) => {
       this.courses = JSON.parse(courses);
       new ServicesProvider().readClasses(group_id, (jsonClasses) => {
@@ -9,10 +11,10 @@ class Courses {
             return sessions.course_id == course.course_id;
           }).classes;
         });
-        fillselectCourses(this.courses);
         this.classesCreated = new Array();
         this.classesEdited = new Array();
         this.classesDeleted = new Array();
+        fillselectCourses(this.courses);
       });
     });
   }
@@ -39,7 +41,7 @@ class Courses {
     if (newClassEdited) {
       newClassEdited.class = item;
     } else {
-      classEdited = this.classesEdited.find(function (session) {
+      var classEdited = this.classesEdited.find(function (session) {
         return item.class_id == session.class.class_id;
       });
       if (classEdited) {
@@ -61,7 +63,7 @@ class Courses {
         (session) => item.class_id != session.class.class_id
       );
     } else {
-      classDeleted = this.classesEdited.find(function (session) {
+      var classDeleted = this.classesEdited.find(function (session) {
         return item.class_id == session.class.class_id;
       });
       if (classDeleted) {
@@ -79,15 +81,21 @@ class Courses {
     var $this = this;
     var successList = new Array();
     var errorList = new Array();
+    var countTransacts =
+      this.classesCreated.length +
+      this.classesEdited.length +
+      this.classesDeleted.length;
 
     this.classesCreated.forEach(function (item) {
       var addSuccess = function () {
         successList.push(new Object({ transcact: "create", class: item }));
-        console.log(successList);
+        countTransacts--;
+        if (countTransacts == 0) $this.refresh(group_id);
       };
       var addError = function () {
         errorList.push(new Object({ transcact: "create", class: item }));
-        console.log(errorList);
+        countTransacts--;
+        if (countTransacts == 0) $this.refresh(group_id);
       };
       new ServicesProvider().createClass(item, addSuccess, addError);
     });
@@ -95,10 +103,13 @@ class Courses {
     this.classesEdited.forEach(function (item) {
       var addSuccess = function () {
         successList.push(new Object({ transcact: "edit", class: item }));
+        countTransacts--;
+        if (countTransacts == 0) $this.refresh(group_id);
       };
       var addError = function () {
         errorList.push(new Object({ transcact: "edit", class: item }));
-        console.log(errorList);
+        countTransacts--;
+        if (countTransacts == 0) $this.refresh(group_id);
       };
       new ServicesProvider().updateClass(item, addSuccess, addError);
     });
@@ -106,16 +117,15 @@ class Courses {
     this.classesDeleted.forEach(function (item) {
       var addSuccess = function () {
         successList.push(new Object({ transcact: "delete", class: item }));
-        console.log(successList);
+        countTransacts--;
+        if (countTransacts == 0) $this.refresh(group_id);
       };
       var addError = function (data) {
         errorList.push(new Object({ transcact: "delete", class: item }));
-        console.log(data);
+        countTransacts--;
+        if (countTransacts == 0) $this.refresh(group_id);
       };
       new ServicesProvider().deleteClass(item, addSuccess, addError);
     });
-    console.log(successList, errorList);
-
-    $this.refresh(group_id);
   }
 }

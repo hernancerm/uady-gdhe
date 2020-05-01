@@ -13,9 +13,11 @@ $(document).ready(function () {
     majorsList = JSON.parse(majors);
     idGroupSelected = majorsList[0].groups[0].group_id;
     majorsList.forEach((majorItem) => {
-      item = `<button class='accordion'><span><i class="fa fa-angle-right"></i></span>${majorItem.major}</button><div class='panel'>`;
+      item = `<button class='accordion'>
+                <span><i class="fa fa-angle-right"></i></span> ${majorItem.major}
+              </button><div class='panel'>`;
       majorItem.groups.forEach((group) => {
-        item += `<button class='subitem' id='${group.group_id}'> ${
+        item += `<button class='subitem' id='${group.group_id}'>${
           group.semester
         } semestre ${group.group_letter ? group.group_letter : ""}`;
         if (!Number(group.approved))
@@ -45,6 +47,8 @@ $(document).ready(function () {
   });
 
   $("#groups").on("click", ".subitem", function () {
+    var textGroup = $(this).parent().prev().text() + " " + $(this).text();
+    $("#lblGroup").html(textGroup);
     $(`#${idGroupSelected}`).removeClass("subitem-selected");
     idGroupSelected = $(this).attr("id");
     $(this).addClass("subitem-selected");
@@ -129,6 +133,18 @@ $(document).ready(function () {
 
   $("#dayCards").on("focus", ".date", function () {
     var prevHour;
+    var prevPeriod;
+    var startHour = $(this);
+    var endHour;
+    var idElement = $(this).attr("id");
+    var idClass = idElement.split("-")[1];
+    if (idElement == "startHour-" + idClass) {
+      endHour = $("#endHour-" + idClass);
+    } else {
+      startHour = $("#startHour-" + idClass);
+      endHour = $(this);
+    }
+
     $(this).timepicker({
       hours: { starts: 7, ends: 21 },
       minutes: {
@@ -138,25 +154,39 @@ $(document).ready(function () {
       },
       beforeShow: function (time, inst) {
         prevHour = time.value;
+        var startDate = new Date("01/01/1999 " + startHour.val() + ":00");
+        var endDate = new Date("01/01/1999 " + endHour.val() + ":00");
+        prevPeriod = (startDate.getTime() - endDate.getTime()) / 3600000;
       },
       onSelect: function (time, inst) {
-        var startHour = $(this);
-        var endHour;
-        var idElement = $(this).attr("id");
-        var idClass = idElement.split("-")[1];
-        console.log(idClass);
+        var startDate = new Date("01/01/1999 " + startHour.val() + ":00");
+        var endDate = new Date("01/01/1999 " + endHour.val() + ":00");
 
-        if (idElement == "startHour-" + idClass) {
-          endHour = $("#endHour-" + idClass);
+        if (startDate.getTime() < endDate.getTime()) {
+          currentPeriod = (startDate.getTime() - endDate.getTime()) / 3600000;
+          difPeriod = prevPeriod - currentPeriod;
+          missHours =
+            courseSelected.required_class_hours -
+            calcAsigHours(courseSelected.classes);
+          if (difPeriod > 0 && difPeriod > missHours) {
+            $(this).val(prevHour);
+            //ALERT ERROR
+          } else {
+            currentClass = courseSelected.classes.find(function (item) {
+              return item.class_id == idClass;
+            });
+            currentClass.start_hour = startHour.val() + ":00";
+            currentClass.end_hour = endHour.val() + ":00";
+            courses.addEditedClass(currentClass, courseSelected.course_id);
+            prevHour = time;
+          }
         } else {
-          startHour = $("#startHour-" + idClass);
-          endHour = $(this);
+          $(this).val(prevHour);
+          //ALERT ERROR
         }
-
-        console.log(startHour.val() + " - " + endHour.val());
-
-        console.log(prevHour, time);
-        prevHour = time;
+      },
+      onClose: function () {
+        fillCourseControl(courseSelected);
       },
     });
   });
@@ -184,6 +214,7 @@ function fillselectCourses(courses) {
 
 function fillCourseControl(course) {
   courseSelected = course;
+  $(".toggle-btn").removeClass("toggle-active");
   $("#lblTeacher").html(course.professor_full_name);
   createClassesCards(course.classes);
   var asigHours = calcAsigHours(course.classes);
