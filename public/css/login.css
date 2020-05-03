@@ -18,8 +18,13 @@ body {
   );
 }
 
+.card-header {
+  border-radius: 1rem 1rem 0rem 0rem !important;
+  padding: 20px !important;
+}
+
 .login-card {
-  width: 22rem;
+  width: 23rem;
 }
 
 .bg-orange {
