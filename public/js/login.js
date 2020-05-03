@@ -1,4 +1,4 @@
-// Función de input para las animaciones
+// Input function for animations
 const animationInput = () =>
   $(window, document, undefined).ready(function () {
     $("input").blur(function () {
@@ -36,15 +36,15 @@ const animationInput = () =>
 animationInput();
 
 const showErrorPrompt = (mensaje) => {
-  //Se crea el elemento
+  //Element is created
   const div = document.createElement("div");
   div.classList.add("alert", "alert-danger");
   div.innerHTML = mensaje;
 
-  //Se definen elementos que son utilizados para el alert
+  //Elements are defined that are used for the alert
   const parentElement = document.querySelector(".card-body");
   const beforeElement = document.querySelector(".form-group");
-  //Se inserta el elemento
+  //
   if (document.querySelector(".alert.alert-danger") == null) {
     parentElement.insertBefore(div, beforeElement);
   }
@@ -63,10 +63,10 @@ document.getElementById("lostPassword").addEventListener("click", (event) => {
 document.getElementById("btnSesion").addEventListener("click", (event) => {
   event.preventDefault();
 
-  const usernameLabel = document.getElementById("label-usuario");
+  const usernameLabel = document.getElementById("label-user");
   const passwordLabel = document.getElementById("label-password");
-  //Obteniendo datos de los inputs
-  const username = document.getElementById("usuario").value;
+  //Obtaining data from the inputs
+  const username = document.getElementById("user").value;
   const password = document.getElementById("password").value;
 
   if (username == "") {
@@ -92,7 +92,7 @@ function loginWithCredentials(username, password) {
       services.logInWithCredentials(
         request,
         () => (window.location = "index.html"),
-        showErrorPrompt("Usuario o contraseña incorrecto.")
+        () => showErrorPrompt("Usuario o contraseña incorrecto.")
       );
       break;
     case "S":
