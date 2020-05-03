@@ -18,6 +18,16 @@ body {
   );
 }
 
+.background-image {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  background: url(../images/login_bg_image.png);
+  background-repeat: repeat;
+}
+
 .card-header {
   border-radius: 1rem 1rem 0rem 0rem !important;
   padding: 20px !important;
