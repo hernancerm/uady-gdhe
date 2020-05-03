@@ -9,6 +9,7 @@ var courseSelected;
 
 $(document).ready(function () {
   if ($(window).width() > 768) $("#sidebar").addClass("active");
+  mkNotifications();
   spinner.fadeIn(1000);
   // Display schedule of default selected group on landing
 
@@ -20,7 +21,7 @@ $(document).ready(function () {
       majorsList[0].groups[0].group_letter ? group.group_letter : ""
     }`);
     if (majorsList[0].groups[0].approved)
-      $("#chxApproved").prop("checked", true);
+      $("#chxApproved").attr("checked", "checked");
     majorsList.forEach((majorItem) => {
       item = `<button class='accordion'>
                 <span><i class="fa fa-angle-right"></i></span> ${majorItem.major}
@@ -133,8 +134,10 @@ $(document).ready(function () {
         fillCourseControl(courseSelected);
         courses.addCreatedClass(newClass, courseSelected.course_id);
       } else {
-        //ALERT
-        console.log(courseSelected.required_class_hours);
+        mkNoti("¡Ups!", "No puede asignar más clases.", {
+          status: "warning",
+          duration: 5000,
+        });
       }
     }
   });
@@ -190,17 +193,30 @@ $(document).ready(function () {
           prevPeriod;
         if (currentPeriod > maxPeriod || currentPeriod <= 0) {
           if (currentPeriod <= 0) {
-            alert("NTERVALO INVALIDO");
+            mkNoti(
+              "¡Ups!",
+              "La hora inicial no puede ser mayor que la hora final.",
+              {
+                status: "warning",
+                duration: 4000,
+              }
+            );
             maxPeriod = prevPeriod;
             if (maxPeriod == 0) maxPeriod = 0.5;
           } else {
-            alert(" HORAS SUPERADAS");
+            mkNoti("¡Ups!", "Superó el máximo de horas faltantes.", {
+              status: "warning",
+              duration: 4000,
+            });
           }
 
           if (idElement == "startHour-" + idClass) {
             endDate.setHours(startDate.getHours());
             endDate.setMinutes(60 * maxPeriod);
-            if (endDate.getHours() > 21) {
+            if (
+              endDate.getHours() > 21 ||
+              endDate.getDay() != startDate.getDay()
+            ) {
               startHour.val("20:30");
               endHour.val("21:00");
             } else
@@ -216,7 +232,10 @@ $(document).ready(function () {
           } else {
             startDate.setHours(endDate.getHours());
             startDate.setMinutes(60 * (-1 * maxPeriod) + 30);
-            if (startDate.getHours() < 7) {
+            if (
+              startDate.getHours() < 7 ||
+              endDate.getDay() != startDate.getDay()
+            ) {
               startHour.val("07:00");
               endHour.val("07:30");
             } else
@@ -257,14 +276,25 @@ $(document).ready(function () {
   });
 });
 
-function fillselectCourses(courses) {
+function fillselectCourses(arrayCourses) {
   spinner.fadeOut(1000);
   var options = "";
-  courses.forEach((course) => {
+  arrayCourses.forEach((course) => {
     options += `<option value=${course.course_id}>${course.subject_name}</option>`;
   });
   $("#selectCourses").html(options);
-  fillCourseControl(courses[0]);
+  if (typeof courseSelected == "undefined") {
+    fillCourseControl(arrayCourses[0]);
+  } else {
+    $("#selectCourses").val(courseSelected.course_id);
+    var course = arrayCourses.find(function (course) {
+      return courseSelected.course_id == course.course_id;
+    });
+
+    if ($("#chxApproved").attr("checked"))
+      courses.validateApproved(idGroupSelected);
+    fillCourseControl(course);
+  }
 }
 
 function fillCourseControl(course) {
@@ -359,8 +389,7 @@ function changes(areChanges) {
   else $("#btnSave").attr("disabled", "disabled");
 }
 
-function approved(isApproved, message) {
-  alert(message);
+function approved(isApproved) {
   spinner.fadeOut(1000);
   if (isApproved) $("#chxApproved").attr("checked", "checked");
   else $("#chxApproved").removeAttr("checked");

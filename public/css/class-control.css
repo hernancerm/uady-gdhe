@@ -130,3 +130,22 @@ select option {
   height: 2px;
   margin: -2px 16px;
 }
+
+span.transact {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--light);
+  padding: 2px 4px;
+  margin-left: 8px;
+}
+span.creada {
+  background-color: var(--cyan);
+}
+
+span.editada {
+  background-color: var(--warning);
+}
+
+span.eliminada {
+  background-color: var(--danger);
+}

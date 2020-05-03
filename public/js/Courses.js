@@ -1,7 +1,5 @@
 class Courses {
   refresh(group_id) {
-    console.log("refresh");
-
     new ServicesProvider().readCourses(group_id, (courses) => {
       this.courses = JSON.parse(courses);
       new ServicesProvider().readClasses(group_id, (jsonClasses) => {
@@ -18,6 +16,10 @@ class Courses {
           idGroupSelected,
           (collegeClasses) => {
             spinner.fadeOut(1000);
+            mkNoti("¡Bien hecho!", "El horario cargó correctamente.", {
+              status: "success",
+              duration: 2000,
+            });
             visualizer.render(JSON.parse(collegeClasses));
           }
         );
@@ -99,61 +101,169 @@ class Courses {
 
     this.classesCreated.forEach(function (item) {
       var addSuccess = function () {
-        successList.push(new Object({ transcact: "create", class: item }));
+        successList.push(new Object({ transcact: "creada", class: item }));
         countTransacts--;
-        if (countTransacts == 0) $this.refresh(group_id);
+        if (countTransacts == 0)
+          $this.alertChanges(successList, errorList, group_id);
       };
       var addError = function () {
-        errorList.push(new Object({ transcact: "create", class: item }));
+        errorList.push(new Object({ transcact: "creada", class: item }));
         countTransacts--;
-        if (countTransacts == 0) $this.refresh(group_id);
+        if (countTransacts == 0)
+          $this.alertChanges(successList, errorList, group_id);
       };
       new ServicesProvider().createClass(item, addSuccess, addError);
     });
 
     this.classesEdited.forEach(function (item) {
       var addSuccess = function () {
-        successList.push(new Object({ transcact: "edit", class: item }));
+        successList.push(new Object({ transcact: "editada", class: item }));
         countTransacts--;
-        if (countTransacts == 0) $this.refresh(group_id);
+        if (countTransacts == 0)
+          $this.alertChanges(successList, errorList, group_id);
       };
       var addError = function () {
-        errorList.push(new Object({ transcact: "edit", class: item }));
+        errorList.push(new Object({ transcact: "editada", class: item }));
         countTransacts--;
-        if (countTransacts == 0) $this.refresh(group_id);
+        if (countTransacts == 0)
+          $this.alertChanges(successList, errorList, group_id);
       };
       new ServicesProvider().updateClass(item, addSuccess, addError);
     });
 
     this.classesDeleted.forEach(function (item) {
       var addSuccess = function () {
-        successList.push(new Object({ transcact: "delete", class: item }));
+        successList.push(new Object({ transcact: "eliminada", class: item }));
         countTransacts--;
-        if (countTransacts == 0) $this.refresh(group_id);
+        if (countTransacts == 0)
+          $this.alertChanges(successList, errorList, group_id);
       };
       var addError = function (data) {
-        errorList.push(new Object({ transcact: "delete", class: item }));
+        errorList.push(new Object({ transcact: "eliminada", class: item }));
         countTransacts--;
-        if (countTransacts == 0) $this.refresh(group_id);
+        if (countTransacts == 0)
+          $this.alertChanges(successList, errorList, group_id);
       };
       new ServicesProvider().deleteClass(item, addSuccess, addError);
     });
   }
 
+  alertChanges(successList, errorList, group_id) {
+    if (errorList.length > 0) {
+      var content =
+        "Las siguientes clases no se guardaron ya que tuvieron conflicto." +
+        " Esto sucede ya que el profesor o el aula ya tienen otra clase asignada en ese horario." +
+        this.loadTransactsContent(errorList);
+
+      $.alert({
+        title: "¡Oh no!",
+        icon: "fa fa-exclamation-triangle",
+        type: "red",
+        content: content,
+      });
+    }
+
+    if (successList.length > 0) {
+      var content =
+        "Las siguientes clases se actualizaron con éxito." +
+        this.loadTransactsContent(successList);
+
+      $.alert({
+        title: "¡Bien hecho!",
+        icon: "fa fa-thumbs-up",
+        type: "blue",
+        content: content,
+      });
+    }
+    this.refresh(group_id);
+  }
+
+  loadTransactsContent(classes) {
+    var $this = this;
+    var content = "";
+    const weekdays = new Map([
+      ["mon", "Lunes"],
+      ["tue", "Martes"],
+      ["wed", "Miércoles"],
+      ["thu", "Jueves"],
+      ["fri", "Viernes"],
+      ["sat", "Sábado"],
+      ["sun", "Domingo"],
+    ]);
+
+    const classesSorted = classes.sort((t1, t2) => {
+      const id1 = t1.class.course_id;
+      const id2 = t2.class.course_id;
+      if (id1 > id2) {
+        return 1;
+      }
+      if (id1 < id2) {
+        return -1;
+      }
+      return 0;
+    });
+
+    var idPrev = -1;
+    classesSorted.forEach(function (item) {
+      if (item.class.course_id != idPrev) {
+        var courseName = $this.courses.find(function (course) {
+          return item.class.course_id == course.course_id;
+        }).subject_name;
+        content += "<hr> <strong>" + courseName + "</strong> <br>";
+        idPrev = item.class.course_id;
+      }
+      content += `&nbsp;&nbsp;&nbsp;${weekdays.get(
+        item.class.class.weekday
+      )}: ${item.class.class.start_hour.substring(
+        0,
+        item.class.class.start_hour.length - 3
+      )} - ${item.class.class.end_hour.substring(
+        0,
+        item.class.class.end_hour.length - 3
+      )} <span class="transact ${item.transcact}">${item.transcact}</span><br>`;
+    });
+    return content;
+  }
+
   approveGroup(group_id, isApprove) {
     var $this = this;
     var flag = true;
-    if (
-      this.classesCreated.length > 0 ||
-      this.classesEdited.length > 0 ||
-      this.classesDeleted.length > 0
-    ) {
-      approved(
-        false,
-        "Necesita guardar los cambios de las clases antes de aprobar el horario."
+
+    if (!isApprove) {
+      new ServicesProvider().approveGroup(
+        group_id,
+        isApprove,
+        function () {
+          mkNoti("¡Bien Hecho!", "Horario desapobrado con éxito.", {
+            status: "success",
+            duration: 3000,
+          });
+          approved(false);
+        },
+        function () {
+          mkNoti("¡Oh no!", "Ocurrió un error inesperado.", {
+            status: "danger",
+            duration: 4000,
+          });
+          approved(true);
+        }
       );
     } else {
-      if (isApprove) {
+      if (
+        this.classesCreated.length > 0 ||
+        this.classesEdited.length > 0 ||
+        this.classesDeleted.length > 0
+      ) {
+        mkNoti(
+          "¡Ups!",
+          "Necesita guardar sus cambios antes de aprobar el horario.",
+          {
+            status: "warning",
+            duration: 6000,
+          }
+        );
+        approved(false);
+      } else {
         $this.courses.forEach(function (course) {
           if (
             $this.calcAsigHours(course.classes) < course.required_class_hours
@@ -161,23 +271,67 @@ class Courses {
             flag = false;
           }
         });
+        if (flag)
+          new ServicesProvider().approveGroup(
+            group_id,
+            isApprove,
+            function () {
+              mkNoti("¡Bien Hecho!", "Horario apobrado con éxito.", {
+                status: "success",
+                duration: 3000,
+              });
+              approved(true);
+            },
+            function () {
+              mkNoti("¡Oh no!", "Ocurrió un error inesperado.", {
+                status: "danger",
+                duration: 4000,
+              });
+              approved(false);
+            }
+          );
+        else {
+          $.alert({
+            title: "¡Oh no!",
+            icon: "fa fa-exclamation-triangle",
+            type: "red",
+            content:
+              "Necesita asignar todas las horas de las clases correspondientes para aprobar el grupo.",
+          });
+          approved(false);
+        }
       }
-      if (flag)
+    }
+  }
+
+  validateApproved(group_id) {
+    for (let i = 0; i < this.courses.length; i++) {
+      var course = this.courses[i];
+
+      if (course.required_class_hours > this.calcAsigHours(course.classes)) {
         new ServicesProvider().approveGroup(
           group_id,
-          isApprove,
+          false,
           function () {
-            approved(true, "Horario aprobado con éxito");
+            $.alert({
+              title: "¡Oh no!",
+              icon: "fa fa-exclamation-triangle",
+              type: "red",
+              content:
+                "Al guardar sus nuevos cambios, algunas clases quedaron con horas faltantes." +
+                "<br> Recuerde que necesita asignar todas las horas de las clases correspondientes para aprobar el grupo.",
+            });
+            approved(false);
           },
           function () {
-            approved(false, "Ups... Ocurrió un error inesperado.");
+            mkNoti("¡Oh no!", "Ocurrió un error inesperado.", {
+              status: "danger",
+              duration: 4000,
+            });
+            approved(false);
           }
         );
-      else
-        approved(
-          false,
-          "Necesita asignar todas las horas requeridas de las clases correspondientes para aprobar el horario."
-        );
+      }
     }
   }
 
