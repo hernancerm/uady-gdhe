@@ -1,152 +1,185 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-*{
-    font-family: 'Poppins', sans-serif;
+* {
+  font-family: "Poppins", sans-serif;
 }
 
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    background-image: repeating-linear-gradient(to bottom right, #FF5757 , #FE8A8A, #FEB273, #FFDE59);
+  background-image: repeating-linear-gradient(
+    to bottom right,
+    #ff5757,
+    #fe8a8a,
+    #feb273,
+    #ffde59
+  );
 }
 
-.login-card{
+.login-card {
   width: 22rem;
 }
 
-.bg-orange{
-    background-color: #FF5757;
+.bg-orange {
+  background-color: #ff5757;
 }
 
-#lostPassword{
-    margin: 0;
-    font-size: x-small;
+#lostPassword {
+  margin: 0;
+  font-size: x-small;
 }
 
-#header-img{
-    width: 90%;
+#header-img {
+  width: 90%;
 }
 
-.card{
+.card {
   border-radius: 1rem;
 }
 
-i{
+i {
   position: absolute;
   top: 16px;
 }
 
-.hidden{
+.hidden {
   visibility: hidden;
 }
 
-
 /* Input */
 
-* { box-sizing:border-box; }
+* {
+  box-sizing: border-box;
+}
 
-
-.form-group { 
-	position: relative; 
-	margin-bottom: 45px; 
+.form-group {
+  position: relative;
+  position: relative;
+  position: relative;
+  margin-bottom: 45px;
+  margin-bottom: 45px;
+  margin-bottom: 45px;
 }
 
 input {
-	font-size: 18px;
-	padding: 10px 10px 10px 25px;
-	-webkit-appearance: none;
-	display: block;
-	color: #636363;
-	width: 100%;
-	border: none;
-	border-radius: 0;
-	border-bottom: 1px solid #757575;
+  font-size: 18px;
+  padding: 10px 10px 10px 25px;
+  -webkit-appearance: none;
+  display: block;
+  color: #636363;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #757575;
 }
 
-input:focus { outline: none; }
-
+input:focus {
+  outline: none;
+}
 
 /* Label */
 
 label {
-	color: #999; 
-	font-size: 18px;
-	font-weight: normal;
-	position: absolute;
-	pointer-events: none;
-	left: 25px;
-	top: 10px;
-	transition: all 0.2s ease;
+  color: #999;
+  color: #999;
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 25px;
+  top: 10px;
+  transition: all 0.2s ease;
 }
-
 
 /* active */
 
-input:focus ~ label, input.used ~ label {
-	top: -20px;
-  transform: scale(.75); left: -2px;
-	/* font-size: 14px; */
-	color: #000000;
+input:focus ~ label,
+input.used ~ label {
+  top: -20px;
+  transform: scale(0.75);
+  left: -2px;
+  /* font-size: 14px; */
+  color: #000000;
 }
-
 
 /* Underline */
 
 .bar {
-	position: relative;
-	display: block;
-	width: 100%;
+  position: relative;
+  display: block;
+  width: 100%;
 }
 
-.bar:before, .bar:after {
-	content: '';
-	height: 2px; 
-	width: 0;
-	bottom: 1px; 
-	position: absolute;
-	background: #000000; 
-	transition: all 0.2s ease;
+.bar:before,
+.bar:after {
+  content: "";
+  height: 2px;
+  height: 2px;
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  bottom: 1px;
+  bottom: 1px;
+  position: absolute;
+  background: #000000;
+  background: #000000;
+  background: #000000;
+  transition: all 0.2s ease;
 }
 
-.bar:before { left: 50%; }
+.bar:before {
+  left: 50%;
+}
 
-.bar:after { right: 50%; }
-
+.bar:after {
+  right: 50%;
+}
 
 /* active */
 
-input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
-
+input:focus ~ .bar:before,
+input:focus ~ .bar:after {
+  width: 50%;
+}
 
 /* Highlight */
 
 .highlight {
-	position: absolute;
-	height: 60%; 
-	width: 100px; 
-	top: 25%; 
-	left: 0;
-	pointer-events: none;
-	opacity: 0.5;
+  position: absolute;
+  height: 60%;
+  height: 60%;
+  height: 60%;
+  width: 100px;
+  width: 100px;
+  width: 100px;
+  top: 25%;
+  top: 25%;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
 }
-
 
 /* active */
 
 input:focus ~ .highlight {
-	animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
 }
-
 
 /* Animations */
 
 @keyframes inputHighlighter {
-	from { background: #000000; }
-	to 	{ width: 0; background: transparent; }
+  from {
+    background: #000000;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
 }
-
 
 /* Button */
 
@@ -154,7 +187,7 @@ input:focus ~ .highlight {
   position: relative;
   display: inline-block;
   padding: 12px 24px;
-  margin: .3em 0 1em 0;
+  margin: 0.3em 0 1em 0;
   width: 100%;
   vertical-align: middle;
   color: #fff;
@@ -169,8 +202,9 @@ input:focus ~ .highlight {
   cursor: pointer;
   transition: all 0.15s ease;
 }
-.button:focus { outline: 0; }
-
+.button:focus {
+  outline: 0;
+}
 
 /* Ripples container */
 
@@ -183,7 +217,6 @@ input:focus ~ .highlight {
   overflow: hidden;
   background: transparent;
 }
-
 
 /* Ripples circle */
 
@@ -200,16 +233,19 @@ input:focus ~ .highlight {
 }
 
 .ripples.is-active .ripplesCircle {
-  animation: ripples .4s ease-in;
+  animation: ripples 0.4s ease-in;
 }
-
 
 /* Ripples animation */
 
 @keyframes ripples {
-  0% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
 
-  25% { opacity: 1; }
+  25% {
+    opacity: 1;
+  }
 
   100% {
     width: 200%;
