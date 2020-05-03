@@ -13,6 +13,7 @@
 
 .slider {
   position: absolute;
+  z-index: -2;
   cursor: pointer;
   top: 0;
   left: 0;
@@ -37,10 +38,6 @@
 
 input:checked + .slider {
   background-color: var(--primary);
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px var(--primary);
 }
 
 input:checked + .slider:before {

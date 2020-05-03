@@ -84,7 +84,23 @@ select option {
   border: solid 2px var(--primary-light);
   border-radius: 5px;
   margin: 8px 0;
-  padding-top: 8px;
+  padding: 0 16px;
+}
+
+.container-delete-class {
+  margin-top: 4px;
+  text-align: right;
+  width: 80%;
+  position: absolute;
+  font-size: 10px;
+}
+
+.btn-delete-class {
+  cursor: pointer;
+}
+
+.card-day .row {
+  margin-top: 16px;
 }
 
 .card-day label {
@@ -113,4 +129,23 @@ select option {
   background-color: var(--light);
   height: 2px;
   margin: -2px 16px;
+}
+
+span.transact {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--light);
+  padding: 2px 4px;
+  margin-left: 8px;
+}
+span.creada {
+  background-color: var(--cyan);
+}
+
+span.editada {
+  background-color: var(--warning);
+}
+
+span.eliminada {
+  background-color: var(--danger);
 }

@@ -35,7 +35,17 @@
       href="js/timepicker-master/jquery.ui.timepicker.css?v=0.3.3"
       type="text/css"
     />
+    <link
+      rel="stylesheet"
+      href="css/mk-notifications.min.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css"
+    />
 
+    <link rel="stylesheet" href="css/spinner.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/menu.css" />
     <link rel="stylesheet" href="css/schedule.css" />
@@ -47,8 +57,18 @@
     <title>MYSched App</title>
   </head>
   <body>
+    <div id="spinner" class="spinner-container">
+      <div class="sk-chase">
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+      </div>
+    </div>
     <div class="wrapper d-flex align-items-stretch">
-      <nav id="sidebar" class="active">
+      <nav id="sidebar">
         <div class="custom-menu">
           <button type="button" id="sidebarCollapse" class="btn">
             <span>
@@ -84,7 +104,7 @@
                 <button id="tue" value="Martes" class="toggle-btn">
                   M
                 </button>
-                <button id="wed" value="Miercoles" class="toggle-btn">
+                <button id="wed" value="Miércoles" class="toggle-btn">
                   M
                 </button>
                 <button id="thu" value="Jueves" class="toggle-btn">
@@ -93,7 +113,7 @@
                 <button id="fri" value="Viernes" class="toggle-btn">
                   V
                 </button>
-                <button id="sat" value="Sabado" class="toggle-btn">
+                <button id="sat" value="Sábado" class="toggle-btn">
                   S
                 </button>
                 <button id="sun" value="Domingo" class="toggle-btn">
@@ -103,19 +123,19 @@
               <div id="dayCards"></div>
 
               <div class="divider"></div>
-              <button class="btn-sched">Guardar</button>
+              <button class="btn-sched" id="btnSave">Guardar</button>
               <button class="outline" id="btnCancel">Cancelar</button>
             </div>
           </div>
         </div>
       </nav>
-      <div class="container offset-md-3">
+      <div id="container" class="container">
         <div class="schedule">
-          <h1 class="title">Ingeniería de software 2 sem A</h1>
+          <h1 class="title" id="lblGroup"></h1>
           <button>
             <span> Aprobado</span>
             <label class="switch">
-              <input type="checkbox" />
+              <input type="checkbox" id="chxApproved" />
               <span class="slider round"></span>
             </label>
           </button>
@@ -178,15 +198,17 @@
       type="text/javascript"
       src="js/timepicker-master/jquery.ui.timepicker.js?v=0.3.3"
     ></script>
-
-    <!-- Optional JavaScript -->
     <script src="js/popper.js"></script>
+    <script src="js/mk-notifications.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <!-- Optional JavaScript -->
+
     <script src="js/main.js"></script>
     <script src="js/ServicesProvider.js"></script>
     <script src="js/Classrooms.js"></script>
     <script src="js/Courses.js"></script>
     <script src="js/CardClassVisualizer.js"></script>
     <script src="js/index.js"></script>
-    <script type="text/javascript"></script>
   </body>
 </html>
