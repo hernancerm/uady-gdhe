@@ -6,44 +6,61 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
 
 <!-- TOC -->
 
-- [Services API Documentation](#services-api-documentation)
-    - [Table of contents](#table-of-contents)
-    - [Guidelines](#guidelines)
-        - [Naming convention](#naming-convention)
-        - [Documenting a service](#documenting-a-service)
-    - [Services required on each view](#services-required-on-each-view)
-    - [Services](#services)
-        - [READ_admin](#read_admin)
-            - [Request](#request)
-            - [Response](#response)
-            - [Errors](#errors)
-        - [READ_groups_GB_major](#read_groups_gb_major)
-            - [Request](#request-1)
-            - [Response](#response-1)
-        - [READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)
-            - [Request](#request-2)
-            - [Response](#response-2)
-        - [READ_courses_BY_group_id](#read_courses_by_group_id)
-            - [Request](#request-3)
-            - [Response](#response-3)
-        - [READ_classrooms](#read_classrooms)
-            - [Request](#request-4)
-            - [Response](#response-4)
-        - [CREATE_class](#create_class)
-            - [Request](#request-5)
-            - [Response](#response-5)
-            - [Errors](#errors-1)
-        - [DELETE_class](#delete_class)
-            - [Request](#request-6)
-            - [Response](#response-6)
-            - [Errors](#errors-2)
-        - [UPDATE_class](#update_class)
-            - [Request](#request-7)
-            - [Response](#response-7)
-            - [Errors](#errors-3)
-        - [UPDATE_approve_group](#update_approve_group)
-            - [Request](#request-8)
-            - [Response](#response-8)
+- [Table of contents](#table-of-contents)
+- [Guidelines](#guidelines)
+    - [Naming convention](#naming-convention)
+    - [Documenting a service](#documenting-a-service)
+- [Services required on each view](#services-required-on-each-view)
+- [Services](#services)
+    - [READ_admin_BY_credentials](#read_admin_by_credentials)
+        - [Request](#request)
+        - [Response](#response)
+        - [Errors](#errors)
+    - [READ_student_BY_credentials](#read_student_by_credentials)
+        - [Request](#request-1)
+        - [Response](#response-1)
+        - [Errors](#errors-1)
+    - [READ_professor_BY_credentials](#read_professor_by_credentials)
+        - [Request](#request-2)
+        - [Response](#response-2)
+        - [Errors](#errors-2)
+    - [READ_group_BY_group_id](#read_group_by_group_id)
+        - [Request](#request-3)
+        - [Response](#response-3)
+    - [READ_groups_GB_major](#read_groups_gb_major)
+        - [Request](#request-4)
+        - [Response](#response-4)
+    - [READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)
+        - [Request](#request-5)
+        - [Response](#response-5)
+    - [READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)
+        - [Request](#request-6)
+        - [Response](#response-6)
+    - [READ_classes_GB_weekday_BY_professor_id](#read_classes_gb_weekday_by_professor_id)
+        - [Request](#request-7)
+        - [Response](#response-7)
+        - [Errors](#errors-3)
+    - [READ_courses_BY_group_id](#read_courses_by_group_id)
+        - [Request](#request-8)
+        - [Response](#response-8)
+    - [READ_classrooms](#read_classrooms)
+        - [Request](#request-9)
+        - [Response](#response-9)
+    - [CREATE_class](#create_class)
+        - [Request](#request-10)
+        - [Response](#response-10)
+        - [Errors](#errors-4)
+    - [DELETE_class](#delete_class)
+        - [Request](#request-11)
+        - [Response](#response-11)
+        - [Errors](#errors-5)
+    - [UPDATE_class](#update_class)
+        - [Request](#request-12)
+        - [Response](#response-12)
+        - [Errors](#errors-6)
+    - [UPDATE_approve_group](#update_approve_group)
+        - [Request](#request-13)
+        - [Response](#response-13)
 
 <!-- /TOC -->
 
@@ -71,13 +88,15 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 
 | View |Service |
 |---|---|
-| Login | [READ_admin](#read_admin) |
-| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
-| Groups Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
+| Login | [READ_admin_BY_credentials](#read_admin_by_credentials)<br>[READ_student_BY_credentials](#read_student_by_credentials)<br>[READ_professor_BY_credentials](#read_professor_by_credentials) |
+| Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
+| Group Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
+| Student schedule | [READ_group_BY_group_id](#read_group_BY_group_id)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id) |
+| Professor schedule | [READ_classes_GB_weekday_BY_professor_id](#read_classes_gb_weekday_by_professor_id) |
 
 ## Services
 
-### READ_admin
+### READ_admin_BY_credentials
 
 #### Request
 
@@ -105,6 +124,87 @@ HTTP method: POST
 | HTTP status code | Description |
 |---|---|
 |401 Unauthorized| Username-password pair does not match an admin. |
+
+### READ_student_BY_credentials
+
+#### Request
+
+HTTP method: POST
+
+```bnf
+{
+  "username": <ZERO-PADDED-INTEGER(4)>,
+  "password": <STRING>
+}
+```
+
+#### Response
+
+```bnf
+{
+  "names": <STRING>,
+  "first_lname": <STRING>,
+  "second_lname": <STRING>,
+  "group_id": <INTEGER>
+}
+```
+
+#### Errors
+
+| HTTP status code | Description |
+|---|---|
+|401 Unauthorized| Username-password pair does not match a student. |
+
+### READ_professor_BY_credentials
+
+#### Request
+
+HTTP method: POST
+
+```bnf
+{
+  "username": <ZERO-PADDED-INTEGER(4)>,
+  "password": <STRING>
+}
+```
+
+#### Response
+
+```bnf
+{
+  "names": <STRING>,
+  "first_lname": <STRING>,
+  "second_lname": <STRING>,
+  "professor_id": <ZERO-PADDED-INTEGER(4)>
+}
+```
+
+#### Errors
+
+| HTTP status code | Description |
+|---|---|
+|401 Unauthorized| Username-password pair does not match a professor. |
+
+### READ_group_BY_group_id
+
+#### Request
+
+HTTP method: GET
+
+```text
+?group_id=<INTEGER>
+```
+
+#### Response
+
+```bnf
+{
+    "approved": <BOOLEAN>,
+    "group_letter": <STRING>,
+    "semester": <INTEGER>,
+    "major": <STRING>
+}
+```
 
 ### READ_groups_GB_major
 
@@ -159,6 +259,70 @@ HTTP method: GET
     }
 ]
 ```
+
+### READ_classes_GB_weekday_BY_group_id
+
+#### Request
+
+HTTP method: GET
+
+```text
+?group_id=<INTEGER>
+```
+
+#### Response
+
+```bnf
+[
+    {
+        "weekday": ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun"),
+        "classes":
+        [
+            {
+                "subject_name": <STRING>,
+                "start_hour": <24-format-time>,
+                "end_hour": <24-format-time>,
+                "classroom": <STRING>
+            }
+        ]
+    }
+]
+```
+
+### READ_classes_GB_weekday_BY_professor_id
+
+#### Request
+
+HTTP method: GET
+
+```text
+?professor_id=<INTEGER>
+```
+
+#### Response
+
+```bnf
+[
+    {
+        "weekday": ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun"),
+        "classes":
+        [
+            {
+                "subject_name": <STRING>,
+                "start_hour": <24-format-time>,
+                "end_hour": <24-format-time>,
+                "classroom": <STRING>
+            }
+        ]
+    }
+]
+```
+
+#### Errors
+
+| HTTP status code | Description |
+|---|---|
+| 404 Not Found | Professor not found. |
 
 ### READ_courses_BY_group_id
 

@@ -14,6 +14,13 @@ class Courses {
         this.classesCreated = new Array();
         this.classesEdited = new Array();
         this.classesDeleted = new Array();
+        new ServicesProvider().readGroupClasses(
+          idGroupSelected,
+          (collegeClasses) => {
+            spinner.fadeOut(1000);
+            visualizer.render(JSON.parse(collegeClasses));
+          }
+        );
         changes(false);
         fillselectCourses(this.courses);
       });

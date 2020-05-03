@@ -1,6 +1,7 @@
 const services = new ServicesProvider();
 const classrooms = new Classrooms();
 const courses = new Courses();
+const visualizer = new CardClassVisualizer();
 const days = new Array("mon", "tue", "wed", "thu", "fri", "sat", "sun");
 const spinner = $("#spinner");
 var idGroupSelected = 0;
@@ -9,8 +10,9 @@ var courseSelected;
 $(document).ready(function () {
   if ($(window).width() > 768) $("#sidebar").addClass("active");
   spinner.fadeIn(1000);
+  // Display schedule of default selected group on landing
+
   services.readGroups((majors) => {
-    spinner.fadeOut(1000);
     majorsList = JSON.parse(majors);
     idGroupSelected = majorsList[0].groups[0].group_id;
     $("#lblGroup").html(`
@@ -65,6 +67,10 @@ $(document).ready(function () {
     $(this).addClass("subitem-selected");
     spinner.fadeIn(300);
     courses.refresh(idGroupSelected);
+
+    services.readGroupClasses(idGroupSelected, (collegeClasses) => {
+      visualizer.render(JSON.parse(collegeClasses));
+    });
   });
 
   $("#logout").click(function () {
