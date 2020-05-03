@@ -38,7 +38,13 @@
     display: none;
   }
 
-  @page {
-    size: landscape;
+  #schedule-visualizer {
+    width: 705px;
+  }
+
+  :root {
+    --cc-width: 100px;
+    --cc-height: 90px;
+    --cc-font-size: 8pt;
   }
 }
