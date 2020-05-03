@@ -9,6 +9,26 @@ class ServicesProvider {
     });
   }
 
+  logInStudentWithCredentials(data,callback,error){
+    $.ajax({
+      url: "../src/services/READ_student_BY_credentials.php",
+      method: "POST",
+      data: JSON.stringify(data),
+      success: callback,
+      error: error,
+    });
+  }
+
+  logInProfessorWithCredentials(data, callback, error) {
+    $.ajax({
+      url: "../src/services/READ_professor_BY_credentials.php",
+      method: "POST",
+      data: JSON.stringify(data),
+      success: callback,
+      error: error,
+    });
+  }
+
   readGroups(callback) {
     $.ajax({
       url: "../src/services/READ_groups_GB_major.php",
