@@ -50,7 +50,8 @@ class ServicesProvider {
   readProfessorClasses(professor_id, callback) {
     $.ajax({
       data: { professor_id: professor_id },
-      url: "../src/services/READ_classes_GB_weekday_BY_professor_id.php",
+      url:
+        "../src/services/READ_approved_classes_GB_weekday_BY_professor_id.php",
       success: callback,
     });
   }

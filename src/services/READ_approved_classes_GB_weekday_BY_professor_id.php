@@ -41,7 +41,10 @@ foreach ($weekdays as $weekday) {
                 INNER JOIN <course> <co> ON <co.course_id> = <c.course_id>
                 INNER JOIN subject <s> ON <s.subject_id> = <co.subject_id>
                 INNER JOIN <classroom> <cr> ON <cr.classroom_id> = <c.classroom_id>
-            WHERE <co.professor_id> = :professor_id AND <c.weekday> = :weekday ORDER BY <c.start_hour> ASC;',
+                INNER JOIN <group> <g> ON <g.group_id> = <co.group_id>
+            WHERE <g.approved> = 1
+                AND <co.professor_id> = :professor_id
+                AND <c.weekday> = :weekday ORDER BY <c.start_hour> ASC;',
             [
                 ':professor_id' => $professor_id,
                 ':weekday' => $weekday
