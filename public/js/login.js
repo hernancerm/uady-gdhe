@@ -1,4 +1,4 @@
-// Función de input para las animaciones
+// Input function for animations
 const animationInput = () =>
   $(window, document, undefined).ready(function () {
     $("input").blur(function () {
@@ -36,15 +36,15 @@ const animationInput = () =>
 animationInput();
 
 const showErrorPrompt = (mensaje) => {
-  //Se crea el elemento
+  //Element is created
   const div = document.createElement("div");
   div.classList.add("alert", "alert-danger");
   div.innerHTML = mensaje;
 
-  //Se definen elementos que son utilizados para el alert
+  //Elements are defined that are used for the alert
   const parentElement = document.querySelector(".card-body");
   const beforeElement = document.querySelector(".form-group");
-  //Se inserta el elemento
+  //
   if (document.querySelector(".alert.alert-danger") == null) {
     parentElement.insertBefore(div, beforeElement);
   }
@@ -63,10 +63,10 @@ document.getElementById("lostPassword").addEventListener("click", (event) => {
 document.getElementById("btnSesion").addEventListener("click", (event) => {
   event.preventDefault();
 
-  const usernameLabel = document.getElementById("label-usuario");
+  const usernameLabel = document.getElementById("label-user");
   const passwordLabel = document.getElementById("label-password");
-  //Obteniendo datos de los inputs
-  const username = document.getElementById("usuario").value;
+  //Obtaining data from the inputs
+  const username = document.getElementById("user").value;
   const password = document.getElementById("password").value;
 
   if (username == "") {
@@ -91,16 +91,35 @@ function loginWithCredentials(username, password) {
     case "A":
       services.logInWithCredentials(
         request,
-        () => (window.location = "index.html"),
-        showErrorPrompt("Usuario o contraseña incorrecto.")
+        (data) => {
+          userData = JSON.parse(data);
+          window.location = `index.html?names=${userData.names}&first_lname=${userData.first_lname}&second_lname=${userData.second_lname}`;
+        },
+        () => showErrorPrompt("Usuario o contraseña incorrecto.")
       );
       break;
     case "S":
+      services.logInStudentWithCredentials(
+        request,
+        (data) => {
+          userData = JSON.parse(data);
+          window.location = `student_schedule.html?names=${userData.names}&first_lname=${userData.first_lname}&second_lname=${userData.second_lname}&group_id=${userData.group_id}`;
+        },
+        () => showErrorPrompt("Usuario o contraseña incorrecto.")
+      );
       break;
     case "P":
+      services.logInProfessorWithCredentials(
+        request,
+        (data) => {
+          userData = JSON.parse(data);
+          window.location = `professor_schedule.html?names=${userData.names}&first_lname=${userData.first_lname}&second_lname=${userData.second_lname}&professor_id=${userData.professor_id}`;
+        },
+        () => showErrorPrompt("Usuario o contraseña incorrecto.")
+      );
       break;
     default:
-      showErrorPrompt("Usuario no registrado.");
+      () => showErrorPrompt("Usuario no registrado.");
       break;
   }
 }
