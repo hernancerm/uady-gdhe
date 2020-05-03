@@ -1,10 +1,10 @@
 USE gdhe;
 
 /* Subjects */
-INSERT INTO subject (name, required_class_hours) VALUES('Probabilidad', 4.5);
-INSERT INTO subject (name, required_class_hours) VALUES('Diseño de UI', 3);
+INSERT INTO subject (name, required_class_hours) VALUES('Probabilidad', 3.5);
+INSERT INTO subject (name, required_class_hours) VALUES('Diseño de Interfaces Gráficas', 3);
 INSERT INTO subject (name, required_class_hours) VALUES('Cálculo II', 3);
-INSERT INTO subject (name, required_class_hours) VALUES('Arquitectura de SW', 2);
+INSERT INTO subject (name, required_class_hours) VALUES('Arquitectura de Software', 2);
 
 /* Classrooms */
 INSERT INTO classroom (name) VALUES ('H8');
@@ -24,17 +24,17 @@ INSERT INTO `group` (group_letter, semester, major_id) VALUES (NULL, 3, 2);
 
 /* Students */
 INSERT INTO student (names, first_lname, second_lname, password, major_id, group_id)
-VALUES ('Hernán', 'Cervera', 'Manzanilla', '123', 1, 2);
+VALUES ('Hernán', 'Cervera', 'Manzanilla', '123', 1, 1);
 INSERT INTO student (names, first_lname, second_lname, password, major_id, group_id)
 VALUES ('Emilia Carla', 'Gutiérrez', 'Cuevas', '123', 1, 2);
 INSERT INTO student (names, first_lname, second_lname, password, major_id, group_id)
-VALUES ('Damián', 'Soledad', 'Bolaños', '123', 1, 2);
+VALUES ('Damián', 'Soledad', 'Bolaños', '123', 1, 3);
 INSERT INTO student (names, first_lname, second_lname, password, major_id, group_id)
-VALUES ('José', 'Padilla', 'Durán', '123', 2, 2);
+VALUES ('José', 'Padilla', 'Durán', '123', 2, 1);
 INSERT INTO student (names, first_lname, second_lname, password, major_id, group_id)
 VALUES ('Juan', 'Castellanos', 'Cervantes', '123', 2, 2);
 INSERT INTO student (names, first_lname, second_lname, password, major_id, group_id)
-VALUES ('Lucía', 'Peraza', 'Góngora', '123', 2, 2);
+VALUES ('Lucía', 'Peraza', 'Góngora', '123', 2, 3);
 
 /* Professors */
 INSERT INTO professor (names, first_lname, second_lname, password)
