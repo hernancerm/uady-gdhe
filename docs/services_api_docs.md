@@ -36,7 +36,7 @@ Each service listed in [services](#services) corresponds to a PHP file in `/src/
     - [READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)
         - [Request](#request-6)
         - [Response](#response-6)
-    - [READ_classes_GB_weekday_BY_professor_id](#read_classes_gb_weekday_by_professor_id)
+    - [READ_approved_classes_GB_weekday_BY_professor_id](#read_approved_classes_gb_weekday_by_professor_id)
         - [Request](#request-7)
         - [Response](#response-7)
         - [Errors](#errors-3)
@@ -92,7 +92,7 @@ For each service, two subheadings must be provided: "Request" and "Response". An
 | Groups Catalog | [READ_groups_GB_major](#read_groups_gb_major)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id)<br>[UPDATE_approve_group](#update_approve_group) |
 | Group Edit | [READ_courses_BY_group_id](#read_courses_by_group_id)<br>[READ_classes_GB_course_id_BY_group_id](#read_classes_gb_course_id_by_group_id)<br>[READ_classrooms](#read_classrooms)<br>[CREATE_class](#create_class)<br>[UPDATE_approve_group](#update_approve_group)<br>[DELETE_class](#delete_class)<br>[UPDATE_class](#update_class) |
 | Student schedule | [READ_group_BY_group_id](#read_group_BY_group_id)<br>[READ_classes_GB_weekday_BY_group_id](#read_classes_gb_weekday_by_group_id) |
-| Professor schedule | [READ_classes_GB_weekday_BY_professor_id](#read_classes_gb_weekday_by_professor_id) |
+| Professor schedule | [READ_approved_classes_GB_weekday_BY_professor_id](#read_approved_classes_gb_weekday_by_professor_id) |
 
 ## Services
 
@@ -289,7 +289,7 @@ HTTP method: GET
 ]
 ```
 
-### READ_classes_GB_weekday_BY_professor_id
+### READ_approved_classes_GB_weekday_BY_professor_id
 
 #### Request
 
