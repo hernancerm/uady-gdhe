@@ -8,6 +8,8 @@ const professor = {
 const services = new ServicesProvider();
 const visualizer = new CardClassVisualizer();
 
+document.title = `MySched ${professor.names} ${professor.first_lname}`;
+
 // Logout button click handler
 $("#schedule-controls__logout").click(() => {
   window.location.replace("login.html");
