@@ -1,4 +1,4 @@
-// Función de input para las animaciones
+// Input function for animations
 const animationInput = () =>
   $(window, document, undefined).ready(function () {
     $("input").blur(function () {
@@ -36,15 +36,15 @@ const animationInput = () =>
 animationInput();
 
 const showErrorPrompt = (mensaje) => {
-  //Se crea el elemento
+  //Element is created
   const div = document.createElement("div");
   div.classList.add("alert", "alert-danger");
   div.innerHTML = mensaje;
 
-  //Se definen elementos que son utilizados para el alert
+  //Elements are defined that are used for the alert
   const parentElement = document.querySelector(".card-body");
   const beforeElement = document.querySelector(".form-group");
-  //Se inserta el elemento
+  //
   if (document.querySelector(".alert.alert-danger") == null) {
     parentElement.insertBefore(div, beforeElement);
   }
@@ -65,7 +65,7 @@ document.getElementById("btnSesion").addEventListener("click", (event) => {
 
   const usernameLabel = document.getElementById("label-user");
   const passwordLabel = document.getElementById("label-password");
-  //Obteniendo datos de los inputs
+  //Obtaining data from the inputs
   const username = document.getElementById("user").value;
   const password = document.getElementById("password").value;
 
