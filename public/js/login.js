@@ -91,16 +91,35 @@ function loginWithCredentials(username, password) {
     case "A":
       services.logInWithCredentials(
         request,
-        () => (window.location = "index.html"),
+        (data) => {
+          userData = JSON.parse(data);
+          window.location = `index.html?names=${userData.names}&first_lname=${userData.first_lname}&second_lname=${userData.second_lname}`;
+        },
         () => showErrorPrompt("Usuario o contraseña incorrecto.")
       );
       break;
     case "S":
+      services.logInStudentWithCredentials(
+        request,
+        (data) => {
+          userData = JSON.parse(data);
+          window.location = `student_schedule.html?names=${userData.names}&first_lname=${userData.first_lname}&second_lname=${userData.second_lname}&group_id=${userData.group_id}`;
+        },
+        () => showErrorPrompt("Usuario o contraseña incorrecto.")
+      );
       break;
     case "P":
+      services.logInProfessorWithCredentials(
+        request,
+        (data) => {
+          userData = JSON.parse(data);
+          window.location = `professor_schedule.html?names=${userData.names}&first_lname=${userData.first_lname}&second_lname=${userData.second_lname}&professor_id=${userData.professor_id}`;
+        },
+        () => showErrorPrompt("Usuario o contraseña incorrecto.")
+      );
       break;
     default:
-      showErrorPrompt("Usuario no registrado.");
+      () => showErrorPrompt("Usuario no registrado.");
       break;
   }
 }

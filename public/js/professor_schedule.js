@@ -1,8 +1,8 @@
 const professor = {
-  names: "Diódora",
-  first_lname: "Cantún",
-  second_lname: "Pech",
-  professor_id: "0001",
+  names: getParameterByName('names'),
+  first_lname: getParameterByName('first_lname'),
+  second_lname: getParameterByName('second_lname'),
+  professor_id: getParameterByName('professor_id'),
 };
 
 const services = new ServicesProvider();

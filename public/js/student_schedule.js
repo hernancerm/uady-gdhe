@@ -1,8 +1,8 @@
 const student = {
-  names: "Hernán",
-  first_lname: "Cervera",
-  second_lname: "Manzanilla",
-  group_id: "1",
+  names: getParameterByName('names'),
+  first_lname: getParameterByName('first_lname'),
+  second_lname: getParameterByName('second_lname'),
+  group_id: getParameterByName('group_id'),
 };
 
 const services = new ServicesProvider();
