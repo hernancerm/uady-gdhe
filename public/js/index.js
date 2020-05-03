@@ -2,16 +2,23 @@ const services = new ServicesProvider();
 const classrooms = new Classrooms();
 const courses = new Courses();
 const days = new Array("mon", "tue", "wed", "thu", "fri", "sat", "sun");
-
+const spinner = $("#spinner");
 var idGroupSelected = 0;
 var courseSelected;
 
 $(document).ready(function () {
   if ($(window).width() > 768) $("#sidebar").addClass("active");
-
+  spinner.fadeIn(1000);
   services.readGroups((majors) => {
+    spinner.fadeOut(1000);
     majorsList = JSON.parse(majors);
     idGroupSelected = majorsList[0].groups[0].group_id;
+    $("#lblGroup").html(`
+      ${majorsList[0].major} ${majorsList[0].groups[0].semester} semestre  ${
+      majorsList[0].groups[0].group_letter ? group.group_letter : ""
+    }`);
+    if (majorsList[0].groups[0].approved)
+      $("#chxApproved").prop("checked", true);
     majorsList.forEach((majorItem) => {
       item = `<button class='accordion'>
                 <span><i class="fa fa-angle-right"></i></span> ${majorItem.major}
@@ -49,9 +56,14 @@ $(document).ready(function () {
   $("#groups").on("click", ".subitem", function () {
     var textGroup = $(this).parent().prev().text() + " " + $(this).text();
     $("#lblGroup").html(textGroup);
+    if (typeof $(this).children("span").val() == "undefined")
+      $("#chxApproved").prop("checked", true);
+    else $("#chxApproved").prop("checked", false);
+
     $(`#${idGroupSelected}`).removeClass("subitem-selected");
     idGroupSelected = $(this).attr("id");
     $(this).addClass("subitem-selected");
+    spinner.fadeIn(300);
     courses.refresh(idGroupSelected);
   });
 
@@ -64,6 +76,11 @@ $(document).ready(function () {
     $("#menu").addClass("hidden");
     $("#control").removeClass("hidden");
     $(this).addClass("hidden");
+  });
+
+  $("#chxApproved").change(function () {
+    spinner.fadeIn(300);
+    courses.approveGroup(idGroupSelected, this.checked);
   });
 
   $("#selectCourses").change(function () {
@@ -85,7 +102,7 @@ $(document).ready(function () {
     } else {
       var missHours =
         courseSelected.required_class_hours -
-        calcAsigHours(courseSelected.classes);
+        courses.calcAsigHours(courseSelected.classes);
       var startHour = new Date("01/01/1999 07:00");
       var endHour = new Date(startHour.getTime() + missHours * 60 * 60 * 1000);
       if (missHours > 0) {
@@ -132,7 +149,6 @@ $(document).ready(function () {
   });
 
   $("#dayCards").on("focus", ".date", function () {
-    var prevHour;
     var prevPeriod;
     var startHour = $(this);
     var endHour;
@@ -153,37 +169,68 @@ $(document).ready(function () {
         interval: 30,
       },
       beforeShow: function (time, inst) {
-        prevHour = time.value;
         var startDate = new Date("01/01/1999 " + startHour.val() + ":00");
         var endDate = new Date("01/01/1999 " + endHour.val() + ":00");
-        prevPeriod = (startDate.getTime() - endDate.getTime()) / 3600000;
+        prevPeriod = (endDate.getTime() - startDate.getTime()) / 3600000;
       },
       onSelect: function (time, inst) {
         var startDate = new Date("01/01/1999 " + startHour.val() + ":00");
         var endDate = new Date("01/01/1999 " + endHour.val() + ":00");
+        var currentPeriod = (endDate.getTime() - startDate.getTime()) / 3600000;
 
-        if (startDate.getTime() < endDate.getTime()) {
-          currentPeriod = (startDate.getTime() - endDate.getTime()) / 3600000;
-          difPeriod = prevPeriod - currentPeriod;
-          missHours =
-            courseSelected.required_class_hours -
-            calcAsigHours(courseSelected.classes);
-          if (difPeriod > 0 && difPeriod > missHours) {
-            $(this).val(prevHour);
-            //ALERT ERROR
+        var maxPeriod =
+          courseSelected.required_class_hours -
+          courses.calcAsigHours(courseSelected.classes) +
+          prevPeriod;
+        if (currentPeriod > maxPeriod || currentPeriod <= 0) {
+          if (currentPeriod <= 0) {
+            alert("NTERVALO INVALIDO");
+            maxPeriod = prevPeriod;
+            if (maxPeriod == 0) maxPeriod = 0.5;
           } else {
-            currentClass = courseSelected.classes.find(function (item) {
-              return item.class_id == idClass;
-            });
-            currentClass.start_hour = startHour.val() + ":00";
-            currentClass.end_hour = endHour.val() + ":00";
-            courses.addEditedClass(currentClass, courseSelected.course_id);
-            prevHour = time;
+            alert(" HORAS SUPERADAS");
           }
-        } else {
-          $(this).val(prevHour);
-          //ALERT ERROR
+
+          if (idElement == "startHour-" + idClass) {
+            endDate.setHours(startDate.getHours());
+            endDate.setMinutes(60 * maxPeriod);
+            if (endDate.getHours() > 21) {
+              startHour.val("20:30");
+              endHour.val("21:00");
+            } else
+              endHour.val(
+                (endDate.getHours() < 10
+                  ? "0" + endDate.getHours()
+                  : endDate.getHours()) +
+                  ":" +
+                  (endDate.getMinutes() == 0
+                    ? endDate.getMinutes() + "0"
+                    : endDate.getMinutes())
+              );
+          } else {
+            startDate.setHours(endDate.getHours());
+            startDate.setMinutes(60 * (-1 * maxPeriod) + 30);
+            if (startDate.getHours() < 7) {
+              startHour.val("07:00");
+              endHour.val("07:30");
+            } else
+              startHour.val(
+                (startDate.getHours() < 10
+                  ? "0" + startDate.getHours()
+                  : startDate.getHours()) +
+                  ":" +
+                  (startDate.getMinutes() == 0
+                    ? startDate.getMinutes() + "0"
+                    : startDate.getMinutes())
+              );
+          }
         }
+        currentClass = courseSelected.classes.find(function (item) {
+          return item.class_id == idClass;
+        });
+        currentClass.start_hour = startHour.val() + ":00";
+        currentClass.end_hour = endHour.val() + ":00";
+        courses.addEditedClass(currentClass, courseSelected.course_id);
       },
       onClose: function () {
         fillCourseControl(courseSelected);
@@ -192,6 +239,7 @@ $(document).ready(function () {
   });
 
   $("#btnSave").click(function () {
+    spinner.fadeIn(300);
     courses.saveChanges(idGroupSelected);
   });
 
@@ -204,6 +252,7 @@ $(document).ready(function () {
 });
 
 function fillselectCourses(courses) {
+  spinner.fadeOut(1000);
   var options = "";
   courses.forEach((course) => {
     options += `<option value=${course.course_id}>${course.subject_name}</option>`;
@@ -217,7 +266,7 @@ function fillCourseControl(course) {
   $(".toggle-btn").removeClass("toggle-active");
   $("#lblTeacher").html(course.professor_full_name);
   createClassesCards(course.classes);
-  var asigHours = calcAsigHours(course.classes);
+  var asigHours = courses.calcAsigHours(course.classes);
   $("#lblAsigHours").html(asigHours);
   $("#lblMissHours").html(course.required_class_hours - asigHours);
 }
@@ -276,16 +325,6 @@ function createClassesCards(classes) {
   $("#dayCards").html(cards);
 }
 
-function calcAsigHours(classes) {
-  var hours = 0;
-  classes.forEach((session) => {
-    var timeStart = new Date("01/01/1999 " + session.start_hour);
-    var timeEnd = new Date("01/01/1999 " + session.end_hour);
-    hours += (timeEnd.getTime() - timeStart.getTime()) / 3600000; //3,600,000= hours(60)*minutes(60)*milliseconds(1000);
-  });
-  return hours;
-}
-
 function getClassroomOptions(selected) {
   var options = "";
   classrooms.getClassrooms().forEach((classroom) => {
@@ -306,4 +345,17 @@ function deleteClass(idSession) {
   );
   fillCourseControl(courseSelected);
   courses.addDeletedClass(classDeleted, courseSelected.course_id);
+}
+
+function changes(areChanges) {
+  spinner.fadeOut(1000);
+  if (areChanges) $("#btnSave").removeAttr("disabled");
+  else $("#btnSave").attr("disabled", "disabled");
+}
+
+function approved(isApproved, message) {
+  alert(message);
+  spinner.fadeOut(1000);
+  if (isApproved) $("#chxApproved").attr("checked", "checked");
+  else $("#chxApproved").removeAttr("checked");
 }

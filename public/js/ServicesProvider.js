@@ -89,4 +89,19 @@ class ServicesProvider {
       error: error,
     });
   }
+
+  approveGroup(group_id, approved, success, error) {
+    var data = {
+      group_id: parseInt(group_id),
+      approved: Boolean(approved),
+    };
+
+    $.ajax({
+      method: "PUT",
+      data: JSON.stringify(data),
+      url: "../src/services/UPDATE_approve_group.php",
+      success: success,
+      error: error,
+    });
+  }
 }

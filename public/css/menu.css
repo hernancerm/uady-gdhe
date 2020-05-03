@@ -100,6 +100,10 @@
   margin-bottom: 24px;
 }
 
+.btn-sched:disabled {
+  opacity: 30%;
+  cursor: auto;
+}
 /**
 * Accordion Menu
 **/
@@ -186,11 +190,25 @@
   display: none;
 }
 
+#container.container-split {
+  margin-left: 8%;
+}
+
+#container {
+  margin-left: 25%;
+  transition: margin-left 0.8s;
+}
+
 @media screen and (max-width: 767px) {
   #sidebar {
     height: 100%;
   }
   #sidebar.active {
+    margin-left: 0;
+  }
+
+  #container,
+  #container.container-split {
     margin-left: 0;
   }
 }

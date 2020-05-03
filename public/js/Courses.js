@@ -14,6 +14,7 @@ class Courses {
         this.classesCreated = new Array();
         this.classesEdited = new Array();
         this.classesDeleted = new Array();
+        changes(false);
         fillselectCourses(this.courses);
       });
     });
@@ -32,6 +33,7 @@ class Courses {
         course_id: course_id,
       })
     );
+    changes(true);
   }
 
   addEditedClass(item, course_id) {
@@ -52,6 +54,7 @@ class Courses {
         );
       }
     }
+    changes(true);
   }
 
   addDeletedClass(item, course_id) {
@@ -75,6 +78,7 @@ class Courses {
         new Object({ class: item, course_id: course_id })
       );
     }
+    changes(true);
   }
 
   saveChanges(group_id) {
@@ -127,5 +131,56 @@ class Courses {
       };
       new ServicesProvider().deleteClass(item, addSuccess, addError);
     });
+  }
+
+  approveGroup(group_id, isApprove) {
+    var $this = this;
+    var flag = true;
+    if (
+      this.classesCreated.length > 0 ||
+      this.classesEdited.length > 0 ||
+      this.classesDeleted.length > 0
+    ) {
+      approved(
+        false,
+        "Necesita guardar los cambios de las clases antes de aprobar el horario."
+      );
+    } else {
+      if (isApprove) {
+        $this.courses.forEach(function (course) {
+          if (
+            $this.calcAsigHours(course.classes) < course.required_class_hours
+          ) {
+            flag = false;
+          }
+        });
+      }
+      if (flag)
+        new ServicesProvider().approveGroup(
+          group_id,
+          isApprove,
+          function () {
+            approved(true, "Horario aprobado con éxito");
+          },
+          function () {
+            approved(false, "Ups... Ocurrió un error inesperado.");
+          }
+        );
+      else
+        approved(
+          false,
+          "Necesita asignar todas las horas requeridas de las clases correspondientes para aprobar el horario."
+        );
+    }
+  }
+
+  calcAsigHours(classes) {
+    var hours = 0;
+    classes.forEach((session) => {
+      var timeStart = new Date("01/01/1999 " + session.start_hour);
+      var timeEnd = new Date("01/01/1999 " + session.end_hour);
+      hours += (timeEnd.getTime() - timeStart.getTime()) / 3600000; //3,600,000= hours(60)*minutes(60)*milliseconds(1000);
+    });
+    return hours;
   }
 }
