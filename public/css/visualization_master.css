@@ -30,7 +30,7 @@
 }
 
 #schedule-visualizer {
-  width: 905px;
+  width: calc(905px + 170px);
 }
 
 @media print {
@@ -39,11 +39,11 @@
   }
 
   #schedule-visualizer {
-    width: 705px;
+    width: 775px;
   }
 
   :root {
-    --cc-width: 100px;
+    --cc-width: 90px;
     --cc-height: 90px;
     --cc-font-size: 8pt;
   }
