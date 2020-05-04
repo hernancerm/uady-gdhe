@@ -14,7 +14,7 @@ else {
 }
 
 $weekdays = array(
-    'mon', 'tue', 'wed', 'thu', 'fri'
+    'mon', 'tue', 'wed', 'thu', 'fri', 'sat'
 );
 
 $response = array();

@@ -14,8 +14,7 @@
 }
 
 .ccv-container {
-  height: calc(100vh * 0.75);
-  /* border: 1px solid black; */
+  height: calc(100vh - 180px);
   display: flex;
   margin-top: 24px;
 }
