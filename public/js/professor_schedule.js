@@ -1,18 +1,18 @@
-const professor = {
-  names: getParameterByName('names'),
-  first_lname: getParameterByName('first_lname'),
-  second_lname: getParameterByName('second_lname'),
-  professor_id: getParameterByName('professor_id'),
-};
+const professor = JSON.parse(localStorage.user);
 
 const services = new ServicesProvider();
 const visualizer = new CardClassVisualizer();
+
+if (localStorage.login == "false" || typeof localStorage.login == "undefined")
+  window.location.href = "login.html";
 
 document.title = `MySched ${professor.names} ${professor.first_lname}`;
 
 // Logout button click handler
 $("#schedule-controls__logout").click(() => {
-  window.location.replace("login.html");
+  localStorage.login = "false";
+  localStorage.user = null;
+  location.reload(true);
 });
 
 $("#schedule-title")
