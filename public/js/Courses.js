@@ -4,6 +4,7 @@ class Courses {
       this.courses = JSON.parse(courses);
       new ServicesProvider().readClasses(group_id, (jsonClasses) => {
         var classes = JSON.parse(jsonClasses);
+
         Array.prototype.forEach.call(this.courses, (course) => {
           course.classes = classes.find(function (sessions) {
             return sessions.course_id == course.course_id;
@@ -15,16 +16,17 @@ class Courses {
         new ServicesProvider().readGroupClasses(
           idGroupSelected,
           (collegeClasses) => {
+            changes(false);
+            console.log(this.courses);
+            fillselectCourses(this.courses);
+            visualizer.render(JSON.parse(collegeClasses));
             spinner.fadeOut(1000);
             mkNoti("¡Bien hecho!", "El horario cargó correctamente.", {
               status: "success",
               duration: 2000,
             });
-            visualizer.render(JSON.parse(collegeClasses));
           }
         );
-        changes(false);
-        fillselectCourses(this.courses);
       });
     });
   }
@@ -188,7 +190,6 @@ class Courses {
       ["thu", "Jueves"],
       ["fri", "Viernes"],
       ["sat", "Sábado"],
-      ["sun", "Domingo"],
     ]);
 
     const classesSorted = classes.sort((t1, t2) => {
@@ -238,14 +239,14 @@ class Courses {
             status: "success",
             duration: 3000,
           });
-          approved(false);
+          approved(false, group_id);
         },
         function () {
           mkNoti("¡Oh no!", "Ocurrió un error inesperado.", {
             status: "danger",
             duration: 4000,
           });
-          approved(true);
+          approved(true, group_id);
         }
       );
     } else {
@@ -262,7 +263,7 @@ class Courses {
             duration: 6000,
           }
         );
-        approved(false);
+        approved(false, group_id);
       } else {
         $this.courses.forEach(function (course) {
           if (
@@ -280,14 +281,14 @@ class Courses {
                 status: "success",
                 duration: 3000,
               });
-              approved(true);
+              approved(true, group_id);
             },
             function () {
               mkNoti("¡Oh no!", "Ocurrió un error inesperado.", {
                 status: "danger",
                 duration: 4000,
               });
-              approved(false);
+              approved(false, group_id);
             }
           );
         else {
@@ -298,7 +299,7 @@ class Courses {
             content:
               "Necesita asignar todas las horas de las clases correspondientes para aprobar el grupo.",
           });
-          approved(false);
+          approved(false, group_id);
         }
       }
     }
@@ -321,14 +322,14 @@ class Courses {
                 "Al guardar sus nuevos cambios, algunas clases quedaron con horas faltantes." +
                 "<br> Recuerde que necesita asignar todas las horas de las clases correspondientes para aprobar el grupo.",
             });
-            approved(false);
+            approved(false, group_id);
           },
           function () {
             mkNoti("¡Oh no!", "Ocurrió un error inesperado.", {
               status: "danger",
               duration: 4000,
             });
-            approved(false);
+            approved(false, group_id);
           }
         );
       }

@@ -1,6 +1,7 @@
 // Input function for animations
 const animationInput = () =>
   $(window, document, undefined).ready(function () {
+    localStorage.login = "false";
     $("input").blur(function () {
       var $this = $(this);
       if ($this.val()) $this.addClass("used");
@@ -85,6 +86,7 @@ document.getElementById("btnSesion").addEventListener("click", (event) => {
 
 function loginWithCredentials(username, password) {
   const request = { username: username.substring(1), password: password };
+
   const services = new ServicesProvider();
 
   switch (username[0]) {
@@ -93,6 +95,7 @@ function loginWithCredentials(username, password) {
         request,
         (data) => {
           userData = JSON.parse(data);
+          localStorage.login = "true";
           window.location = `index.html?names=${userData.names}&first_lname=${userData.first_lname}&second_lname=${userData.second_lname}`;
         },
         () => showErrorPrompt("Usuario o contraseña incorrecto.")

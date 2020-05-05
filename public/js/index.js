@@ -2,12 +2,14 @@ const services = new ServicesProvider();
 const classrooms = new Classrooms();
 const courses = new Courses();
 const visualizer = new CardClassVisualizer();
-const days = new Array("mon", "tue", "wed", "thu", "fri", "sat", "sun");
+const days = new Array("mon", "tue", "wed", "thu", "fri", "sat");
 const spinner = $("#spinner");
 var idGroupSelected = 0;
 var courseSelected;
 
 $(document).ready(function () {
+  if (localStorage.login == "false" || typeof localStorage.login == "undefined")
+    window.location.href = "login.html";
   if ($(window).width() > 768) $("#sidebar").addClass("active");
   mkNotifications();
   spinner.fadeIn(1000);
@@ -59,23 +61,19 @@ $(document).ready(function () {
   $("#groups").on("click", ".subitem", function () {
     var textGroup = $(this).parent().prev().text() + " " + $(this).text();
     $("#lblGroup").html(textGroup);
-    if (typeof $(this).children("span").val() == "undefined")
+    if (!$(this).children("span").hasClass("disapprove"))
       $("#chxApproved").prop("checked", true);
     else $("#chxApproved").prop("checked", false);
-
     $(`#${idGroupSelected}`).removeClass("subitem-selected");
     idGroupSelected = $(this).attr("id");
     $(this).addClass("subitem-selected");
     spinner.fadeIn(300);
     courses.refresh(idGroupSelected);
-
-    services.readGroupClasses(idGroupSelected, (collegeClasses) => {
-      visualizer.render(JSON.parse(collegeClasses));
-    });
   });
 
   $("#logout").click(function () {
-    //Session.close()
+    localStorage.login = "false";
+    location.reload(true);
   });
 
   $("#btnEdit").click(function () {
@@ -195,7 +193,7 @@ $(document).ready(function () {
           if (currentPeriod <= 0) {
             mkNoti(
               "¡Ups!",
-              "La hora inicial no puede ser mayor que la hora final.",
+              "La hora inicial no puede ser mayor o igual que la hora final.",
               {
                 status: "warning",
                 duration: 4000,
@@ -213,6 +211,8 @@ $(document).ready(function () {
           if (idElement == "startHour-" + idClass) {
             endDate.setHours(startDate.getHours());
             endDate.setMinutes(60 * maxPeriod);
+            if (startDate.getHours() == endDate.getHours())
+              endDate.setMinutes(60);
             if (
               endDate.getHours() > 21 ||
               endDate.getDay() != startDate.getDay()
@@ -232,6 +232,8 @@ $(document).ready(function () {
           } else {
             startDate.setHours(endDate.getHours());
             startDate.setMinutes(60 * (-1 * maxPeriod) + 30);
+            if (startDate.getHours() == endDate.getHours())
+              startDate.setMinutes(-60);
             if (
               startDate.getHours() < 7 ||
               endDate.getDay() != startDate.getDay()
@@ -286,14 +288,17 @@ function fillselectCourses(arrayCourses) {
   if (typeof courseSelected == "undefined") {
     fillCourseControl(arrayCourses[0]);
   } else {
-    $("#selectCourses").val(courseSelected.course_id);
     var course = arrayCourses.find(function (course) {
       return courseSelected.course_id == course.course_id;
     });
-
-    if ($("#chxApproved").attr("checked"))
-      courses.validateApproved(idGroupSelected);
-    fillCourseControl(course);
+    if (typeof course == "undefined") {
+      fillCourseControl(arrayCourses[0]);
+    } else {
+      $("#selectCourses").val(courseSelected.course_id);
+      if ($("#chxApproved").attr("checked"))
+        courses.validateApproved(idGroupSelected);
+      fillCourseControl(course);
+    }
   }
 }
 
@@ -389,8 +394,28 @@ function changes(areChanges) {
   else $("#btnSave").attr("disabled", "disabled");
 }
 
-function approved(isApproved) {
+function approved(isApproved, id_group) {
   spinner.fadeOut(1000);
-  if (isApproved) $("#chxApproved").attr("checked", "checked");
-  else $("#chxApproved").removeAttr("checked");
+  if (isApproved) {
+    $("#chxApproved").attr("checked", "checked");
+    $("#" + id_group)
+      .children("span")
+      .removeClass(
+        "disapprove",
+        $("#" + id_group)
+          .children("span")
+          .hasClass("disapprove")
+      );
+  } else {
+    $("#chxApproved").removeAttr("checked");
+    if (
+      !$("#" + id_group)
+        .children("span")
+        .hasClass("disapprove")
+    ) {
+      $("#" + id_group)
+        .children("span")
+        .addClass("disapprove");
+    }
+  }
 }
