@@ -74,6 +74,7 @@ $(document).ready(function () {
   $("#logout").click(function () {
     localStorage.login = "false";
     location.reload(true);
+    localStorage.user = null;
   });
 
   $("#btnEdit").click(function () {

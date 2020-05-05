@@ -17,7 +17,6 @@ class Courses {
           idGroupSelected,
           (collegeClasses) => {
             changes(false);
-            console.log(this.courses);
             fillselectCourses(this.courses);
             visualizer.render(JSON.parse(collegeClasses));
             spinner.fadeOut(1000);
