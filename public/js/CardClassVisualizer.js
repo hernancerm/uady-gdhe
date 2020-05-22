@@ -21,7 +21,6 @@ class CardClassVisualizer {
 
   createClassFromTemplate(subjectName, classroom, startHour, endHour) {
     return $(`<div class="cc">
-        <div class="cc-color-bar--left"></div>
         <div class="cc-subject">${subjectName}</div>
         <div class="cc-footer">
             <div class="cc-footer__classroom">${classroom}</div>
