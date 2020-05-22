@@ -11,6 +11,7 @@
     var(--cc-width) + var(--cc-padding) * 2 + var(--cc-color-bar--left-width)
   );
   --cc-font-size: 10pt;
+  --cc-background-color: #fff;
 }
 
 .ccv-container {
@@ -64,7 +65,7 @@
   border-radius: 5px;
   position: relative;
   box-sizing: content-box;
-  background-color: white;
+  background-color: var(--cc-background-color);
   /* Shadow from https://www.cssmatic.com/box-shadow */
   -webkit-box-shadow: 0px 5px 8px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 5px 8px -5px rgba(0, 0, 0, 0.75);
