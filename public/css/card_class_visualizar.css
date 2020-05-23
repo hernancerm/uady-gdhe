@@ -11,6 +11,7 @@
     var(--cc-width) + var(--cc-padding) * 2 + var(--cc-color-bar--left-width)
   );
   --cc-font-size: 10pt;
+  --cc-background-color: #fff;
 }
 
 .ccv-container {
@@ -26,7 +27,7 @@
 }
 
 .ccv-weekday {
-  font-family: "Poppins";
+  font-family: var(--font-title);
   font-weight: bold;
   font-size: var(--ccv-weekday-font-size);
   margin-bottom: var(--ccv-weekday-margin-b);
@@ -55,7 +56,7 @@
 /* Card class */
 
 .cc {
-  font-family: "Open sans";
+  font-family: var(--font-body);
   width: calc(var(--cc-width));
   height: calc(var(--cc-height));
   padding: var(--cc-padding);
@@ -64,21 +65,23 @@
   border-radius: 5px;
   position: relative;
   box-sizing: content-box;
-  background-color: white;
+  background-color: var(--cc-background-color);
   /* Shadow from https://www.cssmatic.com/box-shadow */
   -webkit-box-shadow: 0px 5px 8px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 5px 8px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 5px 8px -5px rgba(0, 0, 0, 0.75);
 }
 
-.cc-color-bar--left {
-  background-color: var(--secondary);
+.cc::after {
+  display: block;
   position: absolute;
-  left: 0;
   top: 0;
-  border-radius: 5px 0px 0px 5px;
+  left: 0;
+  content: "";
   width: var(--cc-color-bar--left-width);
-  height: calc(var(--cc-height) + var(--cc-padding) * 2);
+  height: 100%;
+  background-color: var(--secondary);
+  border-radius: 5px 0px 0px 5px;
 }
 
 .cc-subject {

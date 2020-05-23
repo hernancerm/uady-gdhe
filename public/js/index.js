@@ -4,8 +4,8 @@ const courses = new Courses();
 const visualizer = new CardClassVisualizer();
 const days = new Array("mon", "tue", "wed", "thu", "fri", "sat");
 const spinner = $("#spinner");
-var idGroupSelected = 0;
-var courseSelected;
+let idGroupSelected = 0;
+let courseSelected;
 
 $(document).ready(function () {
   if (localStorage.login == "false" || typeof localStorage.login == "undefined")
@@ -59,7 +59,7 @@ $(document).ready(function () {
   });
 
   $("#groups").on("click", ".subitem", function () {
-    var textGroup = $(this).parent().prev().text() + " " + $(this).text();
+    const textGroup = $(this).parent().prev().text() + " " + $(this).text();
     $("#lblGroup").html(textGroup);
     if (!$(this).children("span").hasClass("disapprove"))
       $("#chxApproved").prop("checked", true);
@@ -90,7 +90,7 @@ $(document).ready(function () {
   });
 
   $("#selectCourses").change(function () {
-    var courseSelected = courses.get($(this).val());
+    let courseSelected = courses.get($(this).val());
     $(".toggle-active").removeClass("toggle-active");
     fillCourseControl(courseSelected);
   });
@@ -106,13 +106,13 @@ $(document).ready(function () {
       deleteClass(sessionId);
       $(this).removeClass("toggle-active");
     } else {
-      var missHours =
+      let missHours =
         courseSelected.required_class_hours -
         courses.calcAsigHours(courseSelected.classes);
-      var startHour = new Date("01/01/1999 07:00");
-      var endHour = new Date(startHour.getTime() + missHours * 60 * 60 * 1000);
+      let startHour = new Date("01/01/1999 07:00");
+      let endHour = new Date(startHour.getTime() + missHours * 60 * 60 * 1000);
       if (missHours > 0) {
-        var newClass = new Object({
+        let newClass = new Object({
           class_id: $(this).attr("id"),
           start_hour:
             startHour.getHours() +
@@ -157,11 +157,11 @@ $(document).ready(function () {
   });
 
   $("#dayCards").on("focus", ".date", function () {
-    var prevPeriod;
-    var startHour = $(this);
-    var endHour;
-    var idElement = $(this).attr("id");
-    var idClass = idElement.split("-")[1];
+    let prevPeriod;
+    let startHour = $(this);
+    let endHour;
+    let idElement = $(this).attr("id");
+    let idClass = idElement.split("-")[1];
     if (idElement == "startHour-" + idClass) {
       endHour = $("#endHour-" + idClass);
     } else {
@@ -177,16 +177,16 @@ $(document).ready(function () {
         interval: 30,
       },
       beforeShow: function (time, inst) {
-        var startDate = new Date("01/01/1999 " + startHour.val() + ":00");
-        var endDate = new Date("01/01/1999 " + endHour.val() + ":00");
+        let startDate = new Date("01/01/1999 " + startHour.val() + ":00");
+        let endDate = new Date("01/01/1999 " + endHour.val() + ":00");
         prevPeriod = (endDate.getTime() - startDate.getTime()) / 3600000;
       },
       onSelect: function (time, inst) {
-        var startDate = new Date("01/01/1999 " + startHour.val() + ":00");
-        var endDate = new Date("01/01/1999 " + endHour.val() + ":00");
-        var currentPeriod = (endDate.getTime() - startDate.getTime()) / 3600000;
+        let startDate = new Date("01/01/1999 " + startHour.val() + ":00");
+        let endDate = new Date("01/01/1999 " + endHour.val() + ":00");
+        let currentPeriod = (endDate.getTime() - startDate.getTime()) / 3600000;
 
-        var maxPeriod =
+        let maxPeriod =
           courseSelected.required_class_hours -
           courses.calcAsigHours(courseSelected.classes) +
           prevPeriod;
@@ -281,7 +281,7 @@ $(document).ready(function () {
 
 function fillselectCourses(arrayCourses) {
   spinner.fadeOut(1000);
-  var options = "";
+  let options = "";
   arrayCourses.forEach((course) => {
     options += `<option value=${course.course_id}>${course.subject_name}</option>`;
   });
@@ -289,7 +289,8 @@ function fillselectCourses(arrayCourses) {
   if (typeof courseSelected == "undefined") {
     fillCourseControl(arrayCourses[0]);
   } else {
-    var course = arrayCourses.find(function (course) {
+    $("#selectCourses").val(courseSelected.course_id);
+    let course = arrayCourses.find(function (course) {
       return courseSelected.course_id == course.course_id;
     });
     if (typeof course == "undefined") {
@@ -308,13 +309,13 @@ function fillCourseControl(course) {
   $(".toggle-btn").removeClass("toggle-active");
   $("#lblTeacher").html(course.professor_full_name);
   createClassesCards(course.classes);
-  var asigHours = courses.calcAsigHours(course.classes);
+  const asigHours = courses.calcAsigHours(course.classes);
   $("#lblAsigHours").html(asigHours);
   $("#lblMissHours").html(course.required_class_hours - asigHours);
 }
 
 function createClassesCards(classes) {
-  var cards = "";
+  let cards = "";
 
   const classesSorted = classes.sort((t1, t2) => {
     const day1 = days.indexOf(t1.weekday);
@@ -329,7 +330,7 @@ function createClassesCards(classes) {
   });
 
   classesSorted.forEach((session) => {
-    var btnDay = $(`#${session.weekday}`);
+    let btnDay = $(`#${session.weekday}`);
     btnDay.addClass("toggle-active");
 
     cards += `<div class="card-day">
@@ -368,7 +369,7 @@ function createClassesCards(classes) {
 }
 
 function getClassroomOptions(selected) {
-  var options = "";
+  let options = "";
   classrooms.getClassrooms().forEach((classroom) => {
     options += "<option ";
     if (selected == classroom) options += "selected";
