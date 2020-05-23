@@ -27,7 +27,7 @@
 }
 
 .ccv-weekday {
-  font-family: "Poppins";
+  font-family: var(--font-title);
   font-weight: bold;
   font-size: var(--ccv-weekday-font-size);
   margin-bottom: var(--ccv-weekday-margin-b);
@@ -56,7 +56,7 @@
 /* Card class */
 
 .cc {
-  font-family: "Open sans";
+  font-family: var(--font-body);
   width: calc(var(--cc-width));
   height: calc(var(--cc-height));
   padding: var(--cc-padding);
