@@ -1,5 +1,3 @@
-/*FONTS*/
-
 /* poppins */
 @font-face {
   font-family: "Poppins";
@@ -58,7 +56,7 @@
       format("svg"); /* Legacy iOS */
 }
 
-/* COLORS */
+/* VARS */
 
 :root {
   --primary: #ff5757;
