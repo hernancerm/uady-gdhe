@@ -10,7 +10,7 @@
   margin-top: 50px;
   margin-left: -304px;
   background: var(--primary);
-  color: #fff;
+  color: var(--light);
   -webkit-transition: all 0.8s;
   -o-transition: all 0.8s;
   transition: all 0.8s;
@@ -80,7 +80,7 @@
   border: none;
   text-align: left;
   color: var(--secondary);
-  font-family: "Poppins";
+  font-family: var(--font-title);
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
@@ -176,7 +176,7 @@
 }
 
 .title {
-  font-family: "Open Sans";
+  font-family: var(--font-body);
   color: var(--dark);
   margin-top: 8px;
   padding-left: 24px;

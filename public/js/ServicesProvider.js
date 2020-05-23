@@ -9,7 +9,7 @@ class ServicesProvider {
     });
   }
 
-  logInStudentWithCredentials(data,callback,error){
+  logInStudentWithCredentials(data, callback, error) {
     $.ajax({
       url: "../src/services/READ_student_BY_credentials.php",
       method: "POST",

@@ -5,7 +5,5 @@ class Classrooms {
     });
   }
 
-  getClassrooms() {
-    return this.classrooms;
-  }
+  getClassrooms = () => this.classrooms;
 }

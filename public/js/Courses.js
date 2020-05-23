@@ -3,7 +3,8 @@ class Courses {
     new ServicesProvider().readCourses(group_id, (courses) => {
       this.courses = JSON.parse(courses);
       new ServicesProvider().readClasses(group_id, (jsonClasses) => {
-        var classes = JSON.parse(jsonClasses);
+        const classes = JSON.parse(jsonClasses);
+
         Array.prototype.forEach.call(this.courses, (course) => {
           course.classes = classes.find(function (sessions) {
             return sessions.course_id == course.course_id;
@@ -15,25 +16,24 @@ class Courses {
         new ServicesProvider().readGroupClasses(
           idGroupSelected,
           (collegeClasses) => {
+            changes(false);
+            fillselectCourses(this.courses);
+            visualizer.render(JSON.parse(collegeClasses));
             spinner.fadeOut(1000);
             mkNoti("¡Bien hecho!", "El horario cargó correctamente.", {
               status: "success",
               duration: 2000,
             });
-            visualizer.render(JSON.parse(collegeClasses));
           }
         );
-        changes(false);
-        fillselectCourses(this.courses);
       });
     });
   }
 
-  get(course_id) {
-    return this.courses.find(function (course) {
+  get = (course_id) =>
+    this.courses.find(function (course) {
       return course.course_id == course_id;
     });
-  }
 
   addCreatedClass(item, course_id) {
     this.classesCreated.push(
@@ -46,13 +46,13 @@ class Courses {
   }
 
   addEditedClass(item, course_id) {
-    var newClassEdited = this.classesCreated.find(function (session) {
+    let newClassEdited = this.classesCreated.find(function (session) {
       return item.class_id == session.class.class_id;
     });
     if (newClassEdited) {
       newClassEdited.class = item;
     } else {
-      var classEdited = this.classesEdited.find(function (session) {
+      let classEdited = this.classesEdited.find(function (session) {
         return item.class_id == session.class.class_id;
       });
       if (classEdited) {
@@ -67,7 +67,7 @@ class Courses {
   }
 
   addDeletedClass(item, course_id) {
-    var newClassDeleted = this.classesCreated.find(function (session) {
+    const newClassDeleted = this.classesCreated.find(function (session) {
       return item.class_id == session.class.class_id;
     });
     if (newClassDeleted) {
@@ -75,7 +75,7 @@ class Courses {
         (session) => item.class_id != session.class.class_id
       );
     } else {
-      var classDeleted = this.classesEdited.find(function (session) {
+      const classDeleted = this.classesEdited.find(function (session) {
         return item.class_id == session.class.class_id;
       });
       if (classDeleted) {
@@ -91,22 +91,22 @@ class Courses {
   }
 
   saveChanges(group_id) {
-    var $this = this;
-    var successList = new Array();
-    var errorList = new Array();
-    var countTransacts =
+    const $this = this;
+    let successList = new Array();
+    let errorList = new Array();
+    let countTransacts =
       this.classesCreated.length +
       this.classesEdited.length +
       this.classesDeleted.length;
 
     this.classesCreated.forEach(function (item) {
-      var addSuccess = function () {
+      const addSuccess = function () {
         successList.push(new Object({ transcact: "creada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
-      var addError = function () {
+      const addError = function () {
         errorList.push(new Object({ transcact: "creada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
@@ -116,13 +116,13 @@ class Courses {
     });
 
     this.classesEdited.forEach(function (item) {
-      var addSuccess = function () {
+      const addSuccess = function () {
         successList.push(new Object({ transcact: "editada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
-      var addError = function () {
+      const addError = function () {
         errorList.push(new Object({ transcact: "editada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
@@ -132,13 +132,13 @@ class Courses {
     });
 
     this.classesDeleted.forEach(function (item) {
-      var addSuccess = function () {
+      const addSuccess = function () {
         successList.push(new Object({ transcact: "eliminada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
-      var addError = function (data) {
+      const addError = function (data) {
         errorList.push(new Object({ transcact: "eliminada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
@@ -150,7 +150,7 @@ class Courses {
 
   alertChanges(successList, errorList, group_id) {
     if (errorList.length > 0) {
-      var content =
+      const content =
         "Las siguientes clases no se guardaron ya que tuvieron conflicto." +
         " Esto sucede ya que el profesor o el aula ya tienen otra clase asignada en ese horario." +
         this.loadTransactsContent(errorList);
@@ -164,7 +164,7 @@ class Courses {
     }
 
     if (successList.length > 0) {
-      var content =
+      const content =
         "Las siguientes clases se actualizaron con éxito." +
         this.loadTransactsContent(successList);
 
@@ -179,8 +179,8 @@ class Courses {
   }
 
   loadTransactsContent(classes) {
-    var $this = this;
-    var content = "";
+    const $this = this;
+    let content = "";
     const weekdays = new Map([
       ["mon", "Lunes"],
       ["tue", "Martes"],
@@ -188,7 +188,6 @@ class Courses {
       ["thu", "Jueves"],
       ["fri", "Viernes"],
       ["sat", "Sábado"],
-      ["sun", "Domingo"],
     ]);
 
     const classesSorted = classes.sort((t1, t2) => {
@@ -203,10 +202,10 @@ class Courses {
       return 0;
     });
 
-    var idPrev = -1;
+    let idPrev = -1;
     classesSorted.forEach(function (item) {
       if (item.class.course_id != idPrev) {
-        var courseName = $this.courses.find(function (course) {
+        const courseName = $this.courses.find(function (course) {
           return item.class.course_id == course.course_id;
         }).subject_name;
         content += "<hr> <strong>" + courseName + "</strong> <br>";
@@ -226,8 +225,8 @@ class Courses {
   }
 
   approveGroup(group_id, isApprove) {
-    var $this = this;
-    var flag = true;
+    const $this = this;
+    let flag = true;
 
     if (!isApprove) {
       new ServicesProvider().approveGroup(
@@ -238,14 +237,14 @@ class Courses {
             status: "success",
             duration: 3000,
           });
-          approved(false);
+          approved(false, group_id);
         },
         function () {
           mkNoti("¡Oh no!", "Ocurrió un error inesperado.", {
             status: "danger",
             duration: 4000,
           });
-          approved(true);
+          approved(true, group_id);
         }
       );
     } else {
@@ -262,7 +261,7 @@ class Courses {
             duration: 6000,
           }
         );
-        approved(false);
+        approved(false, group_id);
       } else {
         $this.courses.forEach(function (course) {
           if (
@@ -280,14 +279,14 @@ class Courses {
                 status: "success",
                 duration: 3000,
               });
-              approved(true);
+              approved(true, group_id);
             },
             function () {
               mkNoti("¡Oh no!", "Ocurrió un error inesperado.", {
                 status: "danger",
                 duration: 4000,
               });
-              approved(false);
+              approved(false, group_id);
             }
           );
         else {
@@ -298,7 +297,7 @@ class Courses {
             content:
               "Necesita asignar todas las horas de las clases correspondientes para aprobar el grupo.",
           });
-          approved(false);
+          approved(false, group_id);
         }
       }
     }
@@ -306,7 +305,7 @@ class Courses {
 
   validateApproved(group_id) {
     for (let i = 0; i < this.courses.length; i++) {
-      var course = this.courses[i];
+      let course = this.courses[i];
 
       if (course.required_class_hours > this.calcAsigHours(course.classes)) {
         new ServicesProvider().approveGroup(
@@ -321,14 +320,14 @@ class Courses {
                 "Al guardar sus nuevos cambios, algunas clases quedaron con horas faltantes." +
                 "<br> Recuerde que necesita asignar todas las horas de las clases correspondientes para aprobar el grupo.",
             });
-            approved(false);
+            approved(false, group_id);
           },
           function () {
             mkNoti("¡Oh no!", "Ocurrió un error inesperado.", {
               status: "danger",
               duration: 4000,
             });
-            approved(false);
+            approved(false, group_id);
           }
         );
       }
@@ -336,10 +335,10 @@ class Courses {
   }
 
   calcAsigHours(classes) {
-    var hours = 0;
+    let hours = 0;
     classes.forEach((session) => {
-      var timeStart = new Date("01/01/1999 " + session.start_hour);
-      var timeEnd = new Date("01/01/1999 " + session.end_hour);
+      const timeStart = new Date("01/01/1999 " + session.start_hour);
+      const timeEnd = new Date("01/01/1999 " + session.end_hour);
       hours += (timeEnd.getTime() - timeStart.getTime()) / 3600000; //3,600,000= hours(60)*minutes(60)*milliseconds(1000);
     });
     return hours;
