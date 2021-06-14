@@ -256,7 +256,7 @@ final class ServicesTest extends TestCase
 
     public function test_READ_classes_GB_weekday_BY_professor_id()
     {
-        $service = 'READ_classes_GB_weekday_BY_professor_id.php';
+        $service = 'READ_approved_classes_GB_weekday_BY_professor_id.php';
         $response = self::$client->request('GET', $service, [
             'query' => ['professor_id' => 1]
         ]);
