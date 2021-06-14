@@ -1,3 +1,5 @@
+import ServicesProvider from "./ServicesProvider";
+
 // Input function for animations
 const animationInput = () =>
   $(window, document, undefined).ready(function () {

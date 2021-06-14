@@ -1,3 +1,10 @@
+import main from "./main";
+import ServicesProvider from "./ServicesProvider";
+import Classrooms from "./Classrooms";
+import Courses from "./Courses";
+import CardClassVisualizer from "./CardClassVisualizer";
+
+main($);
 const services = new ServicesProvider();
 const classrooms = new Classrooms();
 const courses = new Courses();

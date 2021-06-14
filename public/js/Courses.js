@@ -1,4 +1,6 @@
-class Courses {
+import ServicesProvider from "./ServicesProvider";
+
+export default class Courses {
   refresh(group_id) {
     new ServicesProvider().readCourses(group_id, (courses) => {
       this.courses = JSON.parse(courses);
