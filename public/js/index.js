@@ -86,6 +86,7 @@ $(document).ready(function () {
 
   $("#btnEdit").click(function () {
     $("#sidebar").addClass("active");
+    $("#container").removeClass("container-split")
     $("#menu").addClass("hidden");
     $("#control").removeClass("hidden");
     $(this).addClass("hidden");
