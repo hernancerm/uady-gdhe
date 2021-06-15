@@ -1,4 +1,4 @@
-class CardClassVisualizer {
+export default class CardClassVisualizer {
   render(collegeClasses) {
     collegeClasses.forEach((weekdayColumn) => {
       const htmlWeekdayColumn = $(

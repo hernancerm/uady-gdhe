@@ -1,4 +1,7 @@
-class Courses {
+import ServicesProvider from "./ServicesProvider";
+import { changes, fillselectCourses, visualizer, spinner, approved} from "./index";
+
+export default class Courses {
   refresh(group_id) {
     new ServicesProvider().readCourses(group_id, (courses) => {
       this.courses = JSON.parse(courses);
@@ -14,7 +17,7 @@ class Courses {
         this.classesEdited = new Array();
         this.classesDeleted = new Array();
         new ServicesProvider().readGroupClasses(
-          idGroupSelected,
+          group_id,
           (collegeClasses) => {
             changes(false);
             fillselectCourses(this.courses);

@@ -1,4 +1,4 @@
-(function ($) {
+export default function main ($) {
   "use strict";
 
   var fullHeight = function () {
@@ -14,4 +14,4 @@
 
     $("#container").toggleClass("container-split");
   });
-})(jQuery);
+};

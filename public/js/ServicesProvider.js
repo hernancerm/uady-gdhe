@@ -1,4 +1,4 @@
-class ServicesProvider {
+export default class ServicesProvider {
   logInWithCredentials(data, callback, error) {
     $.ajax({
       url: "../src/services/READ_admin_BY_credentials.php",
