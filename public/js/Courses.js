@@ -1,4 +1,5 @@
 import ServicesProvider from "./ServicesProvider";
+import { changes, fillselectCourses, visualizer, spinner, approved} from "./index";
 
 export default class Courses {
   refresh(group_id) {
@@ -16,7 +17,7 @@ export default class Courses {
         this.classesEdited = new Array();
         this.classesDeleted = new Array();
         new ServicesProvider().readGroupClasses(
-          idGroupSelected,
+          group_id,
           (collegeClasses) => {
             changes(false);
             fillselectCourses(this.courses);
