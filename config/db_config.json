@@ -2,6 +2,6 @@
   "db_type": "mysql",
   "db_name": "gdhe",
   "server": "localhost",
-  "username": "root",
-  "password": ""
+  "username": "gdhe_db_manager",
+  "password": "@75dbMAn36"
 }
