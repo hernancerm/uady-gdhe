@@ -42,6 +42,7 @@ A student the classes assigned to his or her group. Additionally, they can also 
 The following requirements are necessary to build our project.
 
 ### Development requirements
+
  - Composer  
  - Node Js
  - XAMPP
@@ -50,16 +51,16 @@ The following requirements are necessary to build our project.
 
 1. Get all PHP dependencies with Composer. We must execute the following command inside the root of the project 
 ``` bash 
-    composer install
+composer install
 ```
 
 2. Obtain the necessary dependencies of Node Js. We must execute the following command inside the root of the project 
 ``` bash 
-    npm install
+npm install
 ```
 
 3. To generate the necessary Javascript bundles we must execute the following command 
 ``` bash 
-    npm run build
+npm run build
 ```
 4. Start the server and the database with the XAMPP tool.
