@@ -10,7 +10,7 @@ final class ServicesTest extends TestCase
     // Create Guzzle HTTP client for test API calls
     public static function setUpBeforeClass(): void
     {
-        $base_uri = 'http://localhost/htdocs_2020/GDHE/src/services/';
+        $base_uri = 'http://localhost/GDHE/src/services/';
         self::$client = new Client(['base_uri' => $base_uri]);
     }
 
@@ -256,7 +256,7 @@ final class ServicesTest extends TestCase
 
     public function test_READ_classes_GB_weekday_BY_professor_id()
     {
-        $service = 'READ_classes_GB_weekday_BY_professor_id.php';
+        $service = 'READ_approved_classes_GB_weekday_BY_professor_id.php';
         $response = self::$client->request('GET', $service, [
             'query' => ['professor_id' => 1]
         ]);
