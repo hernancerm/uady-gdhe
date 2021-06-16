@@ -1,65 +1,51 @@
 export default class ServicesProvider {
-  logInWithCredentials(data, callback, error) {
-    $.ajax({
-      url: "../src/services/READ_admin_BY_credentials.php",
+  logInWithCredentials(data) {
+    return fetch("../src/services/READ_admin_BY_credentials.php", {
       method: "POST",
-      data: JSON.stringify(data),
-      success: callback,
-      error: error,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
   }
 
-  logInStudentWithCredentials(data, callback, error) {
-    $.ajax({
-      url: "../src/services/READ_student_BY_credentials.php",
+  logInStudentWithCredentials(data) {
+    return fetch("../src/services/READ_student_BY_credentials.php", {
       method: "POST",
-      data: JSON.stringify(data),
-      success: callback,
-      error: error,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
   }
 
-  logInProfessorWithCredentials(data, callback, error) {
-    $.ajax({
-      url: "../src/services/READ_professor_BY_credentials.php",
+  logInProfessorWithCredentials(data) {
+    return fetch("../src/services/READ_professor_BY_credentials.php", {
       method: "POST",
-      data: JSON.stringify(data),
-      success: callback,
-      error: error,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
   }
 
-  readGroups(callback) {
-    $.ajax({
-      url: "../src/services/READ_groups_GB_major.php",
-      success: callback,
-    });
+  readGroups() {
+    return fetch("../src/services/READ_groups_GB_major.php");
   }
 
-  readClassrooms(callback) {
-    $.ajax({
-      url: "../src/services/READ_classrooms.php",
-      success: callback,
-    });
+  readClassrooms() {
+    return fetch("../src/services/READ_classrooms.php");
   }
 
-  readCourses(group_id, callback) {
-    $.ajax({
-      data: { group_id: group_id },
-      url: "../src/services/READ_courses_BY_group_id.php",
-      success: callback,
-    });
+  readCourses(group_id) {
+    return fetch(`../src/services/READ_courses_BY_group_id.php?group_id=${group_id}`);
   }
 
-  readClasses(group_id, callback) {
-    $.ajax({
-      data: { group_id: group_id },
-      url: "../src/services/READ_classes_GB_course_id_BY_group_id.php",
-      success: callback,
-    });
+  readClasses(group_id) {
+    return fetch(`../src/services/READ_classes_GB_course_id_BY_group_id.php?group_id=${group_id}`);
   }
 
-  createClass(item, success, error) {
+  createClass(item) {
     var data = {
       start_hour: item.class.start_hour,
       end_hour: item.class.end_hour,
@@ -67,17 +53,17 @@ export default class ServicesProvider {
       course_id: parseInt(item.course_id),
       weekday: item.class.weekday,
     };
-
-    $.ajax({
+    
+    return fetch("../src/services/CREATE_class.php", {
       method: "POST",
-      data: JSON.stringify(data),
-      url: "../src/services/CREATE_class.php",
-      success: success,
-      error: error,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
   }
 
-  updateClass(item, success, error) {
+  updateClass(item) {
     var data = {
       class_id: parseInt(item.class.class_id),
       start_hour: item.class.start_hour,
@@ -87,65 +73,44 @@ export default class ServicesProvider {
       weekday: item.class.weekday,
     };
 
-    $.ajax({
+    return fetch("../src/services/UPDATE_class.php", {
       method: "PUT",
-      data: JSON.stringify(data),
-      url: "../src/services/UPDATE_class.php",
-      success: success,
-      error: error,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
   }
 
-  deleteClass(item, success, error) {
-    var data = {
-      class_id: parseInt(item.class.class_id),
-    };
+  deleteClass(item) {
+    var id = item.class.class_id
 
-    $.ajax({
-      method: "GET",
-      data: data,
-      url: "../src/services/DELETE_class.php",
-      success: success,
-      error: error,
-    });
+    return fetch(`../src/services/DELETE_class.php?class_id=${id}`)
   }
 
-  approveGroup(group_id, approved, success, error) {
+  approveGroup(group_id, approved) {
     var data = {
       group_id: parseInt(group_id),
       approved: Boolean(approved),
     };
 
-    $.ajax({
+    return fetch("../src/services/UPDATE_approve_group.php", {
       method: "PUT",
-      data: JSON.stringify(data),
-      url: "../src/services/UPDATE_approve_group.php",
-      success: success,
-      error: error,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
   }
-  readGroupClasses(group_id, callback) {
-    $.ajax({
-      data: { group_id: group_id },
-      url: "../src/services/READ_classes_GB_weekday_BY_group_id.php",
-      success: callback,
-    });
+  readGroupClasses(group_id) {
+    return fetch(`../src/services/READ_classes_GB_weekday_BY_group_id.php?group_id=${group_id}`);
   }
 
-  readProfessorClasses(professor_id, callback) {
-    $.ajax({
-      data: { professor_id: professor_id },
-      url:
-        "../src/services/READ_approved_classes_GB_weekday_BY_professor_id.php",
-      success: callback,
-    });
+  readProfessorClasses(professor_id) {
+    return fetch(`../src/services/READ_approved_classes_GB_weekday_BY_professor_id.php?professor_id=${professor_id}`);
   }
 
-  readGroup(group_id, callback) {
-    $.ajax({
-      data: { group_id: group_id },
-      url: "../src/services/READ_group_BY_group_id.php",
-      success: callback,
-    });
+  readGroup(group_id) {
+    return fetch(`../src/services/READ_group_BY_group_id.php?group_id=${group_id}`)
   }
 }
