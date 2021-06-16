@@ -1,3 +1,6 @@
+import ServicesProvider from "./ServicesProvider";
+import CardClassVisualizer from "./CardClassVisualizer";
+
 const student = JSON.parse(localStorage.user);
 
 const services = new ServicesProvider();

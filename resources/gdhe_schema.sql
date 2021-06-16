@@ -77,3 +77,8 @@ CREATE TABLE class(
     FOREIGN KEY (classroom_id) REFERENCES classroom(classroom_id),
     FOREIGN KEY (course_id) REFERENCES course(course_id)
 );
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `gdhe`.* TO `gdhe_db_manager`@`localhost` 
+IDENTIFIED BY PASSWORD '*F01145B11CE189AF15A97B0F2113D1F75FC1F232';
+
+FLUSH PRIVILEGES;

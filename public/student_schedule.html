@@ -8,17 +8,6 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/card_class_visualizar.css" />
     <link rel="stylesheet" href="css/visualization_master.css" />
-
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
-      defer
-    ></script>
-    <script src="js/CardClassVisualizer.js" defer></script>
-    <script src="js/ServicesProvider.js" defer></script>
-    <script src="js/utils.js"></script>
-    <script src="js/student_schedule.js" defer></script>
   </head>
 
   <body>
@@ -27,9 +16,7 @@
       <div>
         <div id="schedule-controls">
           <button id="schedule-controls__logout">🡰 Cerrar sesión</button>
-          <button id="schedule-controls__print" class="hidden">
-            Imprimir
-          </button>
+          <button id="schedule-controls__print" class="hidden">Imprimir</button>
         </div>
         <div id="schedule-visualizer">
           <div class="ccv-container" id="schedule">
@@ -61,5 +48,11 @@
         </div>
       </div>
     </div>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./bundles/student_schedule_bundle.js"></script>
   </body>
 </html>

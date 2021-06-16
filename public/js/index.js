@@ -1,9 +1,16 @@
+import main from "./main";
+import ServicesProvider from "./ServicesProvider";
+import Classrooms from "./Classrooms";
+import Courses from "./Courses";
+import CardClassVisualizer from "./CardClassVisualizer";
+
+main($);
 const services = new ServicesProvider();
 const classrooms = new Classrooms();
 const courses = new Courses();
-const visualizer = new CardClassVisualizer();
+export const visualizer = new CardClassVisualizer();
 const days = new Array("mon", "tue", "wed", "thu", "fri", "sat");
-const spinner = $("#spinner");
+export const spinner = $("#spinner");
 let idGroupSelected = 0;
 let courseSelected;
 
@@ -16,7 +23,7 @@ $(document).ready(function () {
   // Display schedule of default selected group on landing
 
   services.readGroups((majors) => {
-    majorsList = JSON.parse(majors);
+    let majorsList = JSON.parse(majors);
     idGroupSelected = majorsList[0].groups[0].group_id;
     $("#lblGroup").html(`
       ${majorsList[0].major} ${majorsList[0].groups[0].semester} semestre  ${
@@ -25,7 +32,7 @@ $(document).ready(function () {
     if (majorsList[0].groups[0].approved)
       $("#chxApproved").attr("checked", "checked");
     majorsList.forEach((majorItem) => {
-      item = `<button class='accordion'>
+      let item = `<button class='accordion'>
                 <span><i class="fa fa-angle-right"></i></span> ${majorItem.major}
               </button><div class='panel'>`;
       majorItem.groups.forEach((group) => {
@@ -41,13 +48,13 @@ $(document).ready(function () {
     });
     $(`#${idGroupSelected}`).addClass("subitem-selected");
     $(`#${idGroupSelected}`).parent().prev().click();
-    courses.refresh(idGroupSelected);
+    courses.refresh(idGroupSelected, idGroupSelected);
   });
 
   $("#groups").on("click", ".accordion", function () {
-    ico = $(this).find(".fa");
-    panel = $(this).next();
-    panelHeight = panel.css("height");
+    let ico = $(this).find(".fa");
+    let panel = $(this).next();
+    let panelHeight = panel.css("height");
 
     if (panelHeight.substring(0, panelHeight.length - 2) > 0) {
       panel.css("max-height", "0");
@@ -68,7 +75,7 @@ $(document).ready(function () {
     idGroupSelected = $(this).attr("id");
     $(this).addClass("subitem-selected");
     spinner.fadeIn(300);
-    courses.refresh(idGroupSelected);
+    courses.refresh(idGroupSelected, idGroupSelected);
   });
 
   $("#logout").click(function () {
@@ -79,6 +86,7 @@ $(document).ready(function () {
 
   $("#btnEdit").click(function () {
     $("#sidebar").addClass("active");
+    $("#container").removeClass("container-split")
     $("#menu").addClass("hidden");
     $("#control").removeClass("hidden");
     $(this).addClass("hidden");
@@ -97,10 +105,10 @@ $(document).ready(function () {
 
   $(".toggle-btn").click(function () {
     if ($(this).hasClass("toggle-active")) {
-      arrayClasses = courseSelected.classes;
-      weekday = $(this).attr("id");
+      let arrayClasses = courseSelected.classes;
+      let weekday = $(this).attr("id");
 
-      sessionId = arrayClasses.find(function (session) {
+      let sessionId = arrayClasses.find(function (session) {
         return session.weekday == weekday;
       }).class_id;
       deleteClass(sessionId);
@@ -142,14 +150,14 @@ $(document).ready(function () {
   });
 
   $("#dayCards").on("click", ".btn-delete-class", function () {
-    classInfo = $(this).attr("id").split("-");
+    let classInfo = $(this).attr("id").split("-");
     deleteClass(classInfo[1]);
     $("#" + classInfo[0]).removeClass("toggle-active");
   });
 
   $("#dayCards").on("change", ".selectClassroom", function () {
     idSession = $(this).attr("id");
-    classEdited = courseSelected.classes.find(function (item) {
+    let classEdited = courseSelected.classes.find(function (item) {
       return item.class_id == idSession;
     });
     classEdited.classroom_name = $(this).val();
@@ -253,7 +261,7 @@ $(document).ready(function () {
               );
           }
         }
-        currentClass = courseSelected.classes.find(function (item) {
+        let currentClass = courseSelected.classes.find(function (item) {
           return item.class_id == idClass;
         });
         currentClass.start_hour = startHour.val() + ":00";
@@ -279,7 +287,7 @@ $(document).ready(function () {
   });
 });
 
-function fillselectCourses(arrayCourses) {
+export function fillselectCourses(arrayCourses) {
   spinner.fadeOut(1000);
   let options = "";
   arrayCourses.forEach((course) => {
@@ -379,7 +387,7 @@ function getClassroomOptions(selected) {
 }
 
 function deleteClass(idSession) {
-  classDeleted = courseSelected.classes.find(function (item) {
+  let classDeleted = courseSelected.classes.find(function (item) {
     return item.class_id == idSession;
   });
 
@@ -390,13 +398,13 @@ function deleteClass(idSession) {
   courses.addDeletedClass(classDeleted, courseSelected.course_id);
 }
 
-function changes(areChanges) {
+export function changes(areChanges) {
   spinner.fadeOut(1000);
   if (areChanges) $("#btnSave").removeAttr("disabled");
   else $("#btnSave").attr("disabled", "disabled");
 }
 
-function approved(isApproved, id_group) {
+export function approved(isApproved, id_group) {
   spinner.fadeOut(1000);
   if (isApproved) {
     $("#chxApproved").attr("checked", "checked");
