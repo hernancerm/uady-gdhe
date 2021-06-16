@@ -1,33 +1,48 @@
-class Courses {
-  refresh(group_id) {
-    new ServicesProvider().readCourses(group_id, (courses) => {
-      this.courses = JSON.parse(courses);
-      new ServicesProvider().readClasses(group_id, (jsonClasses) => {
-        const classes = JSON.parse(jsonClasses);
+import ServicesProvider from "./ServicesProvider";
+import {
+  changes,
+  fillselectCourses,
+  visualizer,
+  spinner,
+  approved,
+} from "./index";
 
-        Array.prototype.forEach.call(this.courses, (course) => {
-          course.classes = classes.find(function (sessions) {
-            return sessions.course_id == course.course_id;
-          }).classes;
-        });
-        this.classesCreated = new Array();
-        this.classesEdited = new Array();
-        this.classesDeleted = new Array();
-        new ServicesProvider().readGroupClasses(
-          idGroupSelected,
-          (collegeClasses) => {
-            changes(false);
-            fillselectCourses(this.courses);
-            visualizer.render(JSON.parse(collegeClasses));
-            spinner.fadeOut(1000);
-            mkNoti("¡Bien hecho!", "El horario cargó correctamente.", {
-              status: "success",
-              duration: 2000,
+export default class Courses {
+  refresh(group_id) {
+    new ServicesProvider()
+      .readCourses(group_id)
+      .then((response) => response.json())
+      .then((courses) => {
+        this.courses = courses;
+        new ServicesProvider()
+          .readClasses(group_id)
+          .then((response) => response.json())
+          .then((jsonClasses) => {
+            const classes = jsonClasses;
+
+            Array.prototype.forEach.call(this.courses, (course) => {
+              course.classes = classes.find(function (sessions) {
+                return sessions.course_id == course.course_id;
+              }).classes;
             });
-          }
-        );
+            this.classesCreated = new Array();
+            this.classesEdited = new Array();
+            this.classesDeleted = new Array();
+            new ServicesProvider()
+              .readGroupClasses(group_id)
+              .then((response) => response.json())
+              .then((collegeClasses) => {
+                changes(false);
+                fillselectCourses(this.courses);
+                visualizer.render(collegeClasses);
+                spinner.fadeOut(1000);
+                mkNoti("¡Bien hecho!", "El horario cargó correctamente.", {
+                  status: "success",
+                  duration: 2000,
+                });
+              });
+          });
       });
-    });
   }
 
   get = (course_id) =>
@@ -112,7 +127,9 @@ class Courses {
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
-      new ServicesProvider().createClass(item, addSuccess, addError);
+      new ServicesProvider()
+        .createClass(item)
+        .then(response => response.ok ? addSuccess() : addError())
     });
 
     this.classesEdited.forEach(function (item) {
@@ -128,7 +145,9 @@ class Courses {
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
-      new ServicesProvider().updateClass(item, addSuccess, addError);
+      new ServicesProvider()
+        .updateClass(item)
+        .then(response => response.ok ? addSuccess() : addError())
     });
 
     this.classesDeleted.forEach(function (item) {
@@ -144,8 +163,11 @@ class Courses {
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
-      new ServicesProvider().deleteClass(item, addSuccess, addError);
+      new ServicesProvider()
+        .deleteClass(item)
+        .then(response => response.ok ? addSuccess() : addError())
     });
+
   }
 
   alertChanges(successList, errorList, group_id) {
@@ -308,10 +330,10 @@ class Courses {
       let course = this.courses[i];
 
       if (course.required_class_hours > this.calcAsigHours(course.classes)) {
-        new ServicesProvider().approveGroup(
-          group_id,
-          false,
-          function () {
+        new ServicesProvider()
+          .approveGroup(group_id, false)
+          .then((response) => response.json())
+          .then(() => {
             $.alert({
               title: "¡Oh no!",
               icon: "fa fa-exclamation-triangle",
@@ -321,26 +343,27 @@ class Courses {
                 "<br> Recuerde que necesita asignar todas las horas de las clases correspondientes para aprobar el grupo.",
             });
             approved(false, group_id);
-          },
-          function () {
+          })
+          .catch(() => {
             mkNoti("¡Oh no!", "Ocurrió un error inesperado.", {
               status: "danger",
               duration: 4000,
             });
             approved(false, group_id);
-          }
-        );
+          });
       }
     }
   }
 
   calcAsigHours(classes) {
     let hours = 0;
-    classes.forEach((session) => {
-      const timeStart = new Date("01/01/1999 " + session.start_hour);
-      const timeEnd = new Date("01/01/1999 " + session.end_hour);
-      hours += (timeEnd.getTime() - timeStart.getTime()) / 3600000; //3,600,000= hours(60)*minutes(60)*milliseconds(1000);
-    });
-    return hours;
+    if (classes) {
+      classes.forEach((session) => {
+        const timeStart = new Date("01/01/1999 " + session.start_hour);
+        const timeEnd = new Date("01/01/1999 " + session.end_hour);
+        hours += (timeEnd.getTime() - timeStart.getTime()) / 3600000; //3,600,000= hours(60)*minutes(60)*milliseconds(1000);
+      });
+    }
+    return hours
   }
 }

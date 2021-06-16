@@ -22,16 +22,17 @@ $(document).ready(function () {
   spinner.fadeIn(1000);
   // Display schedule of default selected group on landing
 
-  services.readGroups((majors) => {
-    let majorsList = JSON.parse(majors);
-    idGroupSelected = majorsList[0].groups[0].group_id;
+  services.readGroups()
+  .then(response => response.json())
+  .then(majors => {
+    idGroupSelected = majors[0].groups[0].group_id;
     $("#lblGroup").html(`
-      ${majorsList[0].major} ${majorsList[0].groups[0].semester} semestre  ${
-      majorsList[0].groups[0].group_letter ? group.group_letter : ""
+      ${majors[0].major} ${majors[0].groups[0].semester} semestre  ${
+      majors[0].groups[0].group_letter ? group.group_letter : ""
     }`);
-    if (majorsList[0].groups[0].approved)
+    if (majors[0].groups[0].approved)
       $("#chxApproved").attr("checked", "checked");
-    majorsList.forEach((majorItem) => {
+    majors.forEach((majorItem) => {
       let item = `<button class='accordion'>
                 <span><i class="fa fa-angle-right"></i></span> ${majorItem.major}
               </button><div class='panel'>`;
@@ -49,7 +50,7 @@ $(document).ready(function () {
     $(`#${idGroupSelected}`).addClass("subitem-selected");
     $(`#${idGroupSelected}`).parent().prev().click();
     courses.refresh(idGroupSelected, idGroupSelected);
-  });
+  })
 
   $("#groups").on("click", ".accordion", function () {
     let ico = $(this).find(".fa");
@@ -324,8 +325,9 @@ function fillCourseControl(course) {
 
 function createClassesCards(classes) {
   let cards = "";
-
-  const classesSorted = classes.sort((t1, t2) => {
+  let classesSorted = []
+  if(classes) {
+    classesSorted = classes.sort((t1, t2) => {
     const day1 = days.indexOf(t1.weekday);
     const day2 = days.indexOf(t2.weekday);
     if (day1 > day2) {
@@ -336,6 +338,7 @@ function createClassesCards(classes) {
     }
     return 0;
   });
+  }
 
   classesSorted.forEach((session) => {
     let btnDay = $(`#${session.weekday}`);
