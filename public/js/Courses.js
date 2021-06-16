@@ -240,7 +240,7 @@ export default class Courses {
       )} - ${item.class.class.end_hour.substring(
         0,
         item.class.class.end_hour.length - 3
-      )} <span class="transact ${item.transcact}">${item.transcact}</span><br>`;
+      )} `;
     });
     return content;
   }
