@@ -1,7 +1,4 @@
-import ServicesProvider from "./ServicesProvider";
-import { changes, fillselectCourses, visualizer, spinner, approved} from "./index";
-
-export default class Courses {
+class Courses {
   refresh(group_id) {
     new ServicesProvider().readCourses(group_id, (courses) => {
       this.courses = JSON.parse(courses);
@@ -17,7 +14,7 @@ export default class Courses {
         this.classesEdited = new Array();
         this.classesDeleted = new Array();
         new ServicesProvider().readGroupClasses(
-          group_id,
+          idGroupSelected,
           (collegeClasses) => {
             changes(false);
             fillselectCourses(this.courses);
@@ -104,13 +101,13 @@ export default class Courses {
 
     this.classesCreated.forEach(function (item) {
       const addSuccess = function () {
-        successList.push(new Object({class: item }));
+        successList.push(new Object({ transcact: "creada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
       const addError = function () {
-        errorList.push(new Object({class: item }));
+        errorList.push(new Object({ transcact: "creada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
@@ -120,13 +117,13 @@ export default class Courses {
 
     this.classesEdited.forEach(function (item) {
       const addSuccess = function () {
-        successList.push(new Object({class: item }));
+        successList.push(new Object({ transcact: "editada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
       const addError = function () {
-        errorList.push(new Object({class: item }));
+        errorList.push(new Object({ transcact: "editada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
@@ -136,13 +133,13 @@ export default class Courses {
 
     this.classesDeleted.forEach(function (item) {
       const addSuccess = function () {
-        successList.push(new Object({class: item }));
+        successList.push(new Object({ transcact: "eliminada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
       const addError = function (data) {
-        errorList.push(new Object({class: item }));
+        errorList.push(new Object({ transcact: "eliminada", class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
