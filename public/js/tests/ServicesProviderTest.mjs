@@ -10,7 +10,7 @@ describe("ServicesProvider tests", () => {
   const services = new ServicesProvider();
 
   it("Services instance should exist", () => {
-    expect(services).to.not.be.null;
+    expect(services).to.not.be.undefined;
   });
 
   it("Should READ admin BY credentials", () => {
