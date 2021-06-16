@@ -1,4 +1,4 @@
-import ServicesProvider from "./ServicesProvider";
+import ServicesProvider from "./ServicesProvider.mjs";
 import {
   changes,
   fillselectCourses,
@@ -129,7 +129,7 @@ export default class Courses {
       };
       new ServicesProvider()
         .createClass(item)
-        .then(response => response.ok ? addSuccess() : addError())
+        .then((response) => (response.ok ? addSuccess() : addError()));
     });
 
     this.classesEdited.forEach(function (item) {
@@ -147,7 +147,7 @@ export default class Courses {
       };
       new ServicesProvider()
         .updateClass(item)
-        .then(response => response.ok ? addSuccess() : addError())
+        .then((response) => (response.ok ? addSuccess() : addError()));
     });
 
     this.classesDeleted.forEach(function (item) {
@@ -165,9 +165,8 @@ export default class Courses {
       };
       new ServicesProvider()
         .deleteClass(item)
-        .then(response => response.ok ? addSuccess() : addError())
+        .then((response) => (response.ok ? addSuccess() : addError()));
     });
-
   }
 
   alertChanges(successList, errorList, group_id) {
@@ -364,6 +363,6 @@ export default class Courses {
         hours += (timeEnd.getTime() - timeStart.getTime()) / 3600000; //3,600,000= hours(60)*minutes(60)*milliseconds(1000);
       });
     }
-    return hours
+    return hours;
   }
 }

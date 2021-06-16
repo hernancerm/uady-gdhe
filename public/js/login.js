@@ -1,4 +1,4 @@
-import ServicesProvider from "./ServicesProvider";
+import ServicesProvider from "./ServicesProvider.mjs";
 
 // Input function for animations
 const animationInput = () =>

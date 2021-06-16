@@ -38,11 +38,15 @@ export default class ServicesProvider {
   }
 
   readCourses(group_id) {
-    return fetch(`../src/services/READ_courses_BY_group_id.php?group_id=${group_id}`);
+    return fetch(
+      `../src/services/READ_courses_BY_group_id.php?group_id=${group_id}`
+    );
   }
 
   readClasses(group_id) {
-    return fetch(`../src/services/READ_classes_GB_course_id_BY_group_id.php?group_id=${group_id}`);
+    return fetch(
+      `../src/services/READ_classes_GB_course_id_BY_group_id.php?group_id=${group_id}`
+    );
   }
 
   createClass(item) {
@@ -53,7 +57,7 @@ export default class ServicesProvider {
       course_id: parseInt(item.course_id),
       weekday: item.class.weekday,
     };
-    
+
     return fetch("../src/services/CREATE_class.php", {
       method: "POST",
       headers: {
@@ -83,9 +87,9 @@ export default class ServicesProvider {
   }
 
   deleteClass(item) {
-    var id = item.class.class_id
+    var id = item.class.class_id;
 
-    return fetch(`../src/services/DELETE_class.php?class_id=${id}`)
+    return fetch(`../src/services/DELETE_class.php?class_id=${id}`);
   }
 
   approveGroup(group_id, approved) {
@@ -103,14 +107,20 @@ export default class ServicesProvider {
     });
   }
   readGroupClasses(group_id) {
-    return fetch(`../src/services/READ_classes_GB_weekday_BY_group_id.php?group_id=${group_id}`);
+    return fetch(
+      `../src/services/READ_classes_GB_weekday_BY_group_id.php?group_id=${group_id}`
+    );
   }
 
   readProfessorClasses(professor_id) {
-    return fetch(`../src/services/READ_approved_classes_GB_weekday_BY_professor_id.php?professor_id=${professor_id}`);
+    return fetch(
+      `../src/services/READ_approved_classes_GB_weekday_BY_professor_id.php?professor_id=${professor_id}`
+    );
   }
 
   readGroup(group_id) {
-    return fetch(`../src/services/READ_group_BY_group_id.php?group_id=${group_id}`)
+    return fetch(
+      `../src/services/READ_group_BY_group_id.php?group_id=${group_id}`
+    );
   }
 }
