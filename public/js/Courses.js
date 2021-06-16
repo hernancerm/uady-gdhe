@@ -101,13 +101,13 @@ class Courses {
 
     this.classesCreated.forEach(function (item) {
       const addSuccess = function () {
-        successList.push(new Object({ transcact: "creada", class: item }));
+        successList.push(new Object({class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
       const addError = function () {
-        errorList.push(new Object({ transcact: "creada", class: item }));
+        errorList.push(new Object({class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
@@ -117,13 +117,13 @@ class Courses {
 
     this.classesEdited.forEach(function (item) {
       const addSuccess = function () {
-        successList.push(new Object({ transcact: "editada", class: item }));
+        successList.push(new Object({class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
       const addError = function () {
-        errorList.push(new Object({ transcact: "editada", class: item }));
+        errorList.push(new Object({class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
@@ -133,13 +133,13 @@ class Courses {
 
     this.classesDeleted.forEach(function (item) {
       const addSuccess = function () {
-        successList.push(new Object({ transcact: "eliminada", class: item }));
+        successList.push(new Object({class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
       };
       const addError = function (data) {
-        errorList.push(new Object({ transcact: "eliminada", class: item }));
+        errorList.push(new Object({class: item }));
         countTransacts--;
         if (countTransacts == 0)
           $this.alertChanges(successList, errorList, group_id);
