@@ -1,6 +1,15 @@
 export default class ServicesProvider {
+  constructor(baseUrl) {
+    if (baseUrl === undefined) {
+      // Development base url.
+      this.baseUrl = "http://localhost/GDHE";
+    } else {
+      this.baseUrl = baseUrl;
+    }
+  }
+
   logInWithCredentials(data) {
-    return fetch("../src/services/READ_admin_BY_credentials.php", {
+    return fetch(`${this.baseUrl}/src/services/READ_admin_BY_credentials.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -10,42 +19,48 @@ export default class ServicesProvider {
   }
 
   logInStudentWithCredentials(data) {
-    return fetch("../src/services/READ_student_BY_credentials.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    return fetch(
+      `${this.baseUrl}/src/services/READ_student_BY_credentials.php`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
   }
 
   logInProfessorWithCredentials(data) {
-    return fetch("../src/services/READ_professor_BY_credentials.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    return fetch(
+      `${this.baseUrl}/src/services/READ_professor_BY_credentials.php`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
   }
 
   readGroups() {
-    return fetch("../src/services/READ_groups_GB_major.php");
+    return fetch(`${this.baseUrl}/src/services/READ_groups_GB_major.php`);
   }
 
   readClassrooms() {
-    return fetch("../src/services/READ_classrooms.php");
+    return fetch(`${this.baseUrl}/src/services/READ_classrooms.php`);
   }
 
   readCourses(group_id) {
     return fetch(
-      `../src/services/READ_courses_BY_group_id.php?group_id=${group_id}`
+      `${this.baseUrl}/src/services/READ_courses_BY_group_id.php?group_id=${group_id}`
     );
   }
 
   readClasses(group_id) {
     return fetch(
-      `../src/services/READ_classes_GB_course_id_BY_group_id.php?group_id=${group_id}`
+      `${this.baseUrl}/src/services/READ_classes_GB_course_id_BY_group_id.php?group_id=${group_id}`
     );
   }
 
@@ -58,7 +73,7 @@ export default class ServicesProvider {
       weekday: item.class.weekday,
     };
 
-    return fetch("../src/services/CREATE_class.php", {
+    return fetch(`${this.baseUrl}/src/services/CREATE_class.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +92,7 @@ export default class ServicesProvider {
       weekday: item.class.weekday,
     };
 
-    return fetch("../src/services/UPDATE_class.php", {
+    return fetch(`${this.baseUrl}/src/services/UPDATE_class.php`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +104,9 @@ export default class ServicesProvider {
   deleteClass(item) {
     var id = item.class.class_id;
 
-    return fetch(`../src/services/DELETE_class.php?class_id=${id}`);
+    return fetch(
+      `${this.baseUrl}/src/services/DELETE_class.php?class_id=${id}`
+    );
   }
 
   approveGroup(group_id, approved) {
@@ -98,7 +115,7 @@ export default class ServicesProvider {
       approved: Boolean(approved),
     };
 
-    return fetch("../src/services/UPDATE_approve_group.php", {
+    return fetch(`${this.baseUrl}/src/services/UPDATE_approve_group.php`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -108,19 +125,19 @@ export default class ServicesProvider {
   }
   readGroupClasses(group_id) {
     return fetch(
-      `../src/services/READ_classes_GB_weekday_BY_group_id.php?group_id=${group_id}`
+      `${this.baseUrl}/src/services/READ_classes_GB_weekday_BY_group_id.php?group_id=${group_id}`
     );
   }
 
   readProfessorClasses(professor_id) {
     return fetch(
-      `../src/services/READ_approved_classes_GB_weekday_BY_professor_id.php?professor_id=${professor_id}`
+      `${this.baseUrl}/src/services/READ_approved_classes_GB_weekday_BY_professor_id.php?professor_id=${professor_id}`
     );
   }
 
   readGroup(group_id) {
     return fetch(
-      `../src/services/READ_group_BY_group_id.php?group_id=${group_id}`
+      `${this.baseUrl}/src/services/READ_group_BY_group_id.php?group_id=${group_id}`
     );
   }
 }
