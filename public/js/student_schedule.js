@@ -18,35 +18,38 @@ $("#schedule-controls__logout").click(() => {
   location.reload(true);
 });
 
-services.readGroup(student.group_id, (group) => {
-  const parsedGroup = JSON.parse(group);
+services
+  .readGroup(student.group_id)
+  .then((response) => response.json())
+  .then((group) => {
+    const groupLetter = group.group_letter === null ? "" : group.group_letter;
 
-  const groupLetter =
-    parsedGroup.group_letter === null ? "" : parsedGroup.group_letter;
+    $("#schedule-title")
+      .fadeTo(500, 1)
+      .html(`${group.major} ${group.semester} sem ${groupLetter}`);
 
-  $("#schedule-title")
-    .fadeTo(500, 1)
-    .html(`${parsedGroup.major} ${parsedGroup.semester} sem ${groupLetter}`);
+    if (group.approved === true) {
+      $(".hidden").fadeTo(500, 1);
 
-  if (parsedGroup.approved === true) {
-    $(".hidden").fadeTo(500, 1);
+      // Print button click handler
+      $("#schedule-controls__print").click(() => {
+        window.print();
+      });
 
-    // Print button click handler
-    $("#schedule-controls__print").click(() => {
-      window.print();
-    });
-
-    services.readGroupClasses(student.group_id, (classes) => {
-      visualizer.render(JSON.parse(classes));
-    });
-  } else {
-    // Show "Schedule not available" prompt if schedule is not approved
-    $("#schedule-visualizer").empty();
-    $(
-      "<p>Su horario actualmente no se encuentra aprobado. Por favor regrese más tarde.</p>"
-    )
-      .hide()
-      .appendTo("#schedule-visualizer")
-      .fadeIn("normal");
-  }
-});
+      services
+        .readGroupClasses(student.group_id)
+        .then((response) => response.json())
+        .then((classes) => {
+          visualizer.render(classes);
+        });
+    } else {
+      // Show "Schedule not available" prompt if schedule is not approved
+      $("#schedule-visualizer").empty();
+      $(
+        "<p>Su horario actualmente no se encuentra aprobado. Por favor regrese más tarde.</p>"
+      )
+        .hide()
+        .appendTo("#schedule-visualizer")
+        .fadeIn("normal");
+    }
+  });
