@@ -93,37 +93,34 @@ function loginWithCredentials(username, password) {
 
   switch (username[0]) {
     case "A":
-      services.logInWithCredentials(
-        request,
-        (data) => {
+      services.logInWithCredentials(request)
+        .then(response => response.text())
+        .then(data => {
           localStorage.user = data;
           localStorage.login = "true";
           window.location = `index.html`;
-        },
-        () => showErrorPrompt("Usuario o contraseña incorrecto.")
-      );
+        })
+        .catch( () => showErrorPrompt("Usuario o contraseña incorrecto."))
       break;
     case "S":
-      services.logInStudentWithCredentials(
-        request,
-        (data) => {
+      services.logInStudentWithCredentials(request)
+      .then(response => response.text())
+      .then( data => {
           localStorage.user = data;
           localStorage.login = "true";
           window.location = `student_schedule.html`;
-        },
-        () => showErrorPrompt("Usuario o contraseña incorrecto.")
-      );
+        })
+      .catch( () => showErrorPrompt("Usuario o contraseña incorrecto."))
       break;
     case "P":
-      services.logInProfessorWithCredentials(
-        request,
-        (data) => {
+      services.logInProfessorWithCredentials(request)
+        .then(response => response.text())
+        .then(data => {
           localStorage.user = data;
           localStorage.login = "true";
           window.location = `professor_schedule.html`;
-        },
-        () => showErrorPrompt("Usuario o contraseña incorrecto.")
-      );
+        })
+        .catch(() => showErrorPrompt("Usuario o contraseña incorrecto."))
       break;
     default:
       localStorage.user = null;
