@@ -5,10 +5,12 @@
 select {
   background: transparent;
   color: var(--light);
-  border-color: var(--primary);
   border-bottom-color: var(--light);
   margin-bottom: 8px;
   width: 100%;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
 }
 
 select.active.focus,
