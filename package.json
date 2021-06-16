@@ -1,5 +1,5 @@
 {
-  "name": "GDHE",
+  "name": "gdhe",
   "version": "1.0.0",
   "description": "College project for Software Quality Assurance course, at UADY. Provided a set of academic groups, the web app allows creating and assigning classes to such groups.",
   "main": "index.js",
