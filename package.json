@@ -1,5 +1,5 @@
 {
-  "name": "GDHE",
+  "name": "gdhe",
   "version": "1.0.0",
   "description": "College project for Software Quality Assurance course, at UADY. Provided a set of academic groups, the web app allows creating and assigning classes to such groups.",
   "main": "index.js",
@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "webpack",
-    "build:watch": "webpack --watch"
+    "build:watch": "webpack --watch",
+    "test": "mocha public/js/tests"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,9 @@
   },
   "homepage": "https://github.com/HerCerM/GDHE#readme",
   "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.0.0",
+    "node-fetch": "^2.6.1",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.2"
   }

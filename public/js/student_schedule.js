@@ -1,4 +1,4 @@
-import ServicesProvider from "./ServicesProvider";
+import ServicesProvider from "./ServicesProvider.mjs";
 import CardClassVisualizer from "./CardClassVisualizer";
 
 const student = JSON.parse(localStorage.user);

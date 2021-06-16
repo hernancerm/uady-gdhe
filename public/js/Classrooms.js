@@ -1,11 +1,11 @@
-import ServicesProvider from "./ServicesProvider";
+import ServicesProvider from "./ServicesProvider.mjs";
 
 export default class Classrooms {
   constructor() {
     new ServicesProvider()
       .readClassrooms()
-      .then(response => response.json())
-      .then(newClassrooms => {
+      .then((response) => response.json())
+      .then((newClassrooms) => {
         this.classrooms = newClassrooms;
       });
   }

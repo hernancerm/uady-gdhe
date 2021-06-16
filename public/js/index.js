@@ -1,5 +1,5 @@
 import main from "./main";
-import ServicesProvider from "./ServicesProvider";
+import ServicesProvider from "./ServicesProvider.mjs";
 import Classrooms from "./Classrooms";
 import Courses from "./Courses";
 import CardClassVisualizer from "./CardClassVisualizer";
