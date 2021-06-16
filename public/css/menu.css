@@ -38,15 +38,17 @@
 
 #sidebar .custom-menu span {
   color: var(--light);
+  display: flex;
+  justify-content: flex-end;
 }
 #sidebar .custom-menu .btn {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  padding-right: 0;
   position: relative;
 }
 #sidebar .custom-menu .btn i {
-  margin-right: -40px;
   font-size: 14px;
 }
 #sidebar .custom-menu .btn {
